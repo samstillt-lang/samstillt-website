@@ -492,7 +492,7 @@
     white-space: nowrap;
   }
   .process-box-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; font-family: 'Source Sans 3', sans-serif; line-height: 1.3; }
-  .process-box-duration { font-size: clamp(14px, 1.6vw, 20px); font-weight: 700; font-family: 'Lora', serif; margin-bottom: 4px; line-height: 1.2; }
+  .process-box-duration { font-size: 14px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; margin-bottom: 4px; line-height: 1.3; }
   .process-box-amount { font-size: 11px; opacity: 0.75; margin-bottom: 8px; }
   .process-box-action { font-size: 10px; font-weight: 600; letter-spacing: 0.2px; opacity: 0.8; line-height: 1.4; margin-top: auto; }
 
@@ -777,18 +777,14 @@
         <div class="select-wrap">
           <select class="form-select" id="union" onchange="updateUnionInfo(this.value)">
             <option value="">— Veldu stéttarfélag —</option>
-            <optgroup label="Almennur vinnumarkaður">
-              <option value="vr">VR – Verslunarmannafélag Reykjavíkur</option>
-              <option value="efling">Efling – stéttarfélag</option>
-              <option value="sgs">SGS – Starfsgreinasamband Íslands</option>
-              <option value="samidnadur">Samiðnaður – stéttarfélag</option>
-            </optgroup>
-            <optgroup label="Opinber vinnumarkaður">
-              <option value="bsrb">BSRB – Bandalag starfsmanna ríkis og bæja</option>
-              <option value="khi">KÍ – Kennarasamband Íslands</option>
-              <option value="sameyki">Sameyki – stéttarfélag</option>
-              <option value="bhm">BHM – Bandalag háskólamanna</option>
-            </optgroup>
+            <option value="vr">VR – Verslunarmannafélag Reykjavíkur</option>
+            <option value="efling">Efling – stéttarfélag</option>
+            <option value="sgs">SGS – Starfsgreinasamband Íslands</option>
+            <option value="samidnadur">Samiðnaður – stéttarfélag</option>
+            <option value="bsrb">BSRB – Bandalag starfsmanna ríkis og bæja</option>
+            <option value="khi">KÍ – Kennarasamband Íslands</option>
+            <option value="sameyki">Sameyki – stéttarfélag</option>
+            <option value="bhm">BHM – Bandalag háskólamanna</option>
             <option value="none">Er ekki í stéttarfélagi</option>
             <option value="unknown">Veit ekki / annað</option>
           </select>
@@ -1357,9 +1353,9 @@ const UNION_DATA = {
     phase2months: 4,        // ASÍ lágmark
     phase2pct: 80,
     phase2cap: null,
-    childMonths: 3,         // ASÍ lágmark
+    childMonths: 0,         // Unknown — assume zero, user should verify
     source: 'ASÍ lágmark (gr. 49 laga ASÍ): 80% í 4 mánuði — öll aðildarfélög ASÍ eru bundin þessum lágmarksréttindum.',
-    tip: 'Notum ASÍ lágmark: 80% af meðallaunum í 4 mánuði. Hafðu samband við stéttarfélag þitt til að fá nákvæmar tölur.'
+    tip: 'Notum ASÍ lágmark: 80% af meðallaunum í 4 mánuði. Barnabætur ekki meðtaldar — hafðu samband við stéttarfélag þitt til að fá nákvæmar tölur um veikindabætur vegna barna.'
   }
 };
 
