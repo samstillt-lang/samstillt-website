@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ráðgjöf til stuðningsmanna – Samstillt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:        #2D5016;
+    --forest-mid:    #4A7C2F;
+    --forest-light:  #6B9E4A;
+    --forest-pale:   #EDF5E4;
+    --forest-mist:   #F4F9EF;
+    --amber:         #E8A030;
+    --amber-light:   #FDF2DC;
+    --amber-dark:    #B87820;
+    --terra:         #C4714A;
+    --terra-light:   #FAF0EB;
+    --terra-dark:    #9A4E2E;
+    --cream:         #FAF7F2;
+    --cream-dark:    #F0EBE2;
+    --ink:           #1C1410;
+    --ink-mid:       #3A3028;
+    --ink-soft:      #6B5C4E;
+    --ink-muted:     #9E8E82;
+    --white:         #FFFFFF;
+    --radius-sm:     6px;
+    --radius-md:     12px;
+    --radius-lg:     20px;
+    --shadow-soft:   0 2px 20px rgba(45,80,22,0.08);
+    --shadow-card:   0 4px 32px rgba(45,80,22,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Lora', serif; line-height: 1.25; color: var(--forest); }
+  a { color: inherit; text-decoration: none; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .container-narrow { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Nav (shared) ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,247,242,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  }
+  .wordmark { display: flex; align-items: center; gap: 10px; }
+  .wordmark-icon {
+    width: 38px; height: 38px; background: var(--forest);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .wordmark-text { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; color: var(--forest); }
+  .wordmark-sub { font-size: 11px; color: var(--ink-muted); font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; margin-top: -2px; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+  .nav-links a { display: block; padding: 8px 14px; font-size: 15px; font-weight: 500; color: var(--ink-mid); border-radius: var(--radius-sm); transition: all 0.2s; }
+  .nav-links a:hover, .nav-links a.active { background: var(--forest-mist); color: var(--forest); }
+  .nav-cta { background: var(--forest) !important; color: var(--white) !important; padding: 9px 20px !important; border-radius: var(--radius-sm) !important; }
+  .nav-cta:hover { background: var(--forest-mid) !important; color: var(--white) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+
+  /* ── Page hero ── */
+  .page-hero {
+    padding: 72px 0 80px;
+    background: linear-gradient(150deg, var(--amber-light) 0%, var(--cream) 55%, var(--forest-mist) 100%);
+    position: relative; overflow: hidden;
+  }
+  .page-hero::after {
+    content: ''; position: absolute; top: -60px; right: -80px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(232,160,48,0.09) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .page-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-light); border: 1px solid rgba(232,160,48,0.3);
+    color: var(--amber-dark); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .page-hero h1 { font-size: clamp(32px, 5vw, 52px); color: var(--ink); margin-bottom: 20px; }
+  .page-hero h1 em { font-style: italic; color: var(--amber-dark); }
+  .page-hero-lead { font-size: 18px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 32px; }
+
+  .hero-feelings {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .feeling-card {
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 18px 20px; border: 1px solid var(--cream-dark);
+    display: flex; align-items: flex-start; gap: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .feeling-icon {
+    width: 40px; height: 40px; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .feeling-card h4 { font-size: 15px; color: var(--ink); margin-bottom: 4px; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  .feeling-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: 14px 0; border-bottom: 1px solid var(--cream-dark);
+    background: var(--cream);
+  }
+  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); }
+  .breadcrumb a { color: var(--forest); }
+  .breadcrumb span { color: var(--ink-muted); }
+
+  /* ── Sticky side nav ── */
+  .content-layout {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 60px; align-items: start;
+    padding: 60px 24px; max-width: 1100px; margin: 0 auto;
+  }
+  .side-nav { position: sticky; top: 88px; }
+  .side-nav-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+  .side-nav ul { list-style: none; }
+  .side-nav li { margin-bottom: 4px; }
+  .side-nav a {
+    display: block; padding: 9px 14px; font-size: 14px; font-weight: 500;
+    color: var(--ink-soft); border-radius: var(--radius-sm);
+    border-left: 2px solid transparent; transition: all 0.2s;
+  }
+  .side-nav a:hover, .side-nav a.active {
+    background: var(--forest-mist); color: var(--forest);
+    border-left-color: var(--forest-mid);
+  }
+
+  /* ── Content sections ── */
+  .content-section { margin-bottom: 72px; }
+  .section-anchor { scroll-margin-top: 96px; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+    color: var(--amber-dark); margin-bottom: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 20px; height: 2px; background: var(--amber);
+  }
+
+  .content-section h2 {
+    font-size: clamp(24px, 3vw, 34px); color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .content-section > p {
+    font-size: 17px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 32px;
+  }
+
+  /* ── Do/Don't cards ── */
+  .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+
+  .do-card, .dont-card {
+    border-radius: var(--radius-md); padding: 28px 24px;
+  }
+  .do-card { background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.2); }
+  .dont-card { background: #FDF2EF; border: 1px solid rgba(196,113,74,0.2); }
+
+  .card-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .card-badge {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .badge-do { background: var(--forest-mid); }
+  .badge-dont { background: var(--terra); }
+  .card-badge svg { width: 14px; height: 14px; }
+
+  .card-title { font-size: 15px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; }
+  .do-card .card-title { color: var(--forest); }
+  .dont-card .card-title { color: var(--terra-dark); }
+
+  .phrase-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .phrase-list li {
+    font-size: 15px; color: var(--ink-mid); line-height: 1.5;
+    padding: 10px 14px; border-radius: var(--radius-sm);
+    position: relative; padding-left: 36px;
+  }
+  .do-card .phrase-list li { background: rgba(74,124,47,0.07); }
+  .dont-card .phrase-list li { background: rgba(196,113,74,0.07); }
+
+  .phrase-list li::before {
+    content: '';
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    width: 14px; height: 14px; border-radius: 50%;
+  }
+  .do-card .phrase-list li::before { background: var(--forest-light); }
+  .dont-card .phrase-list li::before { background: var(--terra); }
+
+  /* ── Video placeholder ── */
+  .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+  .video-card {
+    background: var(--white); border-radius: var(--radius-md);
+    border: 1px solid var(--cream-dark); overflow: hidden;
+    box-shadow: var(--shadow-soft); transition: transform 0.2s;
+  }
+  .video-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+  .video-thumb {
+    height: 160px; background: var(--forest-pale);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .video-thumb-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(45,80,22,0.15));
+  }
+  .play-btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--white); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15); position: relative; z-index: 1;
+    transition: transform 0.2s;
+  }
+  .video-card:hover .play-btn { transform: scale(1.08); }
+  .play-btn svg { width: 20px; height: 20px; margin-left: 3px; }
+  .video-meta { padding: 16px 18px; }
+  .video-duration {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 6px;
+  }
+  .video-meta h4 { font-size: 15px; color: var(--ink); font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+
+  /* ── Tip cards ── */
+  .tip-list { display: flex; flex-direction: column; gap: 16px; }
+  .tip-card {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 22px 24px; border: 1px solid var(--cream-dark);
+    box-shadow: var(--shadow-soft);
+  }
+  .tip-num {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--amber-light);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Lora', serif; font-size: 17px; font-weight: 600;
+    color: var(--amber-dark); flex-shrink: 0;
+  }
+  .tip-content h4 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; font-family: 'Source Sans 3', sans-serif; }
+  .tip-content p { font-size: 15px; color: var(--ink-soft); line-height: 1.65; }
+
+  /* ── Accordion ── */
+  .accordion { display: flex; flex-direction: column; gap: 10px; }
+  .accordion-item {
+    background: var(--white); border-radius: var(--radius-md);
+    border: 1px solid var(--cream-dark); overflow: hidden;
+  }
+  .accordion-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; cursor: pointer; transition: background 0.2s;
+    font-size: 16px; font-weight: 600; color: var(--ink);
+    font-family: 'Source Sans 3', sans-serif;
+    background: none; border: none; width: 100%; text-align: left;
+  }
+  .accordion-header:hover { background: var(--forest-mist); }
+  .accordion-icon { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.3s; }
+  .accordion-item.open .accordion-icon { transform: rotate(45deg); }
+  .accordion-body {
+    display: none; padding: 0 24px 22px;
+    font-size: 15px; color: var(--ink-soft); line-height: 1.7;
+  }
+  .accordion-item.open .accordion-body { display: block; }
+
+  /* ── Highlight box ── */
+  .highlight-box {
+    background: var(--forest); border-radius: var(--radius-lg);
+    padding: 40px; color: var(--white); margin-bottom: 32px;
+  }
+  .highlight-box h3 { color: var(--white); font-size: 22px; margin-bottom: 14px; }
+  .highlight-box p { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 24px; }
+  .highlight-box .examples { display: flex; flex-direction: column; gap: 10px; }
+  .example-phrase {
+    background: rgba(255,255,255,0.1); border-radius: var(--radius-sm);
+    padding: 14px 18px; font-size: 15px; color: rgba(255,255,255,0.9);
+    border-left: 3px solid var(--amber); font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ── Btn ── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--forest); color: var(--white);
+    font-size: 16px; font-weight: 600; padding: 14px 28px;
+    border-radius: var(--radius-sm); border: none; cursor: pointer;
+    transition: all 0.2s; font-family: 'Source Sans 3', sans-serif;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--forest-mid); transform: translateY(-1px); }
+  .btn-amber {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber); color: var(--ink);
+    font-size: 16px; font-weight: 600; padding: 14px 28px;
+    border-radius: var(--radius-sm); border: none; cursor: pointer;
+    transition: all 0.2s; font-family: 'Source Sans 3', sans-serif;
+    text-decoration: none;
+  }
+  .btn-amber:hover { background: var(--amber-dark); color: var(--white); }
+
+  /* ── Bottom CTA ── */
+  .bottom-cta {
+    background: var(--amber-light);
+    border-top: 1px solid rgba(232,160,48,0.2);
+    padding: 72px 0;
+    text-align: center;
+  }
+  .bottom-cta h2 { font-size: clamp(26px, 3.5vw, 36px); color: var(--ink); margin-bottom: 14px; }
+  .bottom-cta p { font-size: 17px; color: var(--ink-soft); max-width: 500px; margin: 0 auto 32px; }
+  .bottom-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── Footer ── */
+  footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 32px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-col h5 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; font-family: 'Source Sans 3', sans-serif; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { font-size: 14px; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom p { font-size: 13px; }
+  .footer-disclaimer { font-size: 12px; color: rgba(255,255,255,0.35); max-width: 560px; text-align: right; line-height: 1.6; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeUp 0.6s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.35s; }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: var(--cream); padding: 16px 24px 24px;
+      border-bottom: 1px solid var(--cream-dark);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08); z-index: 99;
+    }
+    .page-hero-inner { grid-template-columns: 1fr; }
+    .hero-feelings { display: none; }
+    .content-layout { grid-template-columns: 1fr; padding: 40px 24px; }
+    .side-nav { display: none; }
+    .do-dont-grid { grid-template-columns: 1fr; }
+    .video-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 580px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .footer-disclaimer { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="wordmark">
+      <div class="wordmark-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="white" stroke-width="1.8"/><circle cx="5.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><circle cx="18.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><path d="M9 10.5 L6.5 14.5M15 10.5 L17.5 14.5M8 17.5 L16 17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <span class="wordmark-text">Samstillt</span>
+        <span class="wordmark-sub">Aðstoð fyrir fjölskyldur</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="meals.html">Máltíðir</a></li>
+      <li><a href="supporters.html" class="active">Ráðgjöf</a></li>
+      <li><a href="calculator.html">Fjárhagsáætlun</a></li>
+      <li><a href="about.html">Um okkur</a></li>
+      <li><a href="meals.html#create" class="nav-cta">Stofna stuðningssíðu</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Opna valmynd">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ── -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Forsíða</a>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span>Ráðgjöf til stuðningsmanna</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Hero ── -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="fade-in">
+      <div class="page-tag">Stuðningsráðgjöf</div>
+      <h1>Þú vilt hjálpa.<br><em>En hvernig?</em></h1>
+      <p class="page-hero-lead">
+        Það er eðlilegt að finna sig ráðþrota þegar vinur eða fjölskyldumeðlimur fær slægar tíðindi. Margir dragast til baka — ekki af kulda, heldur af hræðslu við að gera eitthvað rangt. Þessi síða er til þín.
+      </p>
+      <a href="#hvad-segia" class="btn-amber">
+        Byrja hér
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+    <div class="hero-feelings fade-in delay-2">
+      <div class="feeling-card">
+        <div class="feeling-icon" style="background: var(--amber-light);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B87820" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        </div>
+        <div>
+          <h4>„Ég veit ekki hvað ég á að segja."</h4>
+          <p>Þú þarft ekki að hafa rétt orðin. Það að vera til staðar er nóg.</p>
+        </div>
+      </div>
+      <div class="feeling-card">
+        <div class="feeling-icon" style="background: var(--terra-light);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div>
+          <h4>„Ég vil ekki vera til vandræða."</h4>
+          <p>Einmitt þess vegna gefur Samstillt þér ákveðið hlutverk.</p>
+        </div>
+      </div>
+      <div class="feeling-card">
+        <div class="feeling-icon" style="background: var(--forest-pale);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <h4>„Ég er langt í burtu."</h4>
+          <p>Stuðningur þarf ekki að vera líkamlegur. Máltíð send er líka hjartarhlýja.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Main content ── -->
+<div class="content-layout">
+
+  <!-- Side nav -->
+  <aside class="side-nav">
+    <div class="side-nav-title">Á þessari síðu</div>
+    <ul>
+      <li><a href="#hvad-segia" class="side-link">Hvað á ég að segja?</a></li>
+      <li><a href="#hvad-ekki" class="side-link">Hvað á ég ekki að segja?</a></li>
+      <li><a href="#hvernig-vera" class="side-link">Hvernig á ég að vera til staðar?</a></li>
+      <li><a href="#videos" class="side-link">Myndbönd</a></li>
+      <li><a href="#spurningar" class="side-link">Algengar spurningar</a></li>
+      <li><a href="#action" class="side-link">Gerðu eitthvað í dag</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Section 1: What to say -->
+    <section class="content-section section-anchor" id="hvad-segia">
+      <div class="section-label">Hluti 1</div>
+      <h2>Hvað á ég að segja?</h2>
+      <p>
+        Það eru engin fullkomin orð. En einlæg orð — jafnvel stutt — geta þýtt heiminn. Hér eru nokkrar setningar sem margir foreldrar hafa sagt að hafi hjálpað þeim.
+      </p>
+
+      <div class="highlight-box">
+        <h3>Orð sem hjálpa</h3>
+        <p>Þessar setningar eru einlægar, einfaldar og setja engar kröfur á fjölskylduna.</p>
+        <div class="examples">
+          <div class="example-phrase">„Ég er hér. Þú þarft ekki að svara þessum skilaboðum."</div>
+          <div class="example-phrase">„Ég er að hugsa til ykkar. Endilega hafðu samband ef ég get gert eitthvað."</div>
+          <div class="example-phrase">„Ég ætla að koma með mat á þriðjudaginn. Ertu heima kl. 18?"</div>
+          <div class="example-phrase">„Við þurfum ekki að tala. Ég get setið hjá þér ef þú vilt."</div>
+          <div class="example-phrase">„Þetta er svo erfitt. Ég er stoltur af þér."</div>
+        </div>
+      </div>
+
+      <div class="do-dont-grid">
+        <div class="do-card">
+          <div class="card-header">
+            <div class="card-badge badge-do">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <span class="card-title">Gott að segja</span>
+          </div>
+          <ul class="phrase-list">
+            <li>„Hvernig líður þér í dag — satt að segja?"</li>
+            <li>„Má ég senda mat á þriðjudaginn?"</li>
+            <li>„Ég er að hugsa til þín."</li>
+            <li>„Það er allt í lagi að vera reið eða þreytt."</li>
+            <li>„Þú þarft ekki að vera sterk í dag."</li>
+          </ul>
+        </div>
+        <div class="dont-card">
+          <div class="card-header">
+            <div class="card-badge badge-dont">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </div>
+            <span class="card-title">Forðastu þessar setningar</span>
+          </div>
+          <ul class="phrase-list">
+            <li>„Allt verður í lagi." — þú veist það ekki.</li>
+            <li>„Guð gefur ekki meira en við þolum."</li>
+            <li>„Þetta er tilgangur með þessu."</li>
+            <li>„Við vissum einhvern veginn…"</li>
+            <li>„Láttu mig vita ef þú þarft eitthvað."</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="font-size: 14px; color: var(--ink-muted); font-style: italic;">
+        Athugasemd: Sú síðasta — „láttu mig vita ef þú þarft eitthvað" — er sögð af hlýhug, en foreldrar í kreppu hafa oft ekki orku til að biðja um aðstoð. Bjóddu upp á eitthvað konkrét í staðinn.
+      </p>
+    </section>
+
+    <!-- Section 2: What not to say -->
+    <section class="content-section section-anchor" id="hvad-ekki">
+      <div class="section-label">Hluti 2</div>
+      <h2>Hvað á ég ekki að gera?</h2>
+      <p>
+        Sumar hegðanir — jafnvel þær sem koma af góðum hug — geta þyngt fjölskyldunni. Ekki vegna þess að þú ert slæmur vinur, heldur vegna þess að veikindi barna breyta því hvernig orð og gjörðir berast.
+      </p>
+
+      <div class="tip-list">
+        <div class="tip-card">
+          <div class="tip-num">1</div>
+          <div class="tip-content">
+            <h4>Ekki hverfa</h4>
+            <p>Það er freistandi að draga sig til baka þegar maður veit ekki hvað á að segja. En fjölskyldur segjast oft finna hvarf vina meira en orðin sjálf. Sendu eitt skilaboð. Þú þarft ekki svar.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">2</div>
+          <div class="tip-content">
+            <h4>Ekki setja stuðningsþörf þína framar þeirra</h4>
+            <p>Ef þú ert að finna til sorg yfir þessari stöðu — það er eðlilegt. En foreldrar geta ekki verið tilfinningalegar stoðir fyrir aðra á þessum tíma. Leitaðu stuðnings hjá öðrum vinum eða fagaðilum.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">3</div>
+          <div class="tip-content">
+            <h4>Ekki spyrja of margra spurninga um sjúkdóminn</h4>
+            <p>Foreldrar endurtaka sögu barns síns hundruð af sinnum. Spurðu frekar: „Hvernig líður þér?" en „Hvað sögðu læknar?" — nema þeir bjóði sjálfir upp á það.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">4</div>
+          <div class="tip-content">
+            <h4>Ekki bera saman við annað</h4>
+            <p>Setningar á borð við „systir mín fór í gegnum eitthvað svipað…" færa athyglina frá þeim. Haltu þér við það sem þeir upplifa núna.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">5</div>
+          <div class="tip-content">
+            <h4>Ekki gefa óumbeðnar ráðleggingar</h4>
+            <p>Hvort sem það eru meðferðir, megrun eða lífsstílsbreytingar — foreldrar fá nóg af ráðleggingum frá læknum. Hlusta er oft meira virði en ráð.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: How to show up -->
+    <section class="content-section section-anchor" id="hvernig-vera">
+      <div class="section-label">Hluti 3</div>
+      <h2>Hvernig get ég verið til staðar á þann hátt sem skiptir máli?</h2>
+      <p>
+        Besti stuðningurinn er oft hagnýtur. Hér eru ráð sem foreldrar segja að hafi létt þorðuna raunverulega.
+      </p>
+
+      <div class="tip-list">
+        <div class="tip-card">
+          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
+          <div class="tip-content">
+            <h4>Bjóddu upp á eitthvað konkrét — og gerðu það</h4>
+            <p>Í stað þess að segja „láttu mig vita" — segjum við: „Ég er að koma með mat á föstudaginn. Get ég skilið það við útidyrnar kl. 17?" Fjölskyldurnar þurfa þá ekki að taka ákvörðun.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
+          <div class="tip-content">
+            <h4>Mundu litla hlutina</h4>
+            <p>Dagurinn sem börnin þeirra taka lyfjameðferð. Afmælisdagurinn sem gleymdist. Skilaboð eftir erfiðan sjúkrahúsdvöl. Þessir litlu þátttakar segjast vera þeir sem þýða mest.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
+          <div class="tip-content">
+            <h4>Gefðu tíma — ekki bara hluti</h4>
+            <p>Bjóddu þér til að sækja systkini, reka erindi, passa hundinn eða sitja hjá barninu á sjúkrahúsinu svo foreldrar geti hvílt sig. Tími er oft dýrmætasti gjöfin.</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
+          <div class="tip-content">
+            <h4>Haltu áfram — jafnvel þegar svarið er þögn</h4>
+            <p>Sendu skilaboð án þess að búast við svari. „Ég er að hugsa til þín í dag. Engin þörf á svari." Þannig þrýstir þú ekki á þá, en þeir vita að þú ert þar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Videos -->
+    <section class="content-section section-anchor" id="videos">
+      <div class="section-label">Myndbönd</div>
+      <h2>Hlustaðu á reynsluna</h2>
+      <p>
+        Þessar stuttu myndbandaklippur — frá foreldrum, sálfræðingum og sjúkrahússtarfsmönnum — fara nánar inn í það hvernig við getum verið til staðar fyrir hvort annað.
+      </p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#4A7C2F"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="video-meta">
+            <div class="video-duration">4 mín · Sálfræðingur</div>
+            <h4>Hvernig ræðum við um veikindi við börn?</h4>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb" style="background: var(--amber-light);">
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#B87820"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="video-meta">
+            <div class="video-duration">6 mín · Foreldri</div>
+            <h4>Það sem ég vildi að vinir mínir hefðu vitað</h4>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb" style="background: var(--terra-light);">
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#C4714A"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="video-meta">
+            <div class="video-duration">3 mín · Hjúkrunarfræðingur</div>
+            <h4>Það sem sjúkrahússtarfsfólk sér</h4>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb" style="background: var(--forest-pale);">
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#2D5016"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="video-meta">
+            <div class="video-duration">5 mín · Tvö foreldrapar</div>
+            <h4>Þegar stuðningur breyttist í vinskap</h4>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size: 14px; color: var(--ink-muted);">
+        Myndbönd verða sett inn þegar þau eru tilbúin. Ef þú vilt leggja til efni eða deila reynslu þinni, <a href="about.html#contact" style="color: var(--forest); font-weight: 600;">hafðu samband við okkur</a>.
+      </p>
+    </section>
+
+    <!-- Section 5: FAQ Accordion -->
+    <section class="content-section section-anchor" id="spurningar">
+      <div class="section-label">Algengar spurningar</div>
+      <h2>Þú ert ekki einn/ein að velta þessu fyrir þér</h2>
+      <p>Hér eru svör við spurningum sem við heyrum oft.</p>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Hvað ef ég segi eitthvað rangt?
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="accordion-body">
+            Það gerist. Og fjölskyldurnar vita að þú meinar vel. Það sem þeir muna er að þú varst til staðar — ekki nákvæmlega hvað þú sagðir. Ef þú finnur að eitthvað hafi farið úrskeiðis, geturðu einfaldlega sagt: „Mér þykir leitt — ég var að reyna að hjálpa og fór að öllum líkindum ekki rétt að þessu."
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Hvað ef þeir segjast vera í lagi en líta ekki út fyrir það?
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="accordion-body">
+            Margir foreldrar læra að segja „ég er í lagi" til að verða ekki að útskýra sig aftur og aftur. Þú getur svarað: „Þú þarft ekki að vera í lagi fyrir mig. Ég er hér hvort sem er." Og síðan vertu hér. Með mat, með tíma, með þögn.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Hvernig get ég hjálpað þegar ég er langt í burtu?
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="accordion-body">
+            Samstillt gerir þér kleift að senda máltíð jafnvel þótt þú búir fjarri — margir veitingastaðir bjóða upp á heimsendingu. Þú getur líka sent kört, bók, eða einfaldlega skilið eftir skilaboð. Fjarlægð þarf ekki að vera hindrun.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Hvað ef ég þekki foreldrana illa — við erum nágrannablokk eða samstarfsfólk?
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="accordion-body">
+            Þá þurfa orðin þín að vera enn einfaldari. „Við höfum aldrei þekkt hvort annað vel, en ég vil láta þig vita að ég er að hugsa til þín." Og bjóddu síðan upp á eitthvað lítið og konkrét — máltíð, bréf í póstkassa, eitt þægileg skilaboð.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Hvernig get ég hjálpað börnunum — systkinum sjúka barnsins?
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="accordion-body">
+            Systkini sjúkra barna eru oft gleymd í þessum ferli. Bjóddu þér til að sækja þau í skóla, bjóðaðu þau í leik eða bíó, og talaðu beint við þau: „Hvernig líður þér? Þetta er erfitt fyrir þig líka." Þetta er ein af mikilvægustu leiðunum til aðstoðar — og ein sú sem er oft vanrækta.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Action -->
+    <section class="content-section section-anchor" id="action">
+      <div class="section-label">Gerðu eitthvað í dag</div>
+      <h2>Þú ert tilbúin/n. Hvað gerist næst?</h2>
+      <p>Þekkingin sem þú hefur fengið hér nýtist aðeins þegar hún breytist í aðgerð. Hér eru þrjár leiðir til að byrja strax í dag.</p>
+
+      <div class="tip-list">
+        <div class="tip-card" style="border-left: 3px solid var(--forest-mid);">
+          <div class="tip-num" style="background: var(--forest); color: white; font-family: 'Lora', serif;">A</div>
+          <div class="tip-content">
+            <h4>Skráðu þig í máltíð</h4>
+            <p>Ef fjölskyldan er með virka herferð á Samstillt — farðu inn og veldu dag. Það tekur 60 sekúndur og þýðir gríðarlega mikið.</p>
+            <a href="meals.html" style="color: var(--forest); font-weight: 600; font-size: 14px; margin-top: 8px; display: inline-block;">Fara í máltíðaherferðir →</a>
+          </div>
+        </div>
+        <div class="tip-card" style="border-left: 3px solid var(--amber);">
+          <div class="tip-num" style="background: var(--amber); color: var(--ink); font-family: 'Lora', serif;">B</div>
+          <div class="tip-content">
+            <h4>Sendu eitt skilaboð núna</h4>
+            <p>Opnaðu símann þinn og sendu eitt einlægt skilaboð — notaðu eitthvað af þeim sem við mælum með hér. Engin þörf á svari frá þeim.</p>
+          </div>
+        </div>
+        <div class="tip-card" style="border-left: 3px solid var(--terra);">
+          <div class="tip-num" style="background: var(--terra); color: white; font-family: 'Lora', serif;">C</div>
+          <div class="tip-content">
+            <h4>Deildu þessari síðu</h4>
+            <p>Þekkirðu einhvern annan sem vill hjálpa en veit ekki hvernig? Deildu þessari síðu með þeim. Stuðningur margfaldast þegar við hjálpum hvort öðru.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ── Bottom CTA ── -->
+<section class="bottom-cta">
+  <div class="container">
+    <h2>Er fjölskylda sem þarfnast stuðnings?</h2>
+    <p>Búðu til máltíðaherferð fyrir þá og deildu tenglinum. Við sjáum um restina.</p>
+    <div class="bottom-cta-actions">
+      <a href="meals.html#create" class="btn-primary">Stofna stuðningssíðu</a>
+      <a href="calculator.html" class="btn-amber">Fjárhagsreiknivél</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="wordmark" style="margin-bottom: 12px;">
+          <div class="wordmark-icon" style="background: rgba(255,255,255,0.1);">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="white" stroke-width="1.8"/><circle cx="5.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><circle cx="18.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><path d="M9 10.5 L6.5 14.5M15 10.5 L17.5 14.5M8 17.5 L16 17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <span style="font-family: 'Lora', serif; font-size: 20px; color: white;">Samstillt</span>
+        </div>
+        <p style="font-size: 14px; line-height: 1.7; max-width: 240px;">Stuðningur sem skiptir máli — gert einfalt þegar lífið er flókið.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Þjónustur</h5>
+        <ul>
+          <li><a href="meals.html">Máltíðasamræming</a></li>
+          <li><a href="supporters.html">Aðstandendafræðsla</a></li>
+          <li><a href="calculator.html">Fjárhagsreiknivél</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Upplýsingar</h5>
+        <ul>
+          <li><a href="about.html">Um Samstillt</a></li>
+          <li><a href="about.html#contact">Hafa samband</a></li>
+          <li><a href="about.html#faq">Algengar spurningar</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Lögmætar upplýsingar</h5>
+        <ul>
+          <li><a href="#">Persónuverndarstefna</a></li>
+          <li><a href="#">Notkunarskilmálar</a></li>
+          <li><a href="#">Fyrirvari</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Samstillt. Öll réttindi áskilin.</p>
+      <p class="footer-disclaimer">Upplýsingar á þessum vef eru einungis til leiðbeiningar. Við mælum með að staðfesta réttindi hjá stéttarfélagi, vinnuveitanda og Tryggingastofnun ríkisins.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  document.querySelectorAll('#navLinks a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Accordion
+  document.querySelectorAll('.accordion-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Sticky side nav highlight
+  const sections = document.querySelectorAll('.section-anchor');
+  const sideLinks = document.querySelectorAll('.side-link');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sideLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.side-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
