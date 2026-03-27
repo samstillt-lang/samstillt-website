@@ -939,57 +939,56 @@
     <div class="letters-card" id="lettersCard">
       <div class="card-section-title">Tilbúin bréf — afritaðu og sendu</div>
       <p style="font-size:14px; color:var(--ink-soft); margin-bottom:20px; line-height:1.6;">
-        Þessi bréf eru tilbúin til notkunar. Flettu yfir <span style="color:var(--terra); font-weight:700;">rauða textann</span> til að sérsníða.
+        Veldu bréf, afritaðu og sendu. Hvert bréf er til sem <strong>tölvupóstur</strong> og <strong>SMS</strong>. Flettu yfir <span style="color:var(--terra); font-weight:700;">rauða textann</span> til að sérsníða.
       </p>
       <div class="letter-tabs">
-        <button class="letter-tab active" onclick="showLetter('employer')">Til vinnuveitanda</button>
-        <button class="letter-tab" onclick="showLetter('employer-sickdate')">Spyrjast fyrir um veikindarétt</button>
-        <button class="letter-tab" onclick="showLetter('union')">Til stéttarfélags</button>
-        <button class="letter-tab" onclick="showLetter('foreldra')">Foreldragreiðslur (TR)</button>
-        <button class="letter-tab" onclick="showLetter('tr')">Til Tryggingastofnunar</button>
-        <button class="letter-tab" onclick="showLetter('doctor')">Til læknis</button>
+        <button class="letter-tab active" onclick="showLetter('employer')">Vinnuveitandi</button>
+        <button class="letter-tab" onclick="showLetter('employer-confirm')">Vinnuveitandi – staðfesting</button>
+        <button class="letter-tab" onclick="showLetter('union')">Stéttarfélag</button>
+        <button class="letter-tab" onclick="showLetter('doctor-foreldra')">Læknir – foreldragreiðslur</button>
+        <button class="letter-tab" onclick="showLetter('doctor-umonnun')">Læknir – umönnunargreiðslur</button>
+        <button class="letter-tab" onclick="showLetter('doctor-sjukra')">Læknir – sjúkrasjóður</button>
+        <button class="letter-tab" onclick="showLetter('tr')">Tryggingastofnun</button>
+        <button class="letter-tab" onclick="showLetter('foreldra')">Foreldragreiðslur umsókn</button>
+        <button class="letter-tab" onclick="showLetter('self')">Sjálfstætt starfandi</button>
       </div>
-      <div class="letter-content" id="letter-employer-sickdate">
-        <div class="letter-box" id="letter-employer-sickdate-text"></div>
-        <button class="copy-btn" onclick="copyLetter('employer-sickdate')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Afrita bréf
-        </button>
-      </div>
-      <div class="letter-content" id="letter-foreldra">
-        <div class="letter-box" id="letter-foreldra-text"></div>
-        <button class="copy-btn" onclick="copyLetter('foreldra')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Afrita bréf
-        </button>
-      </div>
+
+      <!-- Reusable copy button SVG snippet via JS -->
       <div class="letter-content active" id="letter-employer">
         <div class="letter-box" id="letter-employer-text"></div>
-        <button class="copy-btn" onclick="copyLetter('employer')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Afrita bréf
-        </button>
+        <button class="copy-btn" onclick="copyLetter('employer')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
+      </div>
+      <div class="letter-content" id="letter-employer-confirm">
+        <div class="letter-box" id="letter-employer-confirm-text"></div>
+        <button class="copy-btn" onclick="copyLetter('employer-confirm')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
       </div>
       <div class="letter-content" id="letter-union">
         <div class="letter-box" id="letter-union-text"></div>
-        <button class="copy-btn" onclick="copyLetter('union')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Afrita bréf
-        </button>
+        <button class="copy-btn" onclick="copyLetter('union')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
+      </div>
+      <div class="letter-content" id="letter-doctor-foreldra">
+        <div class="letter-box" id="letter-doctor-foreldra-text"></div>
+        <button class="copy-btn" onclick="copyLetter('doctor-foreldra')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
+      </div>
+      <div class="letter-content" id="letter-doctor-umonnun">
+        <div class="letter-box" id="letter-doctor-umonnun-text"></div>
+        <button class="copy-btn" onclick="copyLetter('doctor-umonnun')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
+      </div>
+      <div class="letter-content" id="letter-doctor-sjukra">
+        <div class="letter-box" id="letter-doctor-sjukra-text"></div>
+        <button class="copy-btn" onclick="copyLetter('doctor-sjukra')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
       </div>
       <div class="letter-content" id="letter-tr">
         <div class="letter-box" id="letter-tr-text"></div>
-        <button class="copy-btn" onclick="copyLetter('tr')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Afrita bréf
-        </button>
+        <button class="copy-btn" onclick="copyLetter('tr')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
       </div>
-      <div class="letter-content" id="letter-doctor">
-        <div class="letter-box" id="letter-doctor-text"></div>
-        <button class="copy-btn" onclick="copyLetter('doctor')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Afrita bréf
-        </button>
+      <div class="letter-content" id="letter-foreldra">
+        <div class="letter-box" id="letter-foreldra-text"></div>
+        <button class="copy-btn" onclick="copyLetter('foreldra')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
+      </div>
+      <div class="letter-content" id="letter-self">
+        <div class="letter-box" id="letter-self-text"></div>
+        <button class="copy-btn" onclick="copyLetter('self')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Afrita bréf</button>
       </div>
     </div>
 
@@ -1434,7 +1433,7 @@ function renderProcessFlow(phase1, phase2, phase3, salary, empType, union) {
     {
       cls:'phase-union', num:'Skref 2', title: empType==='self' ? 'Sjúkrasjóður' : uData.fullName,
       duration: empType==='self' ? 'Á ekki við' : phase2 + (phase2===1?' mánuður':' mánuðir'),
-      amount: empType==='self' ? '—' : phase2Amount,
+      amount: empType==='self' ? '—' : phase2Amount + '\n⚠ Miðað við núverandi laun. Sjóðir miða við meðallaun yfir 4–12 mánuði.',
       action: empType==='self' ? 'Sjá sjukratryggingar.is.' : 'Sæktu um hjá '+uName+' áður en launum lýkur.',
       tip: empType==='self'
         ? 'Sjálfstætt starfandi njóta ekki launagreidds veikindaréttar. Sæktu um sjúkradagpeninga hjá Sjúkratryggingum ef þú ert tryggð/ur.'
@@ -1643,20 +1642,43 @@ function calculate() {
   // Letters
   const today   = formatDate(new Date());
   const diagStr = formatDate(startDate);
-  document.getElementById('letter-employer-sickdate-text').innerHTML =
-    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn tengiliðs hjá vinnuveitanda]</span>\n\nEfni: Fyrirspurn um veikindarétt og lokadagsetningu veikindaorlofs\n\nKæri/a <span class="placeholder">[nafn viðtakanda]</span>,\n\nÉg er að fara í gegnum fjárhagslegar forsendur vegna veikinda í fjölskyldu minni og þarf að vita nákvæmlega hvenær veikindaréttur minn lýkur hjá <span class="placeholder">[nafn fyrirtækis]</span>.\n\nGet ég óskað eftir eftirfarandi upplýsingum:\n\n1. Hvenær lýkur veikindarétti mínum samkvæmt kjarasamningi (nákvæm dagsetning)?\n2. Hvað á eftir af veikindarétti mínum þetta almanaksár?\n3. Á ég rétt á sérstökum veikindadögum vegna veikinda barna (12 vinnudagar)?\n\nÞessar upplýsingar hjálpa mér að skilja hvenær ég þarf að sækja um bætur hjá stéttarfélagi og Tryggingastofnun ríkisins.\n\nÞakka þér kærlega fyrir aðstoðina.\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Starfsheiti]</span>\n<span class="placeholder">[Netfang og símanúmer]</span>`;
+  const smsLabel = `\n\n─────────────────\n📱 SMS / stutt skilaboð\n─────────────────\n`;
 
+  // 1. Vinnuveitandi
   document.getElementById('letter-employer-text').innerHTML =
-    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn vinnuveitanda]</span>\n\nEfni: Beiðni um veikindaorlofsréttindi vegna veikinda barns\n\nÆru þykir mér að tilkynna þér að barn mitt veiktist ${diagStr}. Í samræmi við kjarasamning <span class="placeholder">[nafn stéttarfélags]</span> og lög um réttindi launafólks óska ég hér með formlega eftir að nýta veikindaorlofsréttindi mín vegna þessa.\n\nÉg mun hafa samband við <span class="placeholder">[nafn tengiliðs hjá vinnuveitanda]</span> til að koma á formlegum skilum á staðfestingu frá lækni um veikindin.\n\nÞakka þér fyrir skilning á erfiðum tíma fyrir fjölskyldu mína.\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Kennitala]</span>\n<span class="placeholder">[Netfang]</span>`;
-  document.getElementById('letter-union-text').innerHTML =
-    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn stéttarfélags]</span>\n\nEfni: Umsókn um veikindabætur vegna veikinda barns\n\nÉg er félagi í <span class="placeholder">[nafn stéttarfélags]</span> og vinna hjá <span class="placeholder">[nafn vinnuveitanda]</span>. Barn mitt veiktist ${diagStr} og hef ég þurft að vera frá vinnu til að sinna umönnun þess.\n\nÉg óska eftir upplýsingum um:\n• Hvaða veikindabætur mér ber samkvæmt mínum kjarasamningi\n• Hve lengi og hve háar bæturnar eru\n• Hvaða skjöl þarf ég að leggja fram\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Kennitala]</span>\n<span class="placeholder">[Símanúmer]</span>`;
-  document.getElementById('letter-foreldra-text').innerHTML =
-    `Reykjavík, ${today}\n\nTil: Tryggingastofnun ríkisins\n\nEfni: Umsókn um foreldragreiðslur vegna langveiks barns — lög nr. 22/2006\n\nÉg, ${name}, kt. <span class="placeholder">[Kennitala]</span>, sæki hér með um foreldragreiðslur vegna þess að barn mitt, kt. <span class="placeholder">[kennitala barns]</span>, greindist með alvarlegan og langvinnan sjúkdóm ${diagStr}.\n\nÉg hef fullnýtt:\n• Veikindarétt hjá vinnuveitanda: <span class="placeholder">[dagsetning]</span>\n• Réttindi hjá sjúkrasjóði stéttarfélags míns (<span class="placeholder">[nafn stéttarfélags]</span>): <span class="placeholder">[dagsetning]</span>\n\nMeð umsókninni fylgja:\n• Læknisvottorð frá <span class="placeholder">[nafn læknis/stofnunar]</span> um greiningu, meðferð og umönnunarþörf barnsins\n• Greinargerð frá <span class="placeholder">[félagsráðgjafa/fagaðila]</span>\n• Staðfesting sjúkrasjóðs stéttarfélags um að réttur sé fullnýttur\n• Staðfesting vinnuveitanda um starfslok og niðurfellingu launa\n• Tekjuáætlun\n\nÉg óska eftir að greiðslur hefjist frá <span class="placeholder">[dagsetning]</span>.\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Heimilisfang]</span>\n<span class="placeholder">[Netfang og símanúmer]</span>`;
+    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn vinnuveitanda]</span>\n\nEfni: Veikindi barns — veikindaorlofsréttur\n\nSæl/sæll,\n\nBarnið mitt er alvarlega veikt og ég mun þurfa að vera frá vinnu vegna umönnunar.\n\nGetið þið staðfest:\n• hvenær veikindaréttur minn hjá vinnuveitanda rennur út\n• og hvernig laun verða greidd fram að því\n\nÉg mun halda ykkur upplýstum um næstu skref.\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, barnið mitt er veikt og ég þarf að vera frá. Getið þið sagt mér hvenær veikindaréttur minn rennur út? – ${name}`;
 
+  // 2. Vinnuveitandi – staðfesting fyrir stéttarfélag
+  document.getElementById('letter-employer-confirm-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn vinnuveitanda]</span>\n\nEfni: Beiðni um staðfestingu fyrir stéttarfélag\n\nSæl/sæll,\n\nÉg er að sækja um sjúkradagpeninga hjá stéttarfélagi vegna veikinda barns.\n\nGetið þið útbúið staðfestingu sem sýnir:\n• hvenær veikindaréttur minn hjá vinnuveitanda klárast eða hefur klárazt\n\nÞetta þarf ég til að skila með umsókn til stéttarfélags.\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, getið þið útbúið staðfestingu fyrir stéttarfélag um hvenær veikindaréttur minn klárast? – ${name}`;
+
+  // 3. Stéttarfélag
+  document.getElementById('letter-union-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn stéttarfélags]</span>\n\nEfni: Fyrirspurn um rétt í sjúkrasjóði vegna veikinda barns\n\nSæl/sæll,\n\nÉg er að kanna rétt minn í sjúkrasjóði vegna veikinda barns.\n\nGetið þið sagt mér:\n• hversu lengi ég á rétt á greiðslum\n• hvort ég eigi rétt vegna veikinda barns\n• og hvenær rétturinn telst fullnýttur\n\nÉg þarf einnig staðfestingu þegar rétturinn klárast, fyrir umsókn til TR.\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Kennitala]</span>\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, getið þið sagt mér rétt minn í sjúkrasjóði vegna veikinda barns og hvenær hann telst fullnýttur? – ${name}`;
+
+  // 4. Læknir – foreldragreiðslur
+  document.getElementById('letter-doctor-foreldra-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn læknis / Heilsugæslustöð]</span>\n\nEfni: Beiðni um læknisvottorð – foreldragreiðslur (TR)\n\nSæl/sæll,\n\nBarnið mitt hefur greinst með <span class="placeholder">[sjúkdómur]</span> og er í meðferð.\n\nÉg er að sækja um foreldragreiðslur hjá TR og þarf læknisvottorð sem staðfestir:\n• greiningu\n• meðferð og áætlaðan tíma\n• að foreldri þurfi að vera frá vinnu vegna umönnunar\n\nGetur þú útbúið slíkt vottorð fyrir mig?\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, ég þarf læknisvottorð fyrir TR vegna veikinda barns (greining + meðferð + umönnunarþörf). Getur þú aðstoðað? – ${name}`;
+
+  // 5. Læknir – umönnunargreiðslur
+  document.getElementById('letter-doctor-umonnun-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn læknis / Heilsugæslustöð]</span>\n\nEfni: Beiðni um læknisvottorð – umönnunargreiðslur (TR)\n\nSæl/sæll,\n\nBarnið mitt er með <span class="placeholder">[sjúkdómur]</span> og ég er að sækja um umönnunargreiðslur hjá TR.\n\nÉg þarf læknisvottorð sem lýsir:\n• greiningu barnsins\n• heilsufari og einkennum\n• umönnunarþörf (hversu mikla umönnun barnið þarf í daglegu lífi)\n\nGetur þú útbúið slíkt vottorð fyrir mig?\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, ég þarf læknisvottorð fyrir TR vegna umönnunargreiðslna (greining + umönnunarþörf). Getur þú aðstoðað? – ${name}`;
+
+  // 6. Læknir – sjúkrasjóður stéttarfélags
+  document.getElementById('letter-doctor-sjukra-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn læknis / Heilsugæslustöð]</span>\n\nEfni: Beiðni um læknisvottorð – sjúkradagpeningar (stéttarfélag)\n\nSæl/sæll,\n\nÉg er að sækja um sjúkradagpeninga hjá stéttarfélagi vegna veikinda barns.\n\nÉg þarf læknisvottorð sem staðfestir:\n• greiningu barnsins\n• að ég þurfi að vera frá vinnu vegna umönnunar\n• tímabil fjarveru (frá – til, ef hægt er að meta)\n\nGetur þú útbúið slíkt vottorð fyrir mig?\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, ég þarf læknisvottorð fyrir sjúkradagpeninga hjá stéttarfélagi (fjarvera frá vinnu vegna barns). Getur þú aðstoðað? – ${name}`;
+
+  // 7. Tryggingastofnun – fyrirspurn
   document.getElementById('letter-tr-text').innerHTML =
-    `Reykjavík, ${today}\n\nTil: Tryggingastofnun ríkisins\n\nEfni: Umsókn um sjúkradagpeninga vegna umönnunar barns\n\nÉg, ${name}, kt. <span class="placeholder">[Kennitala]</span>, sæki hér með um sjúkradagpeninga vegna þess að barn mitt veiktist ${diagStr} og þarfnast umönnunar foreldris.\n\nJafnframt leggi ég fram:\n• Læknisvottorð frá <span class="placeholder">[nafn læknis]</span>\n• Staðfesting vinnuveitanda að veikindaorlofsréttur sé uppurinn\n• Kennitala barns: <span class="placeholder">[kennitala barns]</span>\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Heimilisfang]</span>\n<span class="placeholder">[Netfang og símanúmer]</span>`;
-  document.getElementById('letter-doctor-text').innerHTML =
-    `Reykjavík, ${today}\n\nTil: <span class="placeholder">[Nafn læknis / Heilsugæslustöð]</span>\n\nEfni: Beiðni um læknisvottorð vegna veikinda barns\n\nKæri/a læknir,\n\nÉg þarf á læknisvottorði að halda vegna umsóknar um veikindabætur hjá Tryggingastofnun og stéttarfélagi mínu.\n\nVottorðið þarf að innihalda:\n• Greining / tegund veikinda barnsins\n• Upphafsdagsetning veikinda (${diagStr})\n• Líklegt tímabil umönnunarþarfar foreldris\n• Undirritun læknis og stimpill heilsugæslunnar\n\nÞakka þér kærlega.\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Netfang og símanúmer]</span>`;
+    `Reykjavík, ${today}\n\nTil: Tryggingastofnun ríkisins\n\nEfni: Fyrirspurn um foreldragreiðslur\n\nSæl/sæll,\n\nÉg er að undirbúa umsókn um foreldragreiðslur.\n\nMig langar að staðfesta:\n• hvaða gögn þurfa að fylgja\n• og hvort ég geti sótt um áður en réttur í sjúkrasjóði rennur út\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Kennitala]</span>\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, hvaða gögn þarf fyrir foreldragreiðslur og má sækja um áður en sjúkrasjóður klárast? – ${name}`;
+
+  // 8. Foreldragreiðslur – full umsókn (keep detailed version)
+  document.getElementById('letter-foreldra-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: Tryggingastofnun ríkisins\n\nEfni: Umsókn um foreldragreiðslur vegna langveiks barns — lög nr. 22/2006\n\nÉg, ${name}, kt. <span class="placeholder">[Kennitala]</span>, sæki hér með um foreldragreiðslur vegna þess að barn mitt, kt. <span class="placeholder">[kennitala barns]</span>, greindist með alvarlegan og langvinnan sjúkdóm ${diagStr}.\n\nÉg hef fullnýtt:\n• Veikindarétt hjá vinnuveitanda: <span class="placeholder">[dagsetning]</span>\n• Réttindi hjá sjúkrasjóði stéttarfélags míns (<span class="placeholder">[nafn stéttarfélags]</span>): <span class="placeholder">[dagsetning]</span>\n\nMeð umsókninni fylgja:\n• Læknisvottorð um greiningu, meðferð og umönnunarþörf barnsins\n• Greinargerð frá félagsráðgjafa eða öðrum fagaðila\n• Staðfesting sjúkrasjóðs stéttarfélags um fullnýttan rétt\n• Staðfesting vinnuveitanda um starfslok og niðurfellingu launa\n• Tekjuáætlun\n\nÉg óska eftir að greiðslur hefjist frá <span class="placeholder">[dagsetning]</span>.\n\nVirðingarfyllst,\n${name}\n<span class="placeholder">[Heimilisfang]</span>\n<span class="placeholder">[Netfang og símanúmer]</span>`;
+
+  // 9. Sjálfstætt starfandi
+  document.getElementById('letter-self-text').innerHTML =
+    `Reykjavík, ${today}\n\nTil: Tryggingastofnun ríkisins\n\nEfni: Fyrirspurn – foreldragreiðslur fyrir sjálfstætt starfandi\n\nSæl/sæll,\n\nÉg er sjálfstætt starfandi og er að sækja um foreldragreiðslur vegna veikinda barns.\n\nGetið þið leiðbeint mér um hvaða gögn þarf að skila varðandi tekjur og reiknað endurgjald?\n\nBestu kveðjur,\n${name}\n<span class="placeholder">[Kennitala]</span>\n<span class="placeholder">[Símanúmer]</span>${smsLabel}Sæl/sæll, hvaða gögn þarf sem sjálfstætt starfandi fyrir foreldragreiðslur? – ${name}`;
 
   if (window.innerWidth < 900) document.getElementById('resultsHeader').scrollIntoView({behavior:'smooth', block:'start'});
 }
