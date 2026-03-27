@@ -545,18 +545,28 @@
   .footer-bottom p { font-size: 13px; }
   .footer-disclaimer { font-size: 12px; color: rgba(255,255,255,0.35); max-width: 560px; text-align: right; line-height: 1.6; }
 
-  /* ── Print ── */
+  /* ── Print layout ── */
+  #printPage {
+    display: none;
+  }
   @media print {
-    nav, footer, .breadcrumb, .page-hero, .input-panel, .disclaimer,
-    .letter-tabs, .copy-btn, #actionButtons, .calc-btn, .hero-phases { display: none !important; }
-    .calc-layout { display: block; padding: 0; }
-    .results-panel { display: block !important; }
-    .results-header, .process-flow-card, .timeline-card, .deadlines-card { display: block !important; }
-    .letters-card { display: none !important; }
-    body { background: white; }
-    .process-flow-inner { display: flex; flex-direction: row; }
-    .summary-grid { grid-template-columns: repeat(3, 1fr); }
-    * { box-shadow: none !important; }
+    /* Hide everything except print page */
+    body > *:not(#printPage) { display: none !important; }
+    #printPage {
+      display: block !important;
+      font-family: 'Source Sans 3', Arial, sans-serif;
+      font-size: 11px;
+      color: #1a1a1a;
+      padding: 0;
+      margin: 0;
+    }
+    @page {
+      size: A4 portrait;
+      margin: 18mm 16mm 14mm 16mm;
+    }
+    /* Prevent awkward page breaks */
+    .print-section { page-break-inside: avoid; margin-bottom: 14px; }
+    .print-phase-row { page-break-inside: avoid; }
   }
 
   /* ── Mobile ── */
@@ -995,6 +1005,11 @@
   </div>
 </div>
 
+<!-- ── Hidden Print Page ── -->
+<div id="printPage">
+  <!-- populated by printPDF() -->
+</div>
+
 <!-- ── Footer ── -->
 <footer>
   <div class="container">
@@ -1047,7 +1062,183 @@ const navLinks = document.getElementById('navLinks');
 hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
 // ── Item 6: Print to PDF ──
 function printPDF() {
+  const s = window._calcState;
+  if (!s) { alert('Vinsamlegast reiknaðu fjárhagsáætlun fyrst.'); return; }
+
+  // Gather all input values
+  const empTypeVal = document.getElementById('employmentType').value;
+  const empTypeLabels = { private: 'Starfsmaður í einkageiranum', public: 'Starfsmaður hjá ríki/sveitarfélagi', self: 'Sjálfstætt starfandi', '': 'Ekki valið' };
+  const tenureVal = document.getElementById('tenure').value;
+  const tenureLabels = { '0m3m':'Minna en 3 mánuðir','3m6m':'3–6 mánuðir','6m1y':'6 mán.–1 ár','1y7y':'1–7 ár','7y12y':'7–12 ár','12y18y':'12–18 ár','18y+':'Meira en 18 ár','':'Ekki valið' };
+  const unionVal = document.getElementById('union').value;
+  const unionLabel = UNION_DATA[unionVal] ? UNION_DATA[unionVal].fullName : (unionVal === 'none' ? 'Ekki í stéttarfélagi' : unionVal === 'unknown' ? 'Veit ekki / annað' : 'Ekki valið');
+  const salaryDisplay = document.getElementById('salaryDisplay')?.value || formatISK(s.salary);
+  const useChildDays = document.getElementById('useChildDays')?.checked;
+  const useUnionChild = document.getElementById('useUnionChildMonths')?.checked;
+  const useForeldra = document.getElementById('useForeldragreidslur')?.checked;
+  const dateMode = window._dateMode || 'known';
+
+  // Phase amounts
+  const barUData = UNION_DATA[unionVal];
+  let unionAmt = '—';
+  if (barUData && barUData.phase2pct) {
+    const raw = s.salary * barUData.phase2pct / 100;
+    unionAmt = formatISK(barUData.phase2cap ? Math.min(raw, barUData.phase2cap) : raw) + ' kr./mán.';
+  } else if (barUData && barUData.phase2daily) {
+    unionAmt = formatISK(barUData.phase2daily) + ' kr./dag';
+  }
+  const foreldraAmt = formatISK(Math.min(s.salary * TR_2026.foreldragreidslur_pct, TR_2026.foreldragreidslur_max)) + ' kr./mán.';
+  const grunnAmt = formatISK(TR_2026.grunngreidslur) + ' kr./mán.';
+
+  // Summary card values
+  const p1txt = document.getElementById('summaryPhase1')?.textContent || '—';
+  const p2txt = document.getElementById('summaryPhase2')?.textContent || '—';
+  const p3txt = document.getElementById('summaryPhase3')?.textContent || '—';
+  const d1txt = document.getElementById('summaryDate1')?.textContent || '—';
+  const d2txt = document.getElementById('summaryDate2')?.textContent || '—';
+  const d3txt = document.getElementById('summaryDate3')?.textContent || '—';
+
+  // Bar chart data (first 18 months as table)
+  const barRows = Array.from(document.querySelectorAll('.bar-row')).map(row => {
+    const month = row.querySelector('.bar-month')?.textContent || '';
+    const label = row.querySelector('.bar-fill')?.textContent?.trim() || '';
+    const amount = row.querySelector('.bar-amount')?.textContent || '';
+    return { month, label, amount };
+  });
+
+  // Deadlines
+  const deadlineItems = Array.from(document.querySelectorAll('.deadline-item')).map(item => {
+    const badge = item.querySelector('.deadline-badge')?.textContent || '';
+    const title = item.querySelector('h4')?.textContent || '';
+    const desc = item.querySelector('p')?.textContent || '';
+    const date = item.querySelector('.deadline-date')?.textContent || '';
+    const urgent = item.classList.contains('deadline-urgent');
+    return { badge, title, desc, date, urgent };
+  });
+
+  const printDate = formatDate(new Date());
+
+  // Phase color map for print
+  const phaseColors = { 'Full laun':'#4A7C2F', 'Stéttarfélag':'#E8A030', 'Foreldragreiðslur':'#C4714A', 'Grunngreiðslur':'#2E6DA4' };
+
+  const html = `
+  <div style="max-width:780px; margin:0 auto;">
+
+    <!-- HEADER -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #4A7C2F; padding-bottom:12px; margin-bottom:20px;">
+      <div>
+        <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#4A7C2F; margin-bottom:4px;">Samstillt — Fjárhagsáætlun</div>
+        <div style="font-size:22px; font-weight:700; font-family:Georgia,serif; color:#1a1a1a;">${s.name}</div>
+        <div style="font-size:11px; color:#666; margin-top:4px;">Útprentað: ${printDate}</div>
+      </div>
+      <div style="text-align:right; font-size:10px; color:#888; line-height:1.8;">
+        <div>samstillt-website.samstillt.workers.dev</div>
+        <div style="color:#C4714A; font-weight:700; margin-top:4px;">Til leiðbeiningar einungis — staðfesttu hjá stéttarfélagi þínu</div>
+      </div>
+    </div>
+
+    <!-- FORSENDUR -->
+    <div class="print-section" style="background:#F7F4EF; border-radius:8px; padding:14px 18px; margin-bottom:16px;">
+      <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; margin-bottom:10px;">Forsendur</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div><div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Tegund starfs</div><div style="font-weight:700; margin-top:2px;">${empTypeLabels[empTypeVal] || '—'}</div></div>
+        <div><div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Starfsaldur</div><div style="font-weight:700; margin-top:2px;">${tenureLabels[tenureVal] || '—'}</div></div>
+        <div><div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Stéttarfélag</div><div style="font-weight:700; margin-top:2px;">${unionLabel}</div></div>
+        <div><div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Mánaðarlaun (brúttó)</div><div style="font-weight:700; margin-top:2px;">${salaryDisplay} kr.</div></div>
+        <div><div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Veikindaréttur / greining</div><div style="font-weight:700; margin-top:2px;">${dateMode === 'known' ? 'Lýkur: ' + formatDate(s.endDate1 || s.startDate) : 'Greining: ' + formatDate(s.startDate)}</div></div>
+        <div><div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Forsendur</div><div style="font-weight:700; margin-top:2px; font-size:10px;">${[useChildDays ? '✓ Veikindadagar barna' : '', useUnionChild ? '✓ Barnabætur stéttarfélags' : '', useForeldra ? '✓ Foreldragreiðslur (TR)' : ''].filter(Boolean).join(', ') || '—'}</div></div>
+      </div>
+    </div>
+
+    <!-- SUMMARY CARDS -->
+    <div class="print-section" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px;">
+      <div style="border:2px solid #4A7C2F; border-radius:8px; padding:12px; text-align:center;">
+        <div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Full laun hjá vinnuveitanda</div>
+        <div style="font-size:20px; font-weight:700; color:#4A7C2F; font-family:Georgia,serif;">${p1txt}</div>
+        <div style="font-size:10px; color:#C4714A; font-weight:700; margin-top:6px; padding-top:6px; border-top:1px solid #eee;">${d1txt}</div>
+      </div>
+      <div style="border:2px solid #E8A030; border-radius:8px; padding:12px; text-align:center;">
+        <div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Sjúkrasjóður stéttarfélags</div>
+        <div style="font-size:20px; font-weight:700; color:#B87820; font-family:Georgia,serif;">${p2txt}</div>
+        <div style="font-size:10px; color:#C4714A; font-weight:700; margin-top:6px; padding-top:6px; border-top:1px solid #eee;">${d2txt}</div>
+      </div>
+      <div style="border:2px solid #C4714A; border-radius:8px; padding:12px; text-align:center;">
+        <div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Foreldragreiðslur (TR)</div>
+        <div style="font-size:20px; font-weight:700; color:#9A4E2E; font-family:Georgia,serif;">${p3txt}</div>
+        <div style="font-size:10px; color:#C4714A; font-weight:700; margin-top:6px; padding-top:6px; border-top:1px solid #eee;">${d3txt}</div>
+      </div>
+    </div>
+
+    <!-- PHASES -->
+    <div class="print-section" style="margin-bottom:16px;">
+      <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; margin-bottom:10px;">Ferli bótagreiðslna</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px;">
+        ${[
+          { num:'Skref 1', title:'Full laun hjá vinnuveitanda', duration: p1txt, amount: formatISK(s.salary)+' kr./mán.', color:'#4A7C2F', bg:'#EDF5E4' },
+          { num:'Skref 2', title: unionLabel !== 'Ekki valið' ? unionLabel : 'Sjúkrasjóður', duration: p2txt, amount: unionAmt, color:'#B87820', bg:'#FDF2DC' },
+          { num:'Skref 3', title:'Foreldragreiðslur (TR)', duration: p3txt, amount: foreldraAmt, color:'#9A4E2E', bg:'#FAF0EB' },
+          { num:'Skref 4', title:'Grunngreiðslur (TR)', duration:'Ótímabundið*', amount: grunnAmt, color:'#185FA5', bg:'#E8F2FA' }
+        ].map(p => `
+          <div style="border:2px solid ${p.color}; border-radius:8px; padding:10px; background:${p.bg};">
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:${p.color}; opacity:0.7; margin-bottom:4px;">${p.num}</div>
+            <div style="font-size:11px; font-weight:700; color:${p.color}; margin-bottom:6px; line-height:1.3;">${p.title}</div>
+            <div style="font-size:14px; font-weight:700; color:${p.color}; font-family:Georgia,serif; margin-bottom:4px;">${p.duration}</div>
+            <div style="font-size:10px; color:${p.color}; opacity:0.8;">${p.amount}</div>
+          </div>`).join('')}
+      </div>
+      <div style="font-size:9px; color:#888; margin-top:6px;">* Grunngreiðslur eru fyrir alvarlegustu sjúkdómstigin (stig 1–2). Tekjutengdar. Umönnunargreiðslur (allt að ${formatISK(TR_2026.umonnunargreidslur_max)} kr./mán. skattfrjálst) ganga samhliða öllum skrefum.</div>
+    </div>
+
+    <!-- INCOME TABLE -->
+    <div class="print-section" style="margin-bottom:16px;">
+      <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; margin-bottom:10px;">Mánaðarlegar tekjur — næstu 18 mánuðir</div>
+      <table style="width:100%; border-collapse:collapse; font-size:10px;">
+        <thead>
+          <tr style="background:#F7F4EF;">
+            <th style="text-align:left; padding:5px 8px; font-weight:700; color:#888; border-bottom:2px solid #ddd; width:70px;">Mánuður</th>
+            <th style="text-align:left; padding:5px 8px; font-weight:700; color:#888; border-bottom:2px solid #ddd;">Greiðsluaðili</th>
+            <th style="text-align:right; padding:5px 8px; font-weight:700; color:#888; border-bottom:2px solid #ddd; width:110px;">Upphæð</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${barRows.map((r, i) => {
+            const c = phaseColors[r.label] || '#888';
+            return `<tr style="background:${i%2===0?'#fff':'#fafafa'};">
+              <td style="padding:4px 8px; color:#666;">${r.month}</td>
+              <td style="padding:4px 8px;"><span style="display:inline-block; width:8px; height:8px; background:${c}; border-radius:50%; margin-right:5px;"></span>${r.label}</td>
+              <td style="padding:4px 8px; text-align:right; font-weight:700;">${r.amount}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DEADLINES -->
+    <div class="print-section" style="margin-bottom:16px;">
+      <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; margin-bottom:10px;">Mikilvægir umsóknarfrestir</div>
+      ${deadlineItems.map(d => `
+        <div class="print-phase-row" style="display:flex; gap:10px; align-items:flex-start; padding:8px 10px; border-radius:6px; margin-bottom:6px; background:${d.urgent ? '#FAF0EB' : '#F7F4EF'}; border-left:3px solid ${d.urgent ? '#C4714A' : '#4A7C2F'};">
+          <div style="font-size:9px; font-weight:700; background:${d.urgent ? '#C4714A' : '#4A7C2F'}; color:white; padding:2px 7px; border-radius:100px; white-space:nowrap; margin-top:1px;">${d.badge}</div>
+          <div>
+            <div style="font-weight:700; font-size:11px; margin-bottom:2px;">${d.title}</div>
+            <div style="font-size:10px; color:#555;">${d.desc}</div>
+            <div style="font-size:10px; color:#C4714A; font-weight:700; margin-top:3px;">${d.date}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    <!-- FOOTER -->
+    <div style="border-top:1px solid #ddd; padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:9px; color:#aaa;">Samstillt — samstillt-website.samstillt.workers.dev</div>
+      <div style="font-size:9px; color:#C4714A; font-weight:700;">Þessi áætlun er til leiðbeiningar einungis. Staðfesttu alltaf hjá stéttarfélagi þínu og Tryggingastofnun.</div>
+    </div>
+
+  </div>`;
+
+  document.getElementById('printPage').innerHTML = html;
   window.print();
+  // Clear after print dialog closes
+  setTimeout(() => { document.getElementById('printPage').innerHTML = ''; }, 2000);
 }
 
 // ── Item 7: Add to calendar (ICS download) ──
