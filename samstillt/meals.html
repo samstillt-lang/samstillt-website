@@ -275,7 +275,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="meals.html" class="active">Máltíðir</a></li>
       <li><a href="supporters.html">Aðstandendafræðsla</a></li>
-      <li><a href="calculator.html">Fjárhagsáætlun</a></li>
+      <li><a href="calculator.html">Fjárhagsreiknivél</a></li>
       <li><a href="about.html">Um okkur</a></li>
       <li><a href="meals.html#create" class="nav-cta">Stofna stuðningssíðu</a></li>
     </ul>
@@ -288,7 +288,7 @@
     <div class="breadcrumb-inner">
       <a href="index.html">Forsíða</a>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      <span>Máltíðir</span>
+      <span>Máltíðasamræming</span>
     </div>
   </div>
 </div>
@@ -296,22 +296,22 @@
 <section class="page-hero">
   <div class="page-hero-inner">
     <div>
-      <div class="page-tag">Máltíðir</div>
+      <div class="page-tag">Máltíðasamræming</div>
       <h1>Láta hjartað tala<br><em>með mat á borðið.</em></h1>
-      <p class="page-hero-lead">Búðu til stuðningssíðu fyrir fjölskyldu í þörf. Vinir og ættingjar geta skráð sig í að koma með mat á ákveðnum dögum — og kerfið sér um að minna þá á það.</p>
+      <p class="page-hero-lead">Búðu til herferðarsíðu fyrir fjölskyldu í þörf. Vinir og ættingjar geta skráð sig í að koma með mat á ákveðnum dögum — og kerfið sér um að minna þá á það.</p>
       <div class="hero-btns">
         <a href="#" class="btn-primary" onclick="switchTab('create'); return false;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
           Stofna stuðningssíðu
         </a>
-        <a href="#" class="btn-secondary" onclick="switchTab('browse'); return false;">Skoða stuðningssíður</a>
+        <a href="#" class="btn-secondary" onclick="switchTab('browse'); return false;">Skoða herferðir</a>
       </div>
     </div>
     <div class="demo-card">
       <div class="demo-card-header">
-        <p>Stuðningssíða</p>
+        <p>Máltíðaherferð</p>
         <h3>Fjölskylda Einarsdóttir</h3>
-        <span>Reykjavík</span>
+        <span>Reykjavík · Barnaspítalinn</span>
       </div>
       <div class="demo-card-body">
         <div class="demo-progress">
@@ -333,7 +333,7 @@
 <div class="page-tabs">
   <div class="tabs-inner">
     <button class="tab-btn active" id="tab-create" onclick="switchTab('create')">Stofna stuðningssíðu</button>
-    <button class="tab-btn" id="tab-browse" onclick="switchTab('browse')">Skoða stuðningssíður</button>
+    <button class="tab-btn" id="tab-browse" onclick="switchTab('browse')">Skoða herferðir</button>
   </div>
 </div>
 
@@ -342,8 +342,8 @@
   <div class="create-layout">
     <div class="form-card" id="create">
       <div class="form-card-header">
-        <h3>Ný stuðningssíða</h3>
-        <p>Fylltu inn upplýsingarnar og við búum til stuðningssíðu fyrir þig</p>
+        <h3>Ný máltíðaherferð</h3>
+        <p>Fylltu inn upplýsingarnar og við búum til herferðarsíðu fyrir þig</p>
       </div>
       <div class="form-body">
         <div class="form-section-title">Um fjölskylduna</div>
@@ -362,7 +362,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Stutt lýsing <span class="form-hint">(birtist á stuðningssíðunni)</span></label>
+          <label class="form-label">Stutt lýsing <span class="form-hint">(birtist á herferðarsíðunni)</span></label>
           <textarea class="form-textarea" placeholder="t.d. Jón er að fara í meðferð og við þurfum aðstoð með mat í nokkrar vikur. Allt er þakkansælt!"></textarea>
         </div>
 
@@ -436,7 +436,7 @@
       <div class="info-card">
         <h4>Hvernig virkar þetta?</h4>
         <ul>
-          <li>Þú fyllir inn eyðublaðið og við búum til sérstaka stuðningssíðu</li>
+          <li>Þú fyllir inn eyðublaðið og við búum til sérstaka herferðarsíðu</li>
           <li>Þú færð einkvæman tengil til að deila með vinum og fjölskyldu</li>
           <li>Stuðningsmenn skrá sig í ákveðna daga</li>
           <li>Kerfið sendir sjálfkrafa tölvupóstáminningar daginn áður</li>
@@ -445,7 +445,7 @@
       </div>
       <div class="info-card privacy-card">
         <h4>Persónuvernd</h4>
-        <p>Stuðningssíðan er aðeins aðgengileg þeim sem hafa tengilinn. Engar persónuuplýsingar eru seldar eða deildar með þriðja aðila. Við geymum aðeins nauðsynlegar upplýsingar til að reka stuðningssíðuna.</p>
+        <p>Herferðarsíðan er aðeins aðgengileg þeim sem hafa tengilinn. Engar persónuuplýsingar eru seldar eða deildar með þriðja aðila. Við geymum aðeins nauðsynlegar upplýsingar til að reka herferðina.</p>
       </div>
       <div class="info-card">
         <h4>Tölvupóstáminning</h4>
@@ -459,7 +459,7 @@
     <div style="width:72px;height:72px;border-radius:50%;background:var(--forest-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
     </div>
-    <h2 style="color:var(--ink);font-size:28px;margin-bottom:12px;">Stuðningssíðan er tilbúin!</h2>
+    <h2 style="color:var(--ink);font-size:28px;margin-bottom:12px;">Herferðin er tilbúin!</h2>
     <p style="color:var(--ink-soft);font-size:17px;margin-bottom:28px;">Hér er tengilinn þinn. Deildu honum með vinum og fjölskyldu.</p>
     <div style="background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--radius-md);padding:16px 20px;display:flex;gap:10px;align-items:center;margin-bottom:24px;">
       <input type="text" value="samstillt.is/herferð/einarsdottir-2025" style="flex:1;border:none;background:none;font-size:14px;color:var(--ink);font-family:'Source Sans 3',sans-serif;outline:none;">
@@ -473,10 +473,10 @@
 <div class="tab-panel" id="panel-browse">
   <div id="campaignListView">
     <div class="browse-header">
-      <h2>Virkar stuðningssíður</h2>
+      <h2>Virkar herferðir</h2>
       <div class="search-wrap">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" class="search-input" placeholder="Leita að stuðningssíðu...">
+        <input type="text" class="search-input" placeholder="Leita að herferð...">
       </div>
     </div>
     <div class="campaigns-grid">
@@ -489,7 +489,7 @@
         </div>
         <div class="campaign-card-bottom">
           <div class="campaign-progress"><div class="camp-prog-label"><span>9 af 15 dögum teknir</span><span>60%</span></div><div class="camp-prog-track"><div class="camp-prog-fill" style="width:60%;"></div></div></div>
-          <div class="campaign-slots-row"><span class="slots-open">6 dagar lausir</span><button class="view-btn">Sjá stuðningssíðu</button></div>
+          <div class="campaign-slots-row"><span class="slots-open">6 dagar lausir</span><button class="view-btn">Sjá herferð</button></div>
         </div>
       </div>
       <div class="campaign-card" onclick="showCampaign('sigurds')">
@@ -501,7 +501,7 @@
         </div>
         <div class="campaign-card-bottom">
           <div class="campaign-progress"><div class="camp-prog-label"><span>4 af 12 dögum teknir</span><span>33%</span></div><div class="camp-prog-track"><div class="camp-prog-fill" style="width:33%;background:var(--terra);"></div></div></div>
-          <div class="campaign-slots-row"><span class="slots-open">8 dagar lausir</span><button class="view-btn">Sjá stuðningssíðu</button></div>
+          <div class="campaign-slots-row"><span class="slots-open">8 dagar lausir</span><button class="view-btn">Sjá herferð</button></div>
         </div>
       </div>
       <div class="campaign-card" onclick="showCampaign('holm')">
@@ -513,7 +513,7 @@
         </div>
         <div class="campaign-card-bottom">
           <div class="campaign-progress"><div class="camp-prog-label"><span>2 af 10 dögum teknir</span><span>20%</span></div><div class="camp-prog-track"><div class="camp-prog-fill" style="width:20%;background:var(--amber);"></div></div></div>
-          <div class="campaign-slots-row"><span class="slots-open">8 dagar lausir</span><button class="view-btn">Sjá stuðningssíðu</button></div>
+          <div class="campaign-slots-row"><span class="slots-open">8 dagar lausir</span><button class="view-btn">Sjá herferð</button></div>
         </div>
       </div>
     </div>
@@ -523,7 +523,7 @@
   <div class="campaign-view" id="campaignDetailView">
     <button class="campaign-back" onclick="hideCampaign()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Til baka í stuðningssíður
+      Til baka í herferðir
     </button>
     <div class="campaign-view-layout">
       <div class="campaign-main">
@@ -546,7 +546,7 @@
       </div>
       <div class="campaign-sidebar">
         <div class="share-card">
-          <h4>Deila stuðningssíðu</h4>
+          <h4>Deila herferðinni</h4>
           <p>Sendu þennan tengil til vina og fjölskyldu sem gætu viljað hjálpa.</p>
           <div class="share-link">
             <input type="text" value="samstillt.is/e/einarsdottir" readonly>
@@ -602,12 +602,12 @@
         </div>
         <p style="font-size:14px;line-height:1.7;max-width:240px;color:rgba(255,255,255,0.65);">Stuðningur sem skiptir máli — gert einfalt þegar lífið er flókið.</p>
       </div>
-      <div class="footer-col"><h5>Þjónustur</h5><ul><li><a href="meals.html">Máltíðir</a></li><li><a href="supporters.html">Aðstandendafræðsla</a></li><li><a href="calculator.html">Fjárhagsreiknivél</a></li></ul></div>
+      <div class="footer-col"><h5>Þjónustur</h5><ul><li><a href="meals.html">Máltíðasamræming</a></li><li><a href="supporters.html">Aðstandendafræðsla</a></li><li><a href="calculator.html">Fjárhagsreiknivél</a></li></ul></div>
       <div class="footer-col"><h5>Upplýsingar</h5><ul><li><a href="about.html">Um Samstillt</a></li><li><a href="about.html#contact">Hafa samband</a></li><li><a href="about.html#faq">Algengar spurningar</a></li></ul></div>
       <div class="footer-col"><h5>Lögmætar upplýsingar</h5><ul><li><a href="#">Persónuverndarstefna</a></li><li><a href="#">Notkunarskilmálar</a></li><li><a href="#">Fyrirvari</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Samstillt. Öll réttindi áskilin.</p>
+      <p>© 2026 Samstillt. Öll réttindi áskilin.</p>
       <p class="footer-disclaimer">Upplýsingar á þessum vef eru einungis til leiðbeiningar. Við mælum með að þú staðfestir réttindi þín hjá þínu stéttarfélagi, vinnuveitanda og Tryggingastofnun ríkisins.</p>
     </div>
   </div>
