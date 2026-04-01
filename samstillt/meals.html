@@ -6,6 +6,7 @@
 <title>Máltíðasamræming – Samstillt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -288,12 +289,12 @@
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Frá *</label>
-                <input type="date" class="form-input" id="startDate">
+                <input type="text" class="form-input flatpickr-input" id="startDate" placeholder="Veldu dagsetningu..." readonly style="cursor:pointer;">
                 <div class="form-error" id="err-dates">Vinsamlegast veldu gildar dagsetningar</div>
               </div>
               <div class="form-group">
                 <label class="form-label">Til *</label>
-                <input type="date" class="form-input" id="endDate">
+                <input type="text" class="form-input flatpickr-input" id="endDate" placeholder="Veldu dagsetningu..." readonly style="cursor:pointer;">
               </div>
             </div>
             <div class="form-group">
@@ -476,6 +477,7 @@
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import flatpickr from 'https://cdn.jsdelivr.net/npm/flatpickr/+esm';
 
 const SUPABASE_URL = 'https://xgfrjxewmlkugcwqzqvb.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnZnJqeGV3bWxrdWdjd3F6cXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMjk0NTgsImV4cCI6MjA5MDYwNTQ1OH0.wm47_OgR7-vzho2zgWzgAJ-K5taPHPf3KaG6RablMKk';
@@ -755,17 +757,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.getElementById('navLinks');
   hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
 
-  // Set default dates
+  // Set default dates with flatpickr (Icelandic locale)
   const today = new Date();
   const future = new Date(today); future.setDate(today.getDate() + 28);
-  document.getElementById('startDate').value = today.toISOString().split('T')[0];
-  document.getElementById('endDate').value = future.toISOString().split('T')[0];
+  const fpOpts = {
+    locale: {
+      weekdays: {
+        shorthand: ['Sun','Mán','Þri','Mið','Fim','Fös','Lau'],
+        longhand: ['Sunnudagur','Mánudagur','Þriðjudagur','Miðvikudagur','Fimmtudagur','Föstudagur','Laugardagur'],
+      },
+      months: {
+        shorthand: ['Jan','Feb','Mar','Apr','Maí','Jún','Júl','Ágú','Sep','Okt','Nóv','Des'],
+        longhand: ['Janúar','Febrúar','Mars','Apríl','Maí','Júní','Júlí','Ágúst','September','Október','Nóvember','Desember'],
+      },
+      firstDayOfWeek: 1,
+    },
+    dateFormat: 'Y-m-d',
+    altInput: true,
+    altFormat: 'j. F Y',
+    minDate: 'today',
+    defaultDate: today,
+  };
+  flatpickr('#startDate', { ...fpOpts, defaultDate: today });
+  flatpickr('#endDate', { ...fpOpts, defaultDate: future });
 
   // Day toggle
   document.querySelectorAll('.day-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('selected');
-      btn.querySelector('input').checked = btn.classList.contains('selected');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault(); // prevent label from double-triggering the checkbox
+      const isSelected = btn.classList.toggle('selected');
+      btn.querySelector('input').checked = isSelected;
     });
   });
 
