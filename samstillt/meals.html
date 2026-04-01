@@ -673,7 +673,7 @@ function renderSlots(slots) {
       const who = s.bookings?.[0]?.supporter_name || 'Einhver';
       return '<div class="slot-row slot-row-claimed"><div class="slot-date">' + lbl + '</div><div class="slot-who">' + who + '</div><span class="slot-badge">Tekid</span></div>';
     }
-    return '<div class="slot-row" id="slot-' + s.id + '"><div class="slot-date">' + lbl + '</div><div class="slot-who" style="color:var(--ink-muted);">Laust</div><button class="slot-claim-btn" onclick="openBookingModal('' + s.id + '','' + lbl + '')">Skra mig</button></div>';
+    return `<div class="slot-row" id="slot-${s.id}"><div class="slot-date">${lbl}</div><div class="slot-who" style="color:var(--ink-muted);">Laust</div><button class="slot-claim-btn" onclick="openBookingModal('${s.id}','${lbl}')">Skrá mig</button></div>`;
   }).join('');
 }
 
@@ -729,7 +729,7 @@ async function loadBrowse() {
     const { data: camps, error } = await supabase.from('safe_campaigns').select('*').eq('is_active', true).order('created_at', { ascending: false });
     if (error) throw error;
     if (!camps || camps.length === 0) {
-      g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--ink-muted);"><p style="font-size:16px;margin-bottom:20px;">Engar virkar studningssidur sem stendur.</p><button class="btn-primary" onclick="showView('create')">Bua til fyrstu siduna</button></div>';
+      g.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--ink-muted);"><p style="font-size:16px;margin-bottom:20px;">Engar virkar stuðningssíður sem stendur.</p><button class="btn-primary" onclick="showView('create')">Búa til fyrstu síðuna</button></div>`;
       return;
     }
     const ids = camps.map(c => c.id);
@@ -740,7 +740,9 @@ async function loadBrowse() {
       const open = cs.filter(s => !s.is_claimed).length;
       const init = c.family_name.charAt(0).toUpperCase();
       const col = colors[c.family_name.charCodeAt(0) % colors.length];
-      return '<div class="campaign-card" onclick="loadCampaign('' + c.slug + '')"><div class="campaign-card-top"><div class="campaign-avatar" style="background:' + col + ';">' + init + '</div><div class="campaign-card-name">' + c.family_name + '</div><div class="campaign-card-meta">' + formatDateISFull(c.start_date) + ' - ' + formatDateISFull(c.end_date) + '</div>' + (c.description ? '<div class="campaign-card-desc">' + c.description.slice(0,80) + (c.description.length>80?'...':'') + '</div>' : '') + '</div><div class="campaign-card-bottom"><span class="slots-avail">' + open + ' dag' + (open!==1?'ar':'ur') + ' laus' + (open!==1?'ir':'') + '</span><button class="view-btn">Sja siduna</button></div></div>';
+      const desc = c.description ? `<div class="campaign-card-desc">${c.description.slice(0,80)}${c.description.length>80?'...':''}</div>` : '';
+      const openLabel = `${open} dag${open!==1?'ar':'ur'} laus${open!==1?'ir':''}`;
+      return `<div class="campaign-card" onclick="loadCampaign('${c.slug}')"><div class="campaign-card-top"><div class="campaign-avatar" style="background:${col};">${init}</div><div class="campaign-card-name">${c.family_name}</div><div class="campaign-card-meta">${formatDateISFull(c.start_date)} - ${formatDateISFull(c.end_date)}</div>${desc}</div><div class="campaign-card-bottom"><span class="slots-avail">${openLabel}</span><button class="view-btn">Sjá síðuna</button></div></div>`;
     }).join('');
   } catch (err) {
     console.error(err);
