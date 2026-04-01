@@ -9,29 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --forest:       #2D5016;
-    --forest-mid:   #4A7C2F;
-    --forest-light: #6B9E4A;
-    --forest-pale:  #EDF5E4;
-    --forest-mist:  #F4F9EF;
-    --amber:        #E8A030;
-    --amber-light:  #FDF2DC;
-    --amber-dark:   #B87820;
-    --terra:        #C4714A;
-    --terra-light:  #FAF0EB;
-    --terra-dark:   #9A4E2E;
-    --cream:        #FAF7F2;
-    --cream-dark:   #F0EBE2;
-    --ink:          #1C1410;
-    --ink-mid:      #3A3028;
-    --ink-soft:     #6B5C4E;
-    --ink-muted:    #9E8E82;
-    --white:        #FFFFFF;
-    --radius-sm:    6px;
-    --radius-md:    12px;
-    --radius-lg:    20px;
-    --shadow-soft:  0 2px 20px rgba(45,80,22,0.08);
-    --shadow-card:  0 4px 32px rgba(45,80,22,0.10);
+    --forest: #2D5016; --forest-mid: #4A7C2F; --forest-light: #6B9E4A;
+    --forest-pale: #EDF5E4; --forest-mist: #F4F9EF;
+    --amber: #E8A030; --amber-light: #FDF2DC; --amber-dark: #B87820;
+    --terra: #C4714A; --terra-light: #FAF0EB;
+    --cream: #FAF7F2; --cream-dark: #F0EBE2;
+    --ink: #1C1410; --ink-mid: #3A3028; --ink-soft: #6B5C4E; --ink-muted: #9E8E82;
+    --white: #FFFFFF;
+    --radius-sm: 6px; --radius-md: 12px; --radius-lg: 20px;
+    --shadow-soft: 0 2px 20px rgba(45,80,22,0.08);
+    --shadow-card: 0 4px 32px rgba(45,80,22,0.10);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -39,8 +26,6 @@
   h1,h2,h3,h4 { font-family: 'Lora', serif; line-height: 1.25; color: var(--forest); }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-  /* Nav */
   nav { position: sticky; top: 0; z-index: 100; background: rgba(250,247,242,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--cream-dark); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
   .wordmark { display: flex; align-items: center; gap: 10px; }
@@ -54,184 +39,120 @@
   .nav-cta:hover { background: var(--forest-mid) !important; }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
   .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
-
-  /* Breadcrumb */
   .breadcrumb { padding: 14px 0; border-bottom: 1px solid var(--cream-dark); }
   .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); }
   .breadcrumb a { color: var(--forest); }
-
-  /* Hero */
-  .page-hero { padding: 64px 0 72px; background: linear-gradient(150deg, var(--forest-mist) 0%, var(--cream) 55%, var(--amber-light) 100%); position: relative; overflow: hidden; }
-  .page-hero::after { content: ''; position: absolute; top: -80px; right: -100px; width: 420px; height: 420px; background: radial-gradient(circle, rgba(74,124,47,0.08) 0%, transparent 70%); pointer-events: none; }
-  .page-hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 400px; gap: 60px; align-items: center; position: relative; z-index: 1; }
-  .page-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.2); color: var(--forest); font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
-  .page-hero h1 { font-size: clamp(30px, 5vw, 50px); color: var(--ink); margin-bottom: 18px; }
-  .page-hero h1 em { font-style: italic; color: var(--forest); }
-  .page-hero-lead { font-size: 18px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 32px; }
-  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--forest); color: var(--white); font-size: 16px; font-weight: 600; padding: 14px 28px; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
+  .page-hero { padding: 64px 0 72px; background: linear-gradient(150deg, var(--forest-pale) 0%, var(--cream) 60%, var(--amber-light) 100%); }
+  .page-hero-inner { max-width: 700px; margin: 0 auto; padding: 0 24px; text-align: center; }
+  .page-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.25); color: var(--forest-mid); font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+  .page-hero h1 { font-size: clamp(30px, 5vw, 48px); color: var(--ink); margin-bottom: 16px; }
+  .page-hero h1 em { font-style: italic; color: var(--terra); }
+  .page-hero-lead { font-size: 18px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 28px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--forest); color: white; font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-primary:hover { background: var(--forest-mid); transform: translateY(-1px); }
-  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); font-size: 16px; font-weight: 600; padding: 14px 28px; border-radius: var(--radius-sm); border: 1.5px solid var(--forest-light); cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: 1.5px solid var(--forest-light); cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-secondary:hover { background: var(--forest-mist); }
-
-  /* Demo campaign card */
-  .demo-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); border: 1px solid var(--cream-dark); overflow: hidden; }
-  .demo-card-header { background: var(--forest); padding: 20px 24px; }
-  .demo-card-header p { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; }
-  .demo-card-header h3 { font-size: 20px; color: white; margin-bottom: 4px; }
-  .demo-card-header span { font-size: 13px; color: rgba(255,255,255,0.7); }
-  .demo-card-body { padding: 20px 24px; }
-  .demo-progress { margin-bottom: 16px; }
-  .demo-progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-muted); margin-bottom: 6px; }
-  .progress-track { height: 8px; background: var(--cream-dark); border-radius: 100px; }
-  .progress-fill { height: 100%; background: var(--forest-mid); border-radius: 100px; width: 60%; }
-  .demo-slots { display: flex; flex-direction: column; gap: 8px; }
-  .demo-slot { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; }
-  .slot-open { background: var(--forest-mist); }
-  .slot-claimed { background: var(--amber-light); }
-  .slot-date { font-weight: 600; color: var(--ink-mid); }
-  .slot-person { font-size: 12px; color: var(--ink-muted); }
-  .slot-btn { font-size: 12px; font-weight: 700; color: var(--forest); background: var(--forest-pale); border: none; padding: 4px 12px; border-radius: 100px; cursor: pointer; font-family: 'Source Sans 3', sans-serif; }
-  .slot-claimed-tag { font-size: 11px; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.4px; }
-
-  /* Tabs */
-  .page-tabs { background: var(--white); border-bottom: 1px solid var(--cream-dark); position: sticky; top: 68px; z-index: 90; }
-  .tabs-inner { display: flex; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .tab-btn { padding: 18px 24px; font-size: 15px; font-weight: 600; color: var(--ink-soft); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; }
-  .tab-btn:hover { color: var(--forest); }
-  .tab-btn.active { color: var(--forest); border-bottom-color: var(--forest); }
-
-  /* Tab panels */
-  .tab-panel { display: none; padding: 48px 24px 80px; max-width: 1100px; margin: 0 auto; }
-  .tab-panel.active { display: block; }
-
-  /* Create form */
-  .create-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
-  .form-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-soft); overflow: hidden; }
-  .form-card-header { background: var(--forest); padding: 24px 28px; }
-  .form-card-header h3 { color: white; font-size: 20px; margin-bottom: 4px; }
-  .form-card-header p { color: rgba(255,255,255,0.7); font-size: 14px; }
-  .form-body { padding: 28px; }
+  .main-content { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+  #viewCreate, #viewCampaign, #viewBrowse { display: none; }
+  #viewCreate.active, #viewCampaign.active, #viewBrowse.active { display: block; }
+  .form-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
+  .form-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); overflow: hidden; }
+  .form-card-header { background: var(--forest); padding: 28px 32px; }
+  .form-card-header h3 { font-size: 22px; color: white; margin-bottom: 6px; }
+  .form-card-header p { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .form-body { padding: 32px; }
   .form-section-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 18px; padding-bottom: 8px; border-bottom: 1px solid var(--cream-dark); }
-  .form-group { margin-bottom: 20px; }
-  .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--ink-mid); margin-bottom: 7px; letter-spacing: 0.3px; }
-  .form-hint { font-size: 12px; color: var(--ink-muted); font-weight: 400; }
-  .form-input, .form-select, .form-textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--cream-dark); border-radius: var(--radius-sm); font-size: 15px; font-family: 'Source Sans 3', sans-serif; color: var(--ink); background: var(--cream); outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; }
+  .form-section { margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--ink-mid); margin-bottom: 7px; }
+  .form-hint { font-weight: 400; color: var(--ink-muted); font-size: 12px; }
+  .form-input, .form-select, .form-textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--cream-dark); border-radius: var(--radius-sm); font-size: 15px; font-family: 'Source Sans 3', sans-serif; color: var(--ink); background: var(--cream); outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; }
   .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--forest-light); box-shadow: 0 0 0 3px rgba(74,124,47,0.12); background: var(--white); }
-  .form-textarea { resize: vertical; min-height: 90px; }
+  .form-input.error { border-color: var(--terra); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .select-wrap { position: relative; }
   .select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--ink-muted); pointer-events: none; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  /* Flatpickr theme */
-  .flatpickr-calendar { font-family: 'Source Sans 3', sans-serif !important; border-radius: var(--radius-md) !important; border: 1px solid var(--cream-dark) !important; box-shadow: var(--shadow-card) !important; background: var(--white) !important; }
-  .flatpickr-month { background: var(--forest) !important; border-radius: var(--radius-md) var(--radius-md) 0 0 !important; }
-  .flatpickr-current-month, .flatpickr-current-month .cur-month, .flatpickr-current-month input.cur-year { color: white !important; font-family: 'Lora', serif !important; font-size: 15px !important; }
-  .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: white !important; }
-  .flatpickr-prev-month:hover, .flatpickr-next-month:hover { background: var(--forest-mid) !important; }
-  .flatpickr-weekday { color: var(--ink-soft) !important; font-weight: 700 !important; font-size: 12px !important; }
-  .flatpickr-day { color: var(--ink) !important; border-radius: var(--radius-sm) !important; font-size: 14px !important; }
-  .flatpickr-day:hover { background: var(--forest-mist) !important; border-color: var(--forest-mist) !important; }
-  .flatpickr-day.selected, .flatpickr-day.selected:hover { background: var(--forest) !important; border-color: var(--forest) !important; color: white !important; }
-  .flatpickr-day.today { border-color: var(--forest-light) !important; }
-  .flatpickr-input[readonly] { cursor: pointer; }
-  .date-range { display: flex; align-items: center; gap: 10px; }
-  .date-range span { color: var(--ink-muted); font-size: 14px; flex-shrink: 0; }
   .divider { border: none; border-top: 1px solid var(--cream-dark); margin: 24px 0; }
-  .submit-btn { width: 100%; padding: 15px; background: var(--forest); color: white; font-size: 16px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-  .submit-btn:hover { background: var(--forest-mid); transform: translateY(-1px); }
-
-  /* Info sidebar */
-  .info-sidebar { display: flex; flex-direction: column; gap: 20px; }
-  .info-card { background: var(--white); border-radius: var(--radius-md); border: 1px solid var(--cream-dark); padding: 22px; box-shadow: var(--shadow-soft); }
-  .info-card h4 { font-size: 16px; color: var(--ink); margin-bottom: 10px; font-family: 'Lora', serif; }
-  .info-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
-  .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-  .info-card li { font-size: 14px; color: var(--ink-soft); padding-left: 20px; position: relative; line-height: 1.5; }
-  .info-card li::before { content: ''; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--forest-light); }
+  .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .day-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border: 2px solid var(--cream-dark); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; background: var(--cream); font-size: 11px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.5px; user-select: none; }
+  .day-btn:hover { border-color: var(--forest-light); color: var(--forest); background: var(--forest-pale); }
+  .day-btn.selected { border-color: var(--forest-mid); background: var(--forest-pale); color: var(--forest); }
+  .day-btn input { display: none; }
+  .submit-btn { width: 100%; padding: 16px; background: var(--forest); color: white; font-size: 16px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+  .submit-btn:hover:not(:disabled) { background: var(--forest-mid); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .form-error { display: none; margin-top: 6px; font-size: 13px; color: var(--terra); font-weight: 600; }
+  .form-error.visible { display: block; }
+  .alert { padding: 14px 18px; border-radius: var(--radius-md); font-size: 14px; line-height: 1.6; margin-top: 20px; display: none; }
+  .alert.visible { display: flex; align-items: flex-start; gap: 12px; }
+  .alert-error { background: var(--terra-light); border: 1px solid rgba(196,113,74,0.3); color: #7a3820; }
+  .info-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .info-card { background: var(--white); border-radius: var(--radius-md); padding: 20px 22px; border: 1px solid var(--cream-dark); }
+  .info-card h4 { font-size: 15px; color: var(--ink); margin-bottom: 10px; font-family: 'Source Sans 3', sans-serif; font-weight: 700; }
+  .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .info-card li { font-size: 14px; color: var(--ink-soft); padding-left: 18px; position: relative; line-height: 1.5; }
+  .info-card li::before { content: ''; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--forest-light); }
   .privacy-card { background: var(--forest-pale); border-color: rgba(74,124,47,0.2); }
   .privacy-card h4 { color: var(--forest); }
-
-  /* Browse campaigns */
-  .browse-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
-  .browse-header h2 { font-size: 26px; color: var(--ink); }
-  .search-wrap { position: relative; }
-  .search-input { padding: 10px 14px 10px 40px; border: 1.5px solid var(--cream-dark); border-radius: var(--radius-sm); font-size: 14px; font-family: 'Source Sans 3', sans-serif; background: var(--white); color: var(--ink); outline: none; width: 240px; transition: border-color 0.2s; }
-  .search-input:focus { border-color: var(--forest-light); }
-  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--ink-muted); }
-
-  .campaigns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .campaign-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-soft); overflow: hidden; transition: all 0.25s; cursor: pointer; }
-  .campaign-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
-  .campaign-card-top { padding: 24px 24px 16px; }
-  .campaign-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--forest); display: flex; align-items: center; justify-content: center; font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: white; margin-bottom: 14px; }
-  .campaign-name { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 4px; font-family: 'Lora', serif; }
-  .campaign-meta { font-size: 13px; color: var(--ink-muted); margin-bottom: 12px; }
-  .campaign-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-  .campaign-card-bottom { padding: 16px 24px; border-top: 1px solid var(--cream-dark); background: var(--cream); }
-  .campaign-progress { margin-bottom: 10px; }
-  .camp-prog-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-muted); margin-bottom: 5px; }
-  .camp-prog-track { height: 6px; background: var(--cream-dark); border-radius: 100px; }
-  .camp-prog-fill { height: 100%; border-radius: 100px; background: var(--forest-mid); }
-  .campaign-slots-row { display: flex; align-items: center; justify-content: space-between; }
-  .slots-open { font-size: 13px; font-weight: 700; color: var(--forest); }
-  .view-btn { font-size: 13px; font-weight: 700; color: var(--white); background: var(--forest); border: none; padding: 6px 16px; border-radius: 100px; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; }
-  .view-btn:hover { background: var(--forest-mid); }
-
-  /* Demo campaign page view */
-  .campaign-view { display: none; }
-  .campaign-view.visible { display: block; }
-  .campaign-back { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--forest); margin-bottom: 24px; cursor: pointer; border: none; background: none; font-family: 'Source Sans 3', sans-serif; }
-  .campaign-view-layout { display: grid; grid-template-columns: 1fr 360px; gap: 36px; align-items: start; }
-  .campaign-main { display: flex; flex-direction: column; gap: 24px; }
-  .campaign-hero-card { background: var(--forest); border-radius: var(--radius-lg); padding: 32px; color: white; }
-  .campaign-hero-card h2 { font-size: 26px; color: white; margin-bottom: 6px; }
-  .campaign-hero-card p { color: rgba(255,255,255,0.75); font-size: 15px; margin-bottom: 20px; }
-  .campaign-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-  .cstat { background: rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
-  .cstat-val { font-size: 22px; font-weight: 700; font-family: 'Lora', serif; color: white; }
-  .cstat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .slots-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-soft); overflow: hidden; }
-  .slots-card-header { padding: 20px 24px; border-bottom: 1px solid var(--cream-dark); display: flex; align-items: center; justify-content: space-between; }
-  .slots-card-header h3 { font-size: 18px; color: var(--ink); }
-  .slots-list { padding: 16px 24px; display: flex; flex-direction: column; gap: 10px; }
-  .slot-row { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--cream-dark); }
-  .slot-row-open { background: var(--white); }
-  .slot-row-claimed { background: var(--amber-light); border-color: rgba(232,160,48,0.2); }
-  .slot-row-date { font-weight: 700; font-size: 14px; color: var(--ink); min-width: 100px; }
-  .slot-row-who { font-size: 13px; color: var(--ink-soft); flex: 1; }
-  .slot-claim-btn { font-size: 13px; font-weight: 700; color: white; background: var(--forest); border: none; padding: 8px 18px; border-radius: 100px; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; white-space: nowrap; }
+  #successOverlay { display: none; position: fixed; inset: 0; background: rgba(28,20,16,0.75); z-index: 999; align-items: center; justify-content: center; padding: 24px; }
+  #successOverlay.visible { display: flex; }
+  .success-modal { background: var(--white); border-radius: var(--radius-lg); padding: 48px 40px; max-width: 520px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--forest-pale); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .success-modal h2 { font-size: 26px; color: var(--ink); margin-bottom: 12px; }
+  .success-modal p { font-size: 16px; color: var(--ink-soft); margin-bottom: 24px; line-height: 1.7; }
+  .share-link-box { display: flex; gap: 10px; margin-bottom: 16px; }
+  .share-link-box input { flex: 1; padding: 12px 14px; border: 2px solid var(--forest-light); border-radius: var(--radius-sm); font-size: 13px; font-family: 'Source Sans 3', sans-serif; background: var(--forest-pale); color: var(--forest); font-weight: 600; outline: none; }
+  .copy-btn { padding: 12px 18px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; }
+  .copy-btn:hover { background: var(--forest-mid); }
+  .copy-btn.copied { background: var(--amber-dark); }
+  .success-note { font-size: 13px; color: var(--ink-soft); background: var(--amber-light); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; line-height: 1.6; text-align: left; }
+  .campaign-header { background: var(--forest); border-radius: var(--radius-lg); padding: 36px 40px; margin-bottom: 24px; color: white; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .campaign-header h2 { font-size: 28px; color: white; margin-bottom: 8px; }
+  .campaign-meta-txt { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+  .campaign-desc-txt { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.7; max-width: 560px; }
+  .campaign-stats { display: flex; gap: 16px; flex-shrink: 0; }
+  .stat-box { background: rgba(255,255,255,0.12); border-radius: var(--radius-md); padding: 14px 18px; text-align: center; }
+  .stat-num { font-size: 26px; font-weight: 700; font-family: 'Lora', serif; color: white; }
+  .stat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; }
+  .food-note { background: var(--amber-light); border: 1px solid rgba(232,160,48,0.3); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 24px; font-size: 14px; color: var(--ink-soft); }
+  .food-note strong { color: var(--amber-dark); }
+  .slots-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .slots-header h3 { font-size: 20px; color: var(--ink); }
+  .slots-grid { display: flex; flex-direction: column; gap: 10px; }
+  .slot-row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--radius-md); border: 1px solid var(--cream-dark); background: var(--white); }
+  .slot-row-claimed { background: var(--forest-pale); border-color: rgba(74,124,47,0.2); }
+  .slot-date { font-size: 15px; font-weight: 700; color: var(--ink); min-width: 130px; }
+  .slot-who { flex: 1; font-size: 14px; color: var(--ink-soft); }
+  .slot-badge { font-size: 12px; font-weight: 700; background: var(--forest-mid); color: white; padding: 3px 10px; border-radius: 100px; }
+  .slot-claim-btn { padding: 9px 20px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; white-space: nowrap; }
   .slot-claim-btn:hover { background: var(--forest-mid); }
-  .slot-claimed-label { font-size: 12px; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.4px; }
-  .campaign-sidebar { display: flex; flex-direction: column; gap: 20px; }
-  .share-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); padding: 24px; box-shadow: var(--shadow-soft); }
-  .share-card h4 { font-size: 16px; color: var(--ink); margin-bottom: 8px; font-family: 'Lora', serif; }
-  .share-card p { font-size: 13px; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.6; }
-  .share-link { display: flex; gap: 8px; }
-  .share-link input { flex: 1; padding: 9px 12px; border: 1.5px solid var(--cream-dark); border-radius: var(--radius-sm); font-size: 13px; font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--ink); outline: none; }
-  .share-copy-btn { padding: 9px 16px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; white-space: nowrap; }
-  .share-copy-btn:hover { background: var(--forest-mid); }
-  .note-card { background: var(--amber-light); border-radius: var(--radius-lg); border: 1px solid rgba(232,160,48,0.2); padding: 24px; }
-  .note-card h4 { font-size: 15px; color: var(--ink); margin-bottom: 8px; font-family: 'Lora', serif; }
-  .note-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.65; }
-
-  /* Claim modal */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(28,20,16,0.5); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--white); border-radius: var(--radius-lg); padding: 32px; max-width: 440px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-  .modal h3 { font-size: 22px; color: var(--ink); margin-bottom: 8px; }
-  .modal-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; }
-  .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+  .slots-loading { text-align: center; padding: 40px; color: var(--ink-muted); font-size: 15px; }
+  #bookingModal { display: none; position: fixed; inset: 0; background: rgba(28,20,16,0.75); z-index: 999; align-items: center; justify-content: center; padding: 24px; }
+  #bookingModal.open { display: flex; }
+  .modal-card { background: var(--white); border-radius: var(--radius-lg); padding: 36px 32px; max-width: 480px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+  .modal-card h3 { font-size: 22px; color: var(--ink); margin-bottom: 4px; }
+  .modal-date-lbl { font-size: 14px; color: var(--terra); font-weight: 700; margin-bottom: 20px; }
+  .modal-actions { display: flex; gap: 12px; margin-top: 20px; }
   .modal-cancel { flex: 1; padding: 12px; background: var(--cream); color: var(--ink-soft); border: 1.5px solid var(--cream-dark); border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Source Sans 3', sans-serif; }
   .modal-confirm { flex: 2; padding: 12px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; }
   .modal-confirm:hover { background: var(--forest-mid); }
-
-  /* Success banner */
-  .success-banner { display: none; background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.3); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 24px; display: none; align-items: center; gap: 14px; }
-  .success-banner.show { display: flex; }
-  .success-banner svg { width: 24px; height: 24px; flex-shrink: 0; }
-  .success-banner p { font-size: 15px; color: var(--forest); font-weight: 600; }
-
-  /* Footer */
+  .modal-confirm:disabled { opacity: 0.6; cursor: not-allowed; }
+  .address-reveal { background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.25); border-radius: var(--radius-md); padding: 12px 16px; margin-top: 14px; font-size: 14px; color: var(--forest); display: none; }
+  .browse-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+  .browse-header h2 { font-size: 26px; color: var(--ink); }
+  .campaigns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .campaign-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-soft); overflow: hidden; transition: all 0.25s; cursor: pointer; }
+  .campaign-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+  .campaign-card-top { padding: 20px 20px 14px; }
+  .campaign-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: white; margin-bottom: 12px; }
+  .campaign-card-name { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 4px; font-family: 'Lora', serif; }
+  .campaign-card-meta { font-size: 13px; color: var(--ink-muted); margin-bottom: 8px; }
+  .campaign-card-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+  .campaign-card-bottom { padding: 12px 20px; border-top: 1px solid var(--cream-dark); background: var(--cream); display: flex; align-items: center; justify-content: space-between; }
+  .slots-avail { font-size: 13px; color: var(--forest); font-weight: 700; }
+  .view-btn { padding: 8px 16px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; }
   footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 32px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-col h5 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; font-family: 'Source Sans 3', sans-serif; }
@@ -242,25 +163,24 @@
   .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .footer-bottom p { font-size: 13px; }
   .footer-disclaimer { font-size: 12px; color: rgba(255,255,255,0.35); max-width: 560px; text-align: right; line-height: 1.6; }
-
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spin { animation: spin 1s linear infinite; }
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
-    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: var(--cream); padding: 16px 24px 24px; border-bottom: 1px solid var(--cream-dark); box-shadow: 0 8px 32px rgba(0,0,0,0.08); z-index: 99; }
-    .page-hero-inner, .create-layout, .campaign-view-layout { grid-template-columns: 1fr; }
-    .demo-card { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: var(--cream); padding: 16px 24px 24px; border-bottom: 1px solid var(--cream-dark); z-index: 99; }
+    .form-layout { grid-template-columns: 1fr; }
+    .info-sidebar { display: none; }
+    .days-grid { grid-template-columns: repeat(4, 1fr); }
     .campaigns-grid { grid-template-columns: 1fr 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
   @media (max-width: 580px) {
-    .campaigns-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .footer-bottom { flex-direction: column; text-align: center; }
-    .footer-disclaimer { text-align: center; }
+    .campaigns-grid, .footer-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
+    .days-grid { grid-template-columns: repeat(4, 1fr); }
   }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -277,7 +197,7 @@
       <li><a href="supporters.html">Aðstandendafræðsla</a></li>
       <li><a href="calculator.html">Fjárhagsreiknivél</a></li>
       <li><a href="about.html">Um okkur</a></li>
-      <li><a href="meals.html#create" class="nav-cta">Stofna stuðningssíðu</a></li>
+      <li><a href="meals.html" class="nav-cta">Stofna stuðningssíðu</a></li>
     </ul>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
@@ -288,304 +208,245 @@
     <div class="breadcrumb-inner">
       <a href="index.html">Forsíða</a>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      <span>Máltíðasamræming</span>
+      <span>Máltíðir</span>
     </div>
   </div>
 </div>
 
 <section class="page-hero">
   <div class="page-hero-inner">
-    <div>
-      <div class="page-tag">Máltíðasamræming</div>
-      <h1>Láta hjartað tala<br><em>með mat á borðið.</em></h1>
-      <p class="page-hero-lead">Búðu til herferðarsíðu fyrir fjölskyldu í þörf. Vinir og ættingjar geta skráð sig í að koma með mat á ákveðnum dögum — og kerfið sér um að minna þá á það.</p>
-      <div class="hero-btns">
-        <a href="#" class="btn-primary" onclick="switchTab('create'); return false;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          Stofna stuðningssíðu
-        </a>
-        <a href="#" class="btn-secondary" onclick="switchTab('browse'); return false;">Skoða herferðir</a>
-      </div>
-    </div>
-    <div class="demo-card">
-      <div class="demo-card-header">
-        <p>Máltíðaherferð</p>
-        <h3>Fjölskylda Einarsdóttir</h3>
-        <span>Reykjavík · Barnaspítalinn</span>
-      </div>
-      <div class="demo-card-body">
-        <div class="demo-progress">
-          <div class="demo-progress-label"><span>9 af 15 dögum teknir</span><span>60%</span></div>
-          <div class="progress-track"><div class="progress-fill"></div></div>
-        </div>
-        <div class="demo-slots">
-          <div class="demo-slot slot-claimed"><span class="slot-date">Mán 13. jan</span><div><div class="slot-person">Helga Sigurðardóttir</div><div class="slot-claimed-tag">✓ Tekið</div></div></div>
-          <div class="demo-slot slot-open"><span class="slot-date">Þri 14. jan</span><button class="slot-btn">Skrá mig</button></div>
-          <div class="demo-slot slot-open"><span class="slot-date">Mið 15. jan</span><button class="slot-btn">Skrá mig</button></div>
-          <div class="demo-slot slot-claimed"><span class="slot-date">Fim 16. jan</span><div><div class="slot-person">Björn Jónsson</div><div class="slot-claimed-tag">✓ Tekið</div></div></div>
-        </div>
-      </div>
+    <div class="page-tag">Máltíðasamræming</div>
+    <h1>Láta hjartað tala <em>með mat á borðið.</em></h1>
+    <p class="page-hero-lead">Búðu til stuðningssíðu og leyfðu vinum og fjölskyldu að skrá sig til að koma með mat. Kerfið sér um áminningarnar.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showView('create')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Stofna stuðningssíðu
+      </button>
+      <button class="btn-secondary" onclick="showView('browse'); loadBrowse();">Skoða virkar síður</button>
     </div>
   </div>
 </section>
 
-<!-- Tabs -->
-<div class="page-tabs">
-  <div class="tabs-inner">
-    <button class="tab-btn active" id="tab-create" onclick="switchTab('create')">Stofna stuðningssíðu</button>
-    <button class="tab-btn" id="tab-browse" onclick="switchTab('browse')">Skoða herferðir</button>
+<div class="container">
+  <div class="alert alert-error" id="globalAlert" style="margin-top:20px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <span id="globalAlertText"></span>
   </div>
 </div>
 
-<!-- Create tab -->
-<div class="tab-panel active" id="panel-create">
-  <div class="create-layout">
-    <div class="form-card" id="create">
-      <div class="form-card-header">
-        <h3>Ný máltíðaherferð</h3>
-        <p>Fylltu inn upplýsingarnar og við búum til herferðarsíðu fyrir þig</p>
-      </div>
-      <div class="form-body">
-        <div class="form-section-title">Um fjölskylduna</div>
-        <div class="form-group">
-          <label class="form-label">Nafn fjölskyldu / barns</label>
-          <input type="text" class="form-input" placeholder="t.d. Fjölskylda Einarsdóttir eða Jón Einarsson">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Borg / hverfi</label>
-            <input type="text" class="form-input" placeholder="t.d. Reykjavík">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Sjúkrahús <span class="form-hint">(valkvæmt)</span></label>
-            <input type="text" class="form-input" placeholder="t.d. Barnaspítalinn">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Stutt lýsing <span class="form-hint">(birtist á herferðarsíðunni)</span></label>
-          <textarea class="form-textarea" placeholder="t.d. Jón er að fara í meðferð og við þurfum aðstoð með mat í nokkrar vikur. Allt er þakkansælt!"></textarea>
-        </div>
+<div class="main-content container">
 
-        <hr class="divider">
-        <div class="form-section-title">Máltíðatímabil</div>
-        <div class="form-group">
-          <label class="form-label">Hvenær þarf fjölskyldan aðstoð?</label>
-          <div class="date-range">
-            <input type="text" class="form-input" id="startDate" placeholder="Frá dagsetningu..." readonly style="flex:1; cursor:pointer;">
-            <span>til</span>
-            <input type="text" class="form-input" id="endDate" placeholder="Til dagsetningar..." readonly style="flex:1; cursor:pointer;">
-          </div>
+  <!-- CREATE VIEW -->
+  <div id="viewCreate">
+    <div class="form-layout">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Ný stuðningssíða</h3>
+          <p>Fylltu inn upplýsingarnar — við búum til síðuna á nokkrum sekúndum</p>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Hversu oft á viku?</label>
-            <div class="select-wrap">
-              <select class="form-select">
-                <option>Á hverjum degi</option>
-                <option selected>3–4 sinnum í viku</option>
-                <option>2 sinnum í viku</option>
-                <option>1 sinni í viku</option>
-              </select>
+        <div class="form-body">
+          <div class="form-section">
+            <div class="form-section-title">1 — Um fjölskylduna</div>
+            <div class="form-group">
+              <label class="form-label">Nafn fjölskyldu eða barns *</label>
+              <input type="text" class="form-input" id="familyName" placeholder="t.d. Fjölskylda Einarsdóttir eða Jón">
+              <div class="form-error" id="err-familyName">Vinsamlegast skráðu nafn fjölskyldunnar</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Stutt lýsing <span class="form-hint">(valkvæmt — birtist á síðunni)</span></label>
+              <textarea class="form-textarea" id="description" placeholder="t.d. Jón er að fara í meðferð og við þökkum öllum stuðning kærlega..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Fæðuóskir eða ofnæmi <span class="form-hint">(valkvæmt)</span></label>
+              <textarea class="form-textarea" id="foodNotes" placeholder="t.d. Glúteinlaust, barnið elskar pasta, forðastu hnetur..."></textarea>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Afhendingartími</label>
-            <div class="select-wrap">
-              <select class="form-select">
-                <option>17:00–18:00</option>
-                <option>18:00–19:00</option>
-                <option>Sveigjanlegur</option>
-              </select>
+          <hr class="divider">
+          <div class="form-section">
+            <div class="form-section-title">2 — Afhending</div>
+            <div class="form-group">
+              <label class="form-label">Heimilisfang afhendingar *</label>
+              <input type="text" class="form-input" id="address" placeholder="Gata og húsnúmer, póstnúmer — sýnt aðeins eftir bókun">
+              <div class="form-error" id="err-address">Vinsamlegast skráðu heimilisfangið</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Afhendingartími *</label>
+              <div class="select-wrap">
+                <select class="form-select" id="deliveryTime">
+                  <option value="17:00-18:00">17:00–18:00</option>
+                  <option value="18:00-19:00" selected>18:00–19:00</option>
+                  <option value="19:00-20:00">19:00–20:00</option>
+                  <option value="Sveigjanlegur">Sveigjanlegur</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-
-        <hr class="divider">
-        <div class="form-section-title">Fæðuóskir og ofnæmi</div>
-        <div class="form-group">
-          <label class="form-label">Fæðuóskir eða takmarkanir <span class="form-hint">(valkvæmt)</span></label>
-          <textarea class="form-textarea" placeholder="t.d. Glúteinlaust, gjarnan barnavænn matur, barnið elskar pasta..."></textarea>
-        </div>
-
-        <hr class="divider">
-        <div class="form-section-title">Tengiliðaupplýsingar</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nafn tengiliðs</label>
-            <input type="text" class="form-input" placeholder="Nafn þitt">
+          <hr class="divider">
+          <div class="form-section">
+            <div class="form-section-title">3 — Tímabil</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Frá *</label>
+                <input type="date" class="form-input" id="startDate">
+                <div class="form-error" id="err-dates">Vinsamlegast veldu gildar dagsetningar</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Til *</label>
+                <input type="date" class="form-input" id="endDate">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hvaða dagar henta? *</label>
+              <div class="days-grid" id="daysGrid">
+                <label class="day-btn" data-day="mon"><input type="checkbox" value="mon">Mán</label>
+                <label class="day-btn" data-day="tue"><input type="checkbox" value="tue">Þri</label>
+                <label class="day-btn" data-day="wed"><input type="checkbox" value="wed">Mið</label>
+                <label class="day-btn" data-day="thu"><input type="checkbox" value="thu">Fim</label>
+                <label class="day-btn" data-day="fri"><input type="checkbox" value="fri">Fös</label>
+                <label class="day-btn" data-day="sat"><input type="checkbox" value="sat">Lau</label>
+                <label class="day-btn" data-day="sun"><input type="checkbox" value="sun">Sun</label>
+              </div>
+              <div class="form-error" id="err-days">Vinsamlegast veldu að minnsta kosti einn dag</div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Netfang</label>
-            <input type="email" class="form-input" placeholder="netfang@dæmi.is">
+          <hr class="divider">
+          <div class="form-section">
+            <div class="form-section-title">4 — Tengiliður <span class="form-hint" style="text-transform:none;letter-spacing:0;">(sýnt aldrei opinberlega)</span></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Nafn þitt *</label>
+                <input type="text" class="form-input" id="contactName" placeholder="Fullt nafn">
+                <div class="form-error" id="err-contactName">Vinsamlegast skráðu nafnið þitt</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Netfang *</label>
+                <input type="email" class="form-input" id="contactEmail" placeholder="netfang@daemi.is">
+                <div class="form-error" id="err-contactEmail">Vinsamlegast skráðu gilt netfang</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Símanúmer <span class="form-hint">(valkvæmt — sent til stuðningsmanna eftir bókun)</span></label>
+              <input type="tel" class="form-input" id="contactPhone" placeholder="t.d. 5551234">
+            </div>
           </div>
+          <button class="submit-btn" id="submitBtn" onclick="createCampaign()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+            Stofna stuðningssíðu
+          </button>
         </div>
-        <div class="form-group">
-          <label class="form-label">Heimilisfang afhendingar</label>
-          <input type="text" class="form-input" placeholder="Gata og húsnúmer, póstnúmer">
+      </div>
+      <div class="info-sidebar">
+        <div class="info-card">
+          <h4>Hvernig virkar þetta?</h4>
+          <ul>
+            <li>Þú fyllir inn eyðublaðið og við búum til sérstaka stuðningssíðu</li>
+            <li>Þú færð einkvæman tengil til að deila með vinum og fjölskyldu</li>
+            <li>Stuðningsmenn skrá sig í ákveðna daga</li>
+            <li>Heimilisfangið er aðeins sýnt eftir bókun</li>
+          </ul>
         </div>
-
-        <hr class="divider">
-        <button class="submit-btn" onclick="showCreateSuccess()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          Stofna stuðningssíðu og senda tengil
-        </button>
-      </div>
-    </div>
-
-    <div class="info-sidebar">
-      <div class="info-card">
-        <h4>Hvernig virkar þetta?</h4>
-        <ul>
-          <li>Þú fyllir inn eyðublaðið og við búum til sérstaka herferðarsíðu</li>
-          <li>Þú færð einkvæman tengil til að deila með vinum og fjölskyldu</li>
-          <li>Stuðningsmenn skrá sig í ákveðna daga</li>
-          <li>Kerfið sendir sjálfkrafa tölvupóstáminningar daginn áður</li>
-          <li>Þú getur séð stöðuna hvenær sem er</li>
-        </ul>
-      </div>
-      <div class="info-card privacy-card">
-        <h4>Persónuvernd</h4>
-        <p>Herferðarsíðan er aðeins aðgengileg þeim sem hafa tengilinn. Engar persónuuplýsingar eru seldar eða deildar með þriðja aðila. Við geymum aðeins nauðsynlegar upplýsingar til að reka herferðina.</p>
-      </div>
-      <div class="info-card">
-        <h4>Tölvupóstáminning</h4>
-        <p>Daginn áður en stuðningsmaður á að koma sendir kerfið sjálfkrafa áminningu með heimilisfangi, tíma og öllum upplýsingum. Ekkert gleymist.</p>
+        <div class="info-card privacy-card">
+          <h4>Persónuvernd</h4>
+          <ul>
+            <li>Stuðningssíðan er aðeins aðgengileg þeim sem hafa tengilinn</li>
+            <li>Heimilisfang og símanúmer fara aðeins til þeirra sem bóka</li>
+            <li>Netfangið þitt er aldrei sýnt opinberlega</li>
+            <li>Við deilum aldrei gögnum með þriðja aðila</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Success state (hidden) -->
-  <div id="createSuccess" style="display:none; max-width: 600px; margin: 0 auto; text-align: center; padding: 60px 24px;">
-    <div style="width:72px;height:72px;border-radius:50%;background:var(--forest-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+  <!-- CAMPAIGN VIEW -->
+  <div id="viewCampaign">
+    <div style="margin-bottom:16px;">
+      <button onclick="showView('browse'); loadBrowse();" style="background:none;border:none;cursor:pointer;color:var(--forest);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;padding:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Til baka
+      </button>
+    </div>
+    <div class="campaign-header">
+      <div style="flex:1;">
+        <h2 id="cv-name">—</h2>
+        <div class="campaign-meta-txt" id="cv-meta">—</div>
+        <div class="campaign-desc-txt" id="cv-desc"></div>
+      </div>
+      <div class="campaign-stats">
+        <div class="stat-box"><div class="stat-num" id="cv-total">—</div><div class="stat-lbl">Dagar</div></div>
+        <div class="stat-box"><div class="stat-num" id="cv-claimed">—</div><div class="stat-lbl">Teknir</div></div>
+        <div class="stat-box"><div class="stat-num" id="cv-open">—</div><div class="stat-lbl">Lausir</div></div>
+      </div>
+    </div>
+    <div class="food-note" id="cv-food" style="display:none;">
+      <strong>Fæðuóskir:</strong> <span id="cv-food-text"></span>
+    </div>
+    <div class="slots-header">
+      <h3>Máltíðadagar</h3>
+      <span style="font-size:13px;color:var(--ink-muted);" id="cv-time"></span>
+    </div>
+    <div class="slots-grid" id="slotsGrid">
+      <div class="slots-loading">Sæki dagana...</div>
+    </div>
+  </div>
+
+  <!-- BROWSE VIEW -->
+  <div id="viewBrowse">
+    <div class="browse-header">
+      <h2>Virkar stuðningssíður</h2>
+      <button class="btn-primary" onclick="showView('create')" style="font-size:14px;padding:10px 18px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Stofna nýja síðu
+      </button>
+    </div>
+    <div class="campaigns-grid" id="campaignsGrid">
+      <div class="slots-loading" style="grid-column:1/-1;">Sæki stuðningssíður...</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Success overlay -->
+<div id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
     </div>
-    <h2 style="color:var(--ink);font-size:28px;margin-bottom:12px;">Herferðin er tilbúin!</h2>
-    <p style="color:var(--ink-soft);font-size:17px;margin-bottom:28px;">Hér er tengilinn þinn. Deildu honum með vinum og fjölskyldu.</p>
-    <div style="background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--radius-md);padding:16px 20px;display:flex;gap:10px;align-items:center;margin-bottom:24px;">
-      <input type="text" value="samstillt.is/herferð/einarsdottir-2025" style="flex:1;border:none;background:none;font-size:14px;color:var(--ink);font-family:'Source Sans 3',sans-serif;outline:none;">
-      <button onclick="this.textContent='Afritað!';setTimeout(()=>this.textContent='Afrita',2000)" style="background:var(--forest);color:white;border:none;padding:8px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;white-space:nowrap;">Afrita</button>
+    <h2>Stuðningssíðan þín er tilbúin!</h2>
+    <p>Hér er tengilinn sem þú getur sent á vini og vandamenn. Þeir geta skráð sig í mat með einum smelli.</p>
+    <div class="share-link-box">
+      <input type="text" id="shareLink" readonly>
+      <button class="copy-btn" id="copyBtn" onclick="copyShareLink()">Afrita</button>
     </div>
-    <button onclick="document.getElementById('createSuccess').style.display='none';document.querySelector('.form-card').style.display='block';" style="background:none;border:none;color:var(--forest);font-size:14px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;">← Fara aftur í eyðublaðið</button>
+    <div class="success-note">Vistaðu tengilinn — þú þarft hann til að skoða og stjórna síðunni þinni.</div>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="goToCampaign()">Skoða stuðningssíðuna</button>
   </div>
 </div>
 
-<!-- Browse tab -->
-<div class="tab-panel" id="panel-browse">
-  <div id="campaignListView">
-    <div class="browse-header">
-      <h2>Virkar herferðir</h2>
-      <div class="search-wrap">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" class="search-input" placeholder="Leita að herferð...">
-      </div>
-    </div>
-    <div class="campaigns-grid">
-      <div class="campaign-card" onclick="showCampaign('einar')">
-        <div class="campaign-card-top">
-          <div class="campaign-avatar" style="background:var(--forest);">E</div>
-          <div class="campaign-name">Fjölskylda Einarsdóttir</div>
-          <div class="campaign-meta">Reykjavík · Barnaspítalinn · Byrjaði 8. jan</div>
-          <div class="campaign-desc">Arna er 7 ára og er að fara í meðferð. Við þökkum öllum stuðning — smátt og stórt.</div>
-        </div>
-        <div class="campaign-card-bottom">
-          <div class="campaign-progress"><div class="camp-prog-label"><span>9 af 15 dögum teknir</span><span>60%</span></div><div class="camp-prog-track"><div class="camp-prog-fill" style="width:60%;"></div></div></div>
-          <div class="campaign-slots-row"><span class="slots-open">6 dagar lausir</span><button class="view-btn">Sjá herferð</button></div>
-        </div>
-      </div>
-      <div class="campaign-card" onclick="showCampaign('sigurds')">
-        <div class="campaign-card-top">
-          <div class="campaign-avatar" style="background:var(--terra);">S</div>
-          <div class="campaign-name">Fjölskylda Sigurðsson</div>
-          <div class="campaign-meta">Akureyri · Sjúkrahúsið á Akureyri · Byrjaði 3. jan</div>
-          <div class="campaign-desc">Bjarni er 12 ára. Við erum langt frá heimilinu og þökkum allan stuðning.</div>
-        </div>
-        <div class="campaign-card-bottom">
-          <div class="campaign-progress"><div class="camp-prog-label"><span>4 af 12 dögum teknir</span><span>33%</span></div><div class="camp-prog-track"><div class="camp-prog-fill" style="width:33%;background:var(--terra);"></div></div></div>
-          <div class="campaign-slots-row"><span class="slots-open">8 dagar lausir</span><button class="view-btn">Sjá herferð</button></div>
-        </div>
-      </div>
-      <div class="campaign-card" onclick="showCampaign('holm')">
-        <div class="campaign-card-top">
-          <div class="campaign-avatar" style="background:var(--amber-dark);">H</div>
-          <div class="campaign-name">Fjölskylda Hólm</div>
-          <div class="campaign-meta">Hafnarfjörður · Barnaspítalinn · Byrjaði 10. jan</div>
-          <div class="campaign-desc">Lísa er 4 ára. Foreldrar hennar þakka öllum sem vilja koma með mat á þessum erfiðu tímum.</div>
-        </div>
-        <div class="campaign-card-bottom">
-          <div class="campaign-progress"><div class="camp-prog-label"><span>2 af 10 dögum teknir</span><span>20%</span></div><div class="camp-prog-track"><div class="camp-prog-fill" style="width:20%;background:var(--amber);"></div></div></div>
-          <div class="campaign-slots-row"><span class="slots-open">8 dagar lausir</span><button class="view-btn">Sjá herferð</button></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Individual campaign view -->
-  <div class="campaign-view" id="campaignDetailView">
-    <button class="campaign-back" onclick="hideCampaign()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Til baka í herferðir
-    </button>
-    <div class="campaign-view-layout">
-      <div class="campaign-main">
-        <div class="campaign-hero-card">
-          <h2 id="cv-name">Fjölskylda Einarsdóttir</h2>
-          <p id="cv-meta">Reykjavík · Barnaspítalinn · Byrjaði 8. janúar 2025</p>
-          <div class="campaign-stats">
-            <div class="cstat"><div class="cstat-val" id="cv-total">15</div><div class="cstat-lbl">Dagar samtals</div></div>
-            <div class="cstat"><div class="cstat-val" id="cv-claimed">9</div><div class="cstat-lbl">Teknir</div></div>
-            <div class="cstat"><div class="cstat-val" id="cv-open">6</div><div class="cstat-lbl">Lausir</div></div>
-          </div>
-        </div>
-        <div class="slots-card">
-          <div class="slots-card-header">
-            <h3>Máltíðadagar</h3>
-            <span style="font-size:13px;color:var(--ink-muted);">Smelltu á „Skrá mig" til að taka dag</span>
-          </div>
-          <div class="slots-list" id="slotsList"></div>
-        </div>
-      </div>
-      <div class="campaign-sidebar">
-        <div class="share-card">
-          <h4>Deila herferðinni</h4>
-          <p>Sendu þennan tengil til vina og fjölskyldu sem gætu viljað hjálpa.</p>
-          <div class="share-link">
-            <input type="text" value="samstillt.is/e/einarsdottir" readonly>
-            <button class="share-copy-btn" onclick="this.textContent='Afritað!';setTimeout(()=>this.textContent='Afrita',2000)">Afrita</button>
-          </div>
-        </div>
-        <div class="note-card">
-          <h4>Athugasemd frá fjölskyldunni</h4>
-          <p id="cv-note">Arna er 7 ára og er að fara í meðferð á Barnaspítalanum. Við þökkum öllum stuðning kærlega. Vinsamlegast skilaðu mat við útidyr. Allur matur er þakkansæll!</p>
-        </div>
-        <div class="info-card">
-          <h4>Þín skráning</h4>
-          <p>Þegar þú skráir þig færðu sjálfkrafa tölvupóstáminning daginn áður með heimilisfangi og öllum upplýsingum.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Claim modal -->
-<div class="modal-overlay" id="claimModal">
-  <div class="modal">
-    <h3>Skrá þig í máltíð</h3>
-    <p class="modal-sub" id="modalDate">Þriðjudagur 14. janúar</p>
+<!-- Booking modal -->
+<div id="bookingModal">
+  <div class="modal-card">
+    <h3>Skrá þig í mat</h3>
+    <div class="modal-date-lbl" id="modalDateLabel">—</div>
     <div class="form-group">
-      <label class="form-label">Nafn þitt</label>
+      <label class="form-label">Nafn þitt *</label>
       <input type="text" class="form-input" id="claimName" placeholder="Fullt nafn">
     </div>
     <div class="form-group">
-      <label class="form-label">Netfang <span class="form-hint">(fyrir áminningarpóst)</span></label>
-      <input type="email" class="form-input" id="claimEmail" placeholder="netfang@dæmi.is">
+      <label class="form-label">Netfang * <span class="form-hint">(fyrir áminningu daginn áður)</span></label>
+      <input type="email" class="form-input" id="claimEmail" placeholder="netfang@daemi.is">
     </div>
     <div class="form-group">
       <label class="form-label">Skilaboð til fjölskyldunnar <span class="form-hint">(valkvæmt)</span></label>
-      <textarea class="form-textarea" id="claimMsg" placeholder="t.d. Ég er að koma með pasta með kjúklingi!" style="min-height:70px;"></textarea>
+      <textarea class="form-textarea" id="claimMsg" placeholder="Hér er eitthvað hlýlegt..." style="min-height:70px;"></textarea>
+    </div>
+    <div class="address-reveal" id="addressReveal">
+      <strong>Heimilisfang afhendingar:</strong> <span id="addressText"></span>
     </div>
     <div class="modal-actions">
-      <button class="modal-cancel" onclick="closeModal()">Hætta við</button>
-      <button class="modal-confirm" onclick="confirmClaim()">Staðfesta skráningu</button>
+      <button class="modal-cancel" onclick="closeBookingModal()">Hætta við</button>
+      <button class="modal-confirm" id="confirmBtn" onclick="confirmBooking()">Staðfesta skráningu</button>
     </div>
   </div>
 </div>
@@ -613,161 +474,309 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-// Flatpickr Icelandic config
-const IS_LOCALE = {
-  months: {
-    longhand: ['Janúar','Febrúar','Mars','Apríl','Maí','Júní','Júlí','Ágúst','September','Október','Nóvember','Desember'],
-    shorthand: ['jan','feb','mar','apr','maí','jún','júl','ágú','sep','okt','nóv','des']
-  },
-  weekdays: {
-    longhand: ['Sunnudagur','Mánudagur','Þriðjudagur','Miðvikudagur','Fimmtudagur','Föstudagur','Laugardagur'],
-    shorthand: ['Sun','Mán','Þri','Mið','Fim','Fös','Lau']
-  },
-  firstDayOfWeek: 1
-};
+const SUPABASE_URL = 'https://xgfrjxewmlkugcwqzqvb.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnZnJqeGV3bWxrdWdjd3F6cXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMjk0NTgsImV4cCI6MjA5MDYwNTQ1OH0.wm47_OgR7-vzho2zgWzgAJ-K5taPHPf3KaG6RablMKk';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-flatpickr('#startDate', { locale: IS_LOCALE, dateFormat: 'j. F Y', disableMobile: false });
-flatpickr('#endDate',   { locale: IS_LOCALE, dateFormat: 'j. F Y', disableMobile: false });
+let currentCampaign = null;
+let currentAddress = null;
+let pendingSlotId = null;
+let pendingSlotDate = null;
 
-function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  document.getElementById('panel-' + tab).classList.add('active');
-  if (tab === 'create') {
-    document.getElementById('create').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
+const DAY_MAP = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
 
-const campaigns = {
-  einar: {
-    name: 'Fjölskylda Einarsdóttir', meta: 'Reykjavík · Barnaspítalinn · Byrjaði 8. janúar 2025',
-    note: 'Arna er 7 ára og er að fara í meðferð á Barnaspítalanum. Við þökkum öllum stuðning kærlega. Vinsamlegast skilaðu mat við útidyr. Allur matur er þakkansæll!',
-    slots: [
-      { date: 'Mán 13. jan', claimed: true, who: 'Helga Sigurðardóttir' },
-      { date: 'Þri 14. jan', claimed: false },
-      { date: 'Mið 15. jan', claimed: false },
-      { date: 'Fim 16. jan', claimed: true, who: 'Björn Jónsson' },
-      { date: 'Fös 17. jan', claimed: false },
-      { date: 'Mán 20. jan', claimed: true, who: 'Anna Kristjánsdóttir' },
-      { date: 'Þri 21. jan', claimed: false },
-      { date: 'Mið 22. jan', claimed: true, who: 'Gunnar Óskarsson' },
-      { date: 'Fim 23. jan', claimed: false },
-    ]
-  },
-  sigurds: {
-    name: 'Fjölskylda Sigurðsson', meta: 'Akureyri · Sjúkrahúsið á Akureyri · Byrjaði 3. janúar 2025',
-    note: 'Bjarni er 12 ára. Við erum langt frá heimilinu og þökkum allan stuðning kærlega.',
-    slots: [
-      { date: 'Mán 13. jan', claimed: true, who: 'Jóna Magnúsdóttir' },
-      { date: 'Þri 14. jan', claimed: false },
-      { date: 'Mið 15. jan', claimed: false },
-      { date: 'Fim 16. jan', claimed: false },
-      { date: 'Fös 17. jan', claimed: true, who: 'Sigríður Ólafsdóttir' },
-      { date: 'Mán 20. jan', claimed: false },
-    ]
-  },
-  holm: {
-    name: 'Fjölskylda Hólm', meta: 'Hafnarfjörður · Barnaspítalinn · Byrjaði 10. janúar 2025',
-    note: 'Lísa er 4 ára. Foreldrar hennar þakka öllum sem vilja koma með mat.',
-    slots: [
-      { date: 'Mán 13. jan', claimed: true, who: 'Margrét Þórsdóttir' },
-      { date: 'Þri 14. jan', claimed: false },
-      { date: 'Mið 15. jan', claimed: false },
-      { date: 'Fim 16. jan', claimed: false },
-      { date: 'Fös 17. jan', claimed: true, who: 'Kristján Sigurjónsson' },
-      { date: 'Mán 20. jan', claimed: false },
-      { date: 'Þri 21. jan', claimed: false },
-      { date: 'Mið 22. jan', claimed: false },
-    ]
-  }
-};
+// Expose to global
+window.showView = showView;
+window.createCampaign = createCampaign;
+window.loadBrowse = loadBrowse;
+window.loadCampaign = loadCampaign;
+window.closeBookingModal = closeBookingModal;
+window.confirmBooking = confirmBooking;
+window.copyShareLink = copyShareLink;
+window.goToCampaign = goToCampaign;
+window.openBookingModal = openBookingModal;
 
-let currentCampaign = 'einar';
-let pendingSlot = null;
-
-function showCampaign(id) {
-  currentCampaign = id;
-  const c = campaigns[id];
-  document.getElementById('cv-name').textContent = c.name;
-  document.getElementById('cv-meta').textContent = c.meta;
-  document.getElementById('cv-note').textContent = c.note;
-  const total = c.slots.length;
-  const claimed = c.slots.filter(s => s.claimed).length;
-  document.getElementById('cv-total').textContent = total;
-  document.getElementById('cv-claimed').textContent = claimed;
-  document.getElementById('cv-open').textContent = total - claimed;
-  renderSlots();
-  document.getElementById('campaignListView').style.display = 'none';
-  document.getElementById('campaignDetailView').classList.add('visible');
+function showView(view) {
+  document.getElementById('viewCreate').classList.remove('active');
+  document.getElementById('viewCampaign').classList.remove('active');
+  document.getElementById('viewBrowse').classList.remove('active');
+  const map = { create: 'viewCreate', campaign: 'viewCampaign', browse: 'viewBrowse' };
+  document.getElementById(map[view]).classList.add('active');
+  document.getElementById('globalAlert').classList.remove('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function hideCampaign() {
-  document.getElementById('campaignDetailView').classList.remove('visible');
-  document.getElementById('campaignListView').style.display = 'block';
+function generateSlug() {
+  const c = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  return Array.from({length: 10}, () => c[Math.floor(Math.random() * c.length)]).join('');
 }
 
-function renderSlots() {
-  const c = campaigns[currentCampaign];
-  const list = document.getElementById('slotsList');
-  list.innerHTML = '';
-  c.slots.forEach((slot, i) => {
-    const row = document.createElement('div');
-    row.className = 'slot-row ' + (slot.claimed ? 'slot-row-claimed' : 'slot-row-open');
-    if (slot.claimed) {
-      row.innerHTML = `<div class="slot-row-date">${slot.date}</div><div class="slot-row-who">${slot.who}</div><span class="slot-claimed-label">✓ Tekið</span>`;
-    } else {
-      row.innerHTML = `<div class="slot-row-date">${slot.date}</div><div class="slot-row-who" style="color:var(--ink-muted);">Laust</div><button class="slot-claim-btn" onclick="openModal(${i}, '${slot.date}')">Skrá mig</button>`;
+function formatDateIS(ds) {
+  const days = ['Sun','Man','Tri','Mid','Fim','Fos','Lau'];
+  const months = ['jan','feb','mar','apr','mai','jun','jul','agu','sep','okt','nov','des'];
+  const d = new Date(ds + 'T00:00:00');
+  const dayNames = ['Sun','Man','Tri','Mid','Fim','Fos','Lau'];
+  const dayNamesIS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const fullDays = ['Sunnudagur','Manudagur','Pridudagur','Midvikudagur','Fimmtudagur','Fostudagur','Laugardagur'];
+  const fullDaysIS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const DAYS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const IS_DAYS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const dayIS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  return DAYS[d.getDay()] + " " + d.getDate() + ". " + months[d.getMonth()];
+}
+
+function formatDateISFull(ds) {
+  const months = ['jan','feb','mar','apr','mai','jun','jul','agu','sep','okt','nov','des'];
+  const DAYS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const d = new Date(ds + 'T00:00:00');
+  return DAYS[d.getDay()] + " " + d.getDate() + ". " + months[d.getMonth()];
+}
+
+function getSelectedDays() {
+  return Array.from(document.querySelectorAll('#daysGrid input:checked')).map(cb => cb.value);
+}
+
+function generateSlotDates(start, end, days) {
+  const slots = [];
+  const cur = new Date(start + 'T00:00:00');
+  const endD = new Date(end + 'T00:00:00');
+  while (cur <= endD) {
+    if (days.includes(DAY_MAP[cur.getDay()])) {
+      slots.push(cur.toISOString().split('T')[0]);
     }
-    list.appendChild(row);
+    cur.setDate(cur.getDate() + 1);
+  }
+  return slots;
+}
+
+function showAlert(msg) {
+  const el = document.getElementById('globalAlert');
+  document.getElementById('globalAlertText').textContent = msg;
+  el.classList.add('visible');
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function validateForm() {
+  let ok = true;
+  const hide = id => document.getElementById(id).classList.remove('visible');
+  const show = id => { document.getElementById(id).classList.add('visible'); ok = false; };
+  ['err-familyName','err-address','err-dates','err-days','err-contactName','err-contactEmail'].forEach(hide);
+  if (!document.getElementById('familyName').value.trim()) show('err-familyName');
+  if (!document.getElementById('address').value.trim()) show('err-address');
+  const s = document.getElementById('startDate').value;
+  const e = document.getElementById('endDate').value;
+  if (!s || !e || e < s) show('err-dates');
+  if (getSelectedDays().length === 0) show('err-days');
+  if (!document.getElementById('contactName').value.trim()) show('err-contactName');
+  const em = document.getElementById('contactEmail').value.trim();
+  if (!em || !em.includes('@')) show('err-contactEmail');
+  return ok;
+}
+
+async function createCampaign() {
+  if (!validateForm()) return;
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Stofna...';
+  try {
+    const slug = generateSlug();
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+    const days = getSelectedDays();
+    const addr = document.getElementById('address').value.trim();
+    const { data: camp, error: ce } = await supabase.from('campaigns').insert({
+      slug, family_name: document.getElementById('familyName').value.trim(),
+      description: document.getElementById('description').value.trim() || null,
+      food_notes: document.getElementById('foodNotes').value.trim() || null,
+      address: addr, delivery_time: document.getElementById('deliveryTime').value,
+      start_date: start, end_date: end, delivery_days: days,
+      contact_name: document.getElementById('contactName').value.trim(),
+      contact_email: document.getElementById('contactEmail').value.trim(),
+      contact_phone: document.getElementById('contactPhone').value.trim() || null,
+    }).select().single();
+    if (ce) throw ce;
+    const dates = generateSlotDates(start, end, days);
+    if (dates.length > 0) {
+      const { error: se } = await supabase.from('slots').insert(
+        dates.map(d => ({ campaign_id: camp.id, slot_date: d, is_claimed: false }))
+      );
+      if (se) throw se;
+    }
+    currentCampaign = camp;
+    currentAddress = addr;
+    const url = window.location.origin + window.location.pathname + '?id=' + slug;
+    document.getElementById('shareLink').value = url;
+    document.getElementById('successOverlay').classList.add('visible');
+  } catch (err) {
+    console.error(err);
+    showAlert('Eitthvað fór úrskeiðis þegar við vorum að búa til stuðningssíðuna. Vinsamlegast reyndu aftur — ef vandinn heldur áfram, hafðu samband við okkur.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Stofna stuðningssíðu';
+  }
+}
+
+function copyShareLink() {
+  const inp = document.getElementById('shareLink');
+  inp.select();
+  navigator.clipboard.writeText(inp.value).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Afritað!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Afrita'; btn.classList.remove('copied'); }, 2500);
   });
 }
 
-function openModal(slotIdx, date) {
-  pendingSlot = slotIdx;
-  document.getElementById('modalDate').textContent = date;
+function goToCampaign() {
+  document.getElementById('successOverlay').classList.remove('visible');
+  if (currentCampaign) loadCampaign(currentCampaign.slug, currentAddress);
+}
+
+async function loadCampaign(slug, addr) {
+  showView('campaign');
+  currentAddress = addr || null;
+  document.getElementById('slotsGrid').innerHTML = '<div class="slots-loading">Sæki dagana...</div>';
+  try {
+    const { data: camp, error } = await supabase.from('safe_campaigns').select('*').eq('slug', slug).single();
+    if (error || !camp) { showAlert('Stuðningssíðan fannst ekki. Athugaðu tengilinn og reyndu aftur.'); showView('browse'); return; }
+    currentCampaign = camp;
+    document.getElementById('cv-name').textContent = camp.family_name;
+    document.getElementById('cv-meta').textContent = formatDateISFull(camp.start_date) + ' – ' + formatDateISFull(camp.end_date);
+    document.getElementById('cv-desc').textContent = camp.description || '';
+    document.getElementById('cv-time').textContent = 'Afhendingartími: ' + camp.delivery_time;
+    if (camp.food_notes) {
+      document.getElementById('cv-food').style.display = 'block';
+      document.getElementById('cv-food-text').textContent = camp.food_notes;
+    } else { document.getElementById('cv-food').style.display = 'none'; }
+    const { data: slots, error: se } = await supabase.from('slots').select('*, bookings(supporter_name)').eq('campaign_id', camp.id).order('slot_date', { ascending: true });
+    if (se) throw se;
+    const total = slots.length;
+    const claimed = slots.filter(s => s.is_claimed).length;
+    document.getElementById('cv-total').textContent = total;
+    document.getElementById('cv-claimed').textContent = claimed;
+    document.getElementById('cv-open').textContent = total - claimed;
+    renderSlots(slots);
+  } catch (err) {
+    console.error(err);
+    showAlert('Eitthvað fór úrskeiðis. Vinsamlegast reyndu aftur síðar.');
+  }
+}
+
+function renderSlots(slots) {
+  const g = document.getElementById('slotsGrid');
+  if (!slots || slots.length === 0) { g.innerHTML = '<div class="slots-loading">Engir dagar fundust.</div>'; return; }
+  g.innerHTML = slots.map(s => {
+    const lbl = formatDateISFull(s.slot_date);
+    if (s.is_claimed) {
+      const who = s.bookings?.[0]?.supporter_name || 'Einhver';
+      return '<div class="slot-row slot-row-claimed"><div class="slot-date">' + lbl + '</div><div class="slot-who">' + who + '</div><span class="slot-badge">Tekid</span></div>';
+    }
+    return '<div class="slot-row" id="slot-' + s.id + '"><div class="slot-date">' + lbl + '</div><div class="slot-who" style="color:var(--ink-muted);">Laust</div><button class="slot-claim-btn" onclick="openBookingModal('' + s.id + '','' + lbl + '')">Skra mig</button></div>';
+  }).join('');
+}
+
+function openBookingModal(slotId, dateLabel) {
+  pendingSlotId = slotId; pendingSlotDate = dateLabel;
+  document.getElementById('modalDateLabel').textContent = dateLabel;
   document.getElementById('claimName').value = '';
   document.getElementById('claimEmail').value = '';
   document.getElementById('claimMsg').value = '';
-  document.getElementById('claimModal').classList.add('open');
+  document.getElementById('addressReveal').style.display = 'none';
+  document.getElementById('confirmBtn').disabled = false;
+  document.getElementById('confirmBtn').textContent = 'Stadfesta skraningu';
+  document.getElementById('bookingModal').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('claimModal').classList.remove('open');
+function closeBookingModal() {
+  document.getElementById('bookingModal').classList.remove('open');
+  pendingSlotId = null;
 }
 
-function confirmClaim() {
+async function confirmBooking() {
   const name = document.getElementById('claimName').value.trim();
   const email = document.getElementById('claimEmail').value.trim();
-  if (!name || !email) { alert('Vinsamlegast fylltu inn nafn og netfang.'); return; }
-  campaigns[currentCampaign].slots[pendingSlot].claimed = true;
-  campaigns[currentCampaign].slots[pendingSlot].who = name;
-  closeModal();
-  renderSlots();
-  const claimed = campaigns[currentCampaign].slots.filter(s => s.claimed).length;
-  document.getElementById('cv-claimed').textContent = claimed;
-  document.getElementById('cv-open').textContent = campaigns[currentCampaign].slots.length - claimed;
+  if (!name || !email || !email.includes('@')) { alert('Vinsamlegast fylltu inn nafn og gilt netfang.'); return; }
+  const btn = document.getElementById('confirmBtn');
+  btn.disabled = true; btn.textContent = 'Vista...';
+  try {
+    const { error: ue } = await supabase.from('slots').update({ is_claimed: true }).eq('id', pendingSlotId).eq('is_claimed', false);
+    if (ue) throw ue;
+    const { error: be } = await supabase.from('bookings').insert({
+      slot_id: pendingSlotId, supporter_name: name, supporter_email: email,
+      message: document.getElementById('claimMsg').value.trim() || null,
+    });
+    if (be) throw be;
+    if (currentAddress) {
+      document.getElementById('addressText').textContent = currentAddress;
+      document.getElementById('addressReveal').style.display = 'block';
+    }
+    btn.textContent = 'Skraning stadfest!';
+    setTimeout(() => { closeBookingModal(); if (currentCampaign) loadCampaign(currentCampaign.slug, currentAddress); }, 2500);
+  } catch (err) {
+    console.error(err);
+    btn.disabled = false; btn.textContent = 'Stadfesta skraningu';
+    alert('Eitthvad for urskeidis. Dagurinn kann ad vera thegar tekinn - reyndu aftur.');
+  }
 }
 
-function showCreateSuccess() {
-  document.querySelector('.form-card').style.display = 'none';
-  document.getElementById('createSuccess').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+async function loadBrowse() {
+  showView('browse');
+  const g = document.getElementById('campaignsGrid');
+  g.innerHTML = '<div class="slots-loading" style="grid-column:1/-1;">Saeki studningssidur...</div>';
+  try {
+    const { data: camps, error } = await supabase.from('safe_campaigns').select('*').eq('is_active', true).order('created_at', { ascending: false });
+    if (error) throw error;
+    if (!camps || camps.length === 0) {
+      g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--ink-muted);"><p style="font-size:16px;margin-bottom:20px;">Engar virkar studningssidur sem stendur.</p><button class="btn-primary" onclick="showView('create')">Bua til fyrstu siduna</button></div>';
+      return;
+    }
+    const ids = camps.map(c => c.id);
+    const { data: slots } = await supabase.from('slots').select('campaign_id, is_claimed').in('campaign_id', ids);
+    const colors = ['#4A7C2F','#E8A030','#C4714A','#2E6DA4','#6B5C4E'];
+    g.innerHTML = camps.map(c => {
+      const cs = slots?.filter(s => s.campaign_id === c.id) || [];
+      const open = cs.filter(s => !s.is_claimed).length;
+      const init = c.family_name.charAt(0).toUpperCase();
+      const col = colors[c.family_name.charCodeAt(0) % colors.length];
+      return '<div class="campaign-card" onclick="loadCampaign('' + c.slug + '')"><div class="campaign-card-top"><div class="campaign-avatar" style="background:' + col + ';">' + init + '</div><div class="campaign-card-name">' + c.family_name + '</div><div class="campaign-card-meta">' + formatDateISFull(c.start_date) + ' - ' + formatDateISFull(c.end_date) + '</div>' + (c.description ? '<div class="campaign-card-desc">' + c.description.slice(0,80) + (c.description.length>80?'...':'') + '</div>' : '') + '</div><div class="campaign-card-bottom"><span class="slots-avail">' + open + ' dag' + (open!==1?'ar':'ur') + ' laus' + (open!==1?'ir':'') + '</span><button class="view-btn">Sja siduna</button></div></div>';
+    }).join('');
+  } catch (err) {
+    console.error(err);
+    g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-muted);">Gat ekki saekt studningssidur. Vinsamlegast reyndu aftur.</div>';
+  }
 }
 
-document.getElementById('claimModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  // Set default dates
+  const today = new Date();
+  const future = new Date(today); future.setDate(today.getDate() + 28);
+  document.getElementById('startDate').value = today.toISOString().split('T')[0];
+  document.getElementById('endDate').value = future.toISOString().split('T')[0];
+
+  // Day toggle
+  document.querySelectorAll('.day-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('selected');
+      btn.querySelector('input').checked = btn.classList.contains('selected');
+    });
+  });
+
+  // Check URL for campaign slug
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (id) { loadCampaign(id); }
+  else { showView('create'); }
 });
 
-// Open create tab if hash is #create
-if (window.location.hash === '#create') switchTab('create');
+document.getElementById('bookingModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('bookingModal')) closeBookingModal();
+});
 </script>
 </body>
 </html>
