@@ -480,17 +480,21 @@ import flatpickr from 'https://cdn.jsdelivr.net/npm/flatpickr/+esm';
 const SUPABASE_URL = 'https://xgfrjxewmlkugcwqzqvb.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnZnJqeGV3bWxrdWdjd3F6cXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMjk0NTgsImV4cCI6MjA5MDYwNTQ1OH0.wm47_OgR7-vzho2zgWzgAJ-K5taPHPf3KaG6RablMKk';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-const EDGE_URL = 'https://xgfrjxewmlkugcwqzqvb.supabase.co/functions/v1/send-email';
+const EDGE_URL = 'https://xgfrjxewmlkugcwqzqvb.supabase.co/functions/v1/dynamic-service';
 
 async function callEdge(payload) {
   try {
-    await fetch(EDGE_URL, {
+    const res = await fetch(EDGE_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_KEY}` },
       body: JSON.stringify(payload),
     });
+    if (!res.ok) {
+      const txt = await res.text();
+      console.error('Edge function error:', res.status, txt);
+    }
   } catch (e) {
-    console.warn('Edge function call failed (non-critical):', e);
+    console.error('Edge function call failed:', e.message);
   }
 }
 
