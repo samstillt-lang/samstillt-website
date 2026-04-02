@@ -48,8 +48,8 @@
   .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: 1.5px solid var(--forest-light); cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-secondary:hover { background: var(--forest-mist); }
   .main-content { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
-  #viewCreate, #viewCampaign, #viewBrowse { display: none; }
-  #viewCreate.active, #viewCampaign.active, #viewBrowse.active { display: block; }
+  #viewCreate, #viewCampaign, #viewBrowse, #viewCancel { display: none; }
+  #viewCreate.active, #viewCampaign.active, #viewBrowse.active, #viewCancel.active { display: block; }
   .form-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
   .form-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); overflow: hidden; }
   .form-card-header { background: var(--forest); padding: 28px 32px; }
@@ -165,6 +165,15 @@
   .consent-group label strong { color: var(--forest); }
 
   @keyframes spin { to { transform: rotate(360deg); } }
+  .cancel-view { max-width: 520px; margin: 60px auto; text-align: center; }
+  .cancel-icon { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .cancel-icon-pending { background: var(--amber-light); }
+  .cancel-icon-done { background: var(--forest-pale); }
+  .cancel-icon-error { background: var(--terra-light); }
+  .cancel-view h2 { font-size: 24px; color: var(--ink); margin-bottom: 12px; }
+  .cancel-view p { font-size: 16px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 24px; }
+  .cancel-card { background: var(--white); border-radius: var(--radius-lg); padding: 48px 40px; border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); }
+
   .spin { animation: spin 1s linear infinite; }
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -390,6 +399,23 @@
     </div>
   </div>
 
+
+  <!-- CANCEL VIEW -->
+  <div id="viewCancel">
+    <div class="cancel-view">
+      <div class="cancel-card">
+        <div class="cancel-icon cancel-icon-pending" id="cancelIcon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B87820" stroke-width="2.5" stroke-linecap="round" class="spin"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h2 id="cancelTitle">Afbókun í vinnslu...</h2>
+        <p id="cancelMsg">Augnablik meðan við afbókum þig.</p>
+        <div id="cancelActions" style="display:none;">
+          <a href="meals.html" class="btn-secondary" style="justify-content:center;">Til baka á forsíðu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- BROWSE VIEW -->
   <div id="viewBrowse">
     <div class="browse-header">
@@ -516,12 +542,14 @@ window.confirmBooking = confirmBooking;
 window.copyShareLink = copyShareLink;
 window.goToCampaign = goToCampaign;
 window.openBookingModal = openBookingModal;
+window.handleCancel = handleCancel;
 
 function showView(view) {
   document.getElementById('viewCreate').classList.remove('active');
   document.getElementById('viewCampaign').classList.remove('active');
   document.getElementById('viewBrowse').classList.remove('active');
-  const map = { create: 'viewCreate', campaign: 'viewCampaign', browse: 'viewBrowse' };
+  document.getElementById('viewCancel').classList.remove('active');
+  const map = { create: 'viewCreate', campaign: 'viewCampaign', browse: 'viewBrowse', cancel: 'viewCancel' };
   document.getElementById(map[view]).classList.add('active');
   document.getElementById('globalAlert').classList.remove('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -803,6 +831,66 @@ async function loadBrowse() {
   }
 }
 
+
+async function handleCancel(bookingId) {
+  showView('cancel');
+  const icon = document.getElementById('cancelIcon');
+  const title = document.getElementById('cancelTitle');
+  const msg = document.getElementById('cancelMsg');
+  const actions = document.getElementById('cancelActions');
+
+  try {
+    // 1. Look up the booking + slot + campaign
+    const { data: booking, error: be } = await supabase
+      .from('bookings')
+      .select('id, supporter_name, supporter_email, slot_id, slots(slot_date, campaign_id, campaigns(family_name, contact_email))')
+      .eq('id', bookingId)
+      .single();
+
+    if (be || !booking) {
+      icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>';
+      icon.className = 'cancel-icon cancel-icon-error';
+      title.textContent = 'Bókun fannst ekki';
+      msg.textContent = 'Þessi afbókunartengill virkar ekki lengur eða bókunin hefur þegar verið afbókuð.';
+      actions.style.display = 'block';
+      return;
+    }
+
+    const slot = booking.slots;
+    const campaign = slot?.campaigns;
+
+    // 2. Mark slot as unclaimed
+    await supabase.from('slots').update({ is_claimed: false }).eq('id', booking.slot_id);
+
+    // 3. Delete the booking
+    await supabase.from('bookings').delete().eq('id', bookingId);
+
+    // 4. Email the family (non-blocking)
+    callEdge({
+      type: 'cancel_booking',
+      familyEmail: campaign?.contact_email || '',
+      familyName: campaign?.family_name || '',
+      supporterName: booking.supporter_name,
+      slotDate: slot?.slot_date || '',
+    });
+
+    // 5. Show success
+    icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>';
+    icon.className = 'cancel-icon cancel-icon-done';
+    title.textContent = 'Afbókun staðfest';
+    msg.textContent = 'Þú hefur verið afskráð/afskráður. Dagurinn er nú laus fyrir aðra. Fjölskyldunni hefur verið tilkynnt.';
+    actions.style.display = 'block';
+
+  } catch (err) {
+    console.error('Cancel error:', err);
+    icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+    icon.className = 'cancel-icon cancel-icon-error';
+    title.textContent = 'Eitthvað fór úrskeiðis';
+    msg.textContent = 'Ekki tókst að afbóka. Vinsamlegast reyndu aftur eða hafðu samband við fjölskylduna beint.';
+    actions.style.display = 'block';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
@@ -844,7 +932,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check URL for campaign slug
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-  if (id) { loadCampaign(id); }
+  const cancelId = params.get('cancel');
+  if (cancelId) { handleCancel(cancelId); }
+  else if (id) { loadCampaign(id); }
   else { showView('create'); }
 });
 
