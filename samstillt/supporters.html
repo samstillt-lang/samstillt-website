@@ -343,6 +343,28 @@
   .footer-disclaimer { font-size: 12px; color: rgba(255,255,255,0.35); max-width: 560px; text-align: right; line-height: 1.6; }
 
 .ring-diagram{position:relative;margin:40px auto 32px;max-width:480px}.ring-wrap{position:relative;width:340px;height:340px;margin:0 auto}.ring{position:absolute;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;text-align:center}.ring-1{inset:0;background:rgba(45,80,22,0.08);border-color:var(--forest-mid)}.ring-2{inset:48px;background:rgba(232,160,48,0.1);border-color:var(--amber)}.ring-3{inset:96px;background:rgba(196,113,74,0.12);border-color:var(--terra)}.ring-center{inset:144px;background:var(--terra-light);border-color:var(--terra);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}.ring-label{font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;line-height:1.3}.ring-1 .ring-label{color:var(--forest);position:absolute;bottom:14px}.ring-2 .ring-label{color:var(--amber-dark);position:absolute;bottom:14px}.ring-3 .ring-label{color:var(--terra-dark);position:absolute;bottom:14px}.ring-center .ring-label{color:var(--terra-dark);font-size:10px}.ring-arrow{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap}.ring-arrow-in{top:-24px;color:var(--forest)}.ring-arrow-out{bottom:-24px;color:var(--terra)}.ring-rules{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}.ring-rule{padding:16px 18px;border-radius:var(--radius-md);font-size:14px;line-height:1.55}.ring-rule-in{background:var(--forest-pale);border:1px solid rgba(74,124,47,0.2);color:var(--ink-mid)}.ring-rule-out{background:#FDF2EF;border:1px solid rgba(196,113,74,0.2);color:var(--ink-mid)}.ring-rule strong{display:block;margin-bottom:4px}.ring-rule-in strong{color:var(--forest)}.ring-rule-out strong{color:var(--terra-dark)}.quiz-wrap{display:flex;flex-direction:column;gap:20px}.quiz-q{background:var(--white);border-radius:var(--radius-md);border:1px solid var(--cream-dark);overflow:hidden;box-shadow:var(--shadow-soft)}.quiz-stem{padding:22px 24px 16px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}.quiz-stem span{font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:var(--ink-muted);display:block;margin-bottom:6px}.quiz-options{display:flex;flex-direction:column;gap:8px;padding:0 24px 20px}.quiz-opt{padding:12px 16px;border-radius:var(--radius-sm);cursor:pointer;font-size:14px;color:var(--ink-mid);line-height:1.5;border:1.5px solid var(--cream-dark);background:var(--cream);transition:all 0.2s;text-align:left;font-family:inherit}.quiz-opt:hover:not(:disabled){border-color:var(--forest-light);background:var(--forest-pale);color:var(--forest)}.quiz-opt.correct{border-color:var(--forest-mid);background:var(--forest-pale);color:var(--forest);cursor:default}.quiz-opt.wrong{border-color:var(--terra);background:#FDF2EF;color:var(--terra-dark);cursor:default}.quiz-opt:disabled{cursor:default}.quiz-feedback{display:none;margin:0 24px 20px;padding:14px 16px;border-radius:var(--radius-sm);font-size:14px;line-height:1.6}.quiz-feedback.show{display:block}.quiz-feedback.good{background:var(--forest-pale);color:var(--forest);border:1px solid rgba(74,124,47,0.25)}.quiz-feedback.bad{background:#FDF2EF;color:var(--terra-dark);border:1px solid rgba(196,113,74,0.25)}.copy-kit{display:flex;flex-direction:column;gap:12px}.copy-msg{background:var(--white);border-radius:var(--radius-md);border:1px solid var(--cream-dark);padding:18px 20px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow-soft)}.copy-msg-text{flex:1}.copy-msg-label{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}.copy-msg-body{font-size:15px;color:var(--ink-mid);line-height:1.6;font-style:italic}.copy-btn-inline{flex-shrink:0;padding:9px 16px;border:1.5px solid var(--forest-light);border-radius:var(--radius-sm);background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--forest);font-family:inherit;transition:all 0.2s;white-space:nowrap}.copy-btn-inline:hover{background:var(--forest-pale)}.copy-btn-inline.copied{background:var(--forest);color:white;border-color:var(--forest)}
+
+  .rules-three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .rule-card{padding:20px;border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;}
+  .rule-card-a{background:var(--forest);color:white;}
+  .rule-card-b{background:var(--amber-light);border:1px solid rgba(232,160,48,0.3);}
+  .rule-card-c{background:var(--terra-light);border:1px solid rgba(196,113,74,0.2);}
+  .rule-num{font-size:26px;font-weight:700;font-family:'Lora',serif;opacity:0.35;}
+  .rule-card-a .rule-num{color:white;}.rule-card-b .rule-num{color:var(--amber-dark);}.rule-card-c .rule-num{color:var(--terra);}
+  .rule-card h4{font-size:14px;font-weight:700;font-family:'Source Sans 3',sans-serif;}
+  .rule-card-a h4{color:white;}.rule-card-b h4{color:var(--ink);}.rule-card-c h4{color:var(--terra-dark);}
+  .rule-card p{font-size:13px;line-height:1.55;}
+  .rule-card-a p{color:rgba(255,255,255,0.8);}.rule-card-b p,.rule-card-c p{color:var(--ink-soft);}
+  .pd-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:13px 17px;background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--radius-md);cursor:pointer;font-size:14px;font-weight:600;color:var(--forest);font-family:inherit;transition:all 0.2s;}
+  .pd-toggle:hover{background:var(--forest-mist);}
+  .pd-toggle svg{transition:transform 0.3s;flex-shrink:0;}
+  .pd-toggle.open svg{transform:rotate(45deg);}
+  .pd-body{display:none;padding:18px;background:var(--white);border:1px solid var(--cream-dark);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md);font-size:14px;color:var(--ink-soft);line-height:1.7;}
+  .pd-body.open{display:block;}
+  .pd-body ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:8px;}
+  .pd-body li{padding-left:16px;position:relative;font-size:13px;}
+  .pd-body li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--forest-light);}
+  @media(max-width:900px){.rules-three{grid-template-columns:1fr;}}
   /* ── Animations ── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .fade-in { animation: fadeUp 0.6s ease both; }
@@ -423,8 +445,8 @@
       <p class="page-hero-lead">
         Það er eðlilegt að finna sig ráðþrota þegar vinur eða fjölskyldumeðlimur fær slægar tíðindi. Margir dragast til baka — ekki af kulda, heldur af hræðslu við að gera eitthvað rangt. Þessi síða er til þín.
       </p>
-      <a href="#hvad-segia" class="btn-amber">
-        Byrja hér
+      <a href="#skiladraegt" class="btn-amber">
+        Fara beint í skilaboðin
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </a>
     </div>
@@ -467,12 +489,11 @@
   <aside class="side-nav">
     <div class="side-nav-title">Á þessari síðu</div>
     <ul>
-      <li><a href="#hvad-segia" class="side-link">Hvað á ég að segja?</a></li>
+      <li><a href="#thrjar-reglur" class="side-link">3 reglurnar</a></li>
+      <li><a href="#skiladraegt" class="side-link">Skilaboð til að senda</a></li>
       <li><a href="#gull-sandur" class="side-link">Gull og sandur</a></li>
       <li><a href="#ring-theory" class="side-link">Hringkennin</a></li>
       <li><a href="#skiladraegt" class="side-link">Skilaboð til að senda</a></li>
-      <li><a href="#hvad-ekki" class="side-link">Hvað á ég ekki að segja?</a></li>
-      <li><a href="#hvernig-vera" class="side-link">Hvernig vera til staðar?</a></li>
       <li><a href="#quiz" class="side-link">Próf: Þekkirðu muninn?</a></li>
       <li><a href="#timaas" class="side-link">Þegar öll hverfa</a></li>
       <li><a href="#videos" class="side-link">Myndbönd</a></li>
@@ -486,61 +507,14 @@
   <main>
 
     <!-- Section 1: What to say -->
-    <section class="content-section section-anchor" id="hvad-segia">
-      <div class="section-label">Hluti 1</div>
-      <h2>Hvað á ég að segja?</h2>
-      <p>
-        Það eru engin fullkomin orð. En einlæg orð — jafnvel stutt — geta þýtt heiminn. Hér eru nokkrar setningar sem margir foreldrar hafa sagt að hafi hjálpað þeim.
-      </p>
-
-      <div class="highlight-box">
-        <h3>Orð sem hjálpa</h3>
-        <p>Þessar setningar eru einlægar, einfaldar og setja engar kröfur á fjölskylduna.</p>
-        <div class="examples">
-          <div class="example-phrase">„Ég er hér. Þú þarft ekki að svara þessum skilaboðum."</div>
-          <div class="example-phrase">„Ég er að hugsa til ykkar. Endilega hafðu samband ef ég get gert eitthvað."</div>
-          <div class="example-phrase">„Ég ætla að koma með mat á þriðjudaginn. Ertu heima kl. 18?"</div>
-          <div class="example-phrase">„Við þurfum ekki að tala. Ég get setið hjá þér ef þú vilt."</div>
-          <div class="example-phrase">„Þetta er svo erfitt. Ég er stoltur af þér."</div>
-        </div>
+    <section class="content-section section-anchor" id="thrjar-reglur">
+      <div class="section-label">Ef þú lærir ekkert annað</div>
+      <h2>3 reglurnar</h2>
+      <div class="rules-three">
+        <div class="rule-card rule-card-a"><div class="rule-num">1</div><h4>Ekki spyrja — gerðu</h4><p>Taktu ákvörðunina fyrir þá. „Ég kem með mat á þriðjudaginn" — ekki „vantar þig eitthvað?"</p></div>
+        <div class="rule-card rule-card-b"><div class="rule-num">2</div><h4>Þoldu þögnina</h4><p>Þú þarft ekki að eiga svörin. Nærvera þín — jafnvel í þögn — er oft nóg.</p></div>
+        <div class="rule-card rule-card-c"><div class="rule-num">3</div><h4>Vertu langhlaupari</h4><p>Raunveruleg sorg byrjar þegar blómin visna. Vertu til staðar eftir 6 mánuði.</p></div>
       </div>
-
-      <div class="do-dont-grid">
-        <div class="do-card">
-          <div class="card-header">
-            <div class="card-badge badge-do">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            </div>
-            <span class="card-title">Gott að segja</span>
-          </div>
-          <ul class="phrase-list">
-            <li>„Hvernig líður þér í dag — satt að segja?"</li>
-            <li>„Má ég senda mat á þriðjudaginn?"</li>
-            <li>„Ég er að hugsa til þín."</li>
-            <li>„Það er allt í lagi að vera reið eða þreytt."</li>
-            <li>„Þú þarft ekki að vera sterk í dag."</li>
-          </ul>
-        </div>
-        <div class="dont-card">
-          <div class="card-header">
-            <div class="card-badge badge-dont">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-            </div>
-            <span class="card-title">Forðastu þessar setningar</span>
-          </div>
-          <ul class="phrase-list">
-            <li>„Allt verður í lagi." — þú veist það ekki.</li>
-            <li>„Guð gefur ekki meira en við þolum."</li>
-            <li>„Þetta er tilgangur með þessu."</li>
-            <li>„Við vissum einhvern veginn…"</li>
-            <li>„Láttu mig vita ef þú þarft eitthvað."</li>
-          </ul>
-        </div>
-      </div>
-
-      <p style="font-size: 14px; color: var(--ink-muted); font-style: italic;">
-        Athugasemd: Sú síðasta — „láttu mig vita ef þú þarft eitthvað" — er sögð af hlýhug, en foreldrar í kreppu hafa oft ekki orku til að biðja um aðstoð. Bjóddu upp á eitthvað konkrét í staðinn.
-      </p>
     </section>
 
 
@@ -586,91 +560,8 @@
       <div class="copy-kit"><div class="copy-msg"><div class="copy-msg-text"><div class="copy-msg-label">Mat — án þess að bíða eftir svari</div><div class="copy-msg-body">„Ég kem með mat á [daginn] um [tímann]. Ég skil það við útidyrnar — þú þarft ekki að svara þessum skilaboðum."</div></div><button class="copy-btn-inline" onclick="copyMsg(this,'Ég kem með mat á [daginn] um [tímann]. Ég skil það við útidyrnar — þú þarft ekki að svara þessum skilaboðum.')">Afrita</button></div><div class="copy-msg"><div class="copy-msg-text"><div class="copy-msg-label">Þegar þú veist ekki hvað á að segja</div><div class="copy-msg-body">„Ég veit ekki hvað ég á að segja — en ég er hér. Engin þörf á svari."</div></div><button class="copy-btn-inline" onclick="copyMsg(this,'Ég veit ekki hvað ég á að segja — en ég er hér. Engin þörf á svari.')">Afrita</button></div><div class="copy-msg"><div class="copy-msg-text"><div class="copy-msg-label">Hagnýt aðstoð — boð án þrýstings</div><div class="copy-msg-body">„Ég er að fara í búð. Vantar ykkar eitthvað? Ég get tekið með fyrir krakkana — segjum til ef já, annars er allt í lagi."</div></div><button class="copy-btn-inline" onclick="copyMsg(this,'Ég er að fara í búð. Vantar ykkar eitthvað? Ég get tekið með fyrir krakkana — segjum til ef já, annars er allt í lagi.')">Afrita</button></div><div class="copy-msg"><div class="copy-msg-text"><div class="copy-msg-label">Þögul nærvera</div><div class="copy-msg-body">„Ég er að hugsa til þín í dag. Það þarf ekkert að gera neitt við þetta — ég vildi bara láta þig vita."</div></div><button class="copy-btn-inline" onclick="copyMsg(this,'Ég er að hugsa til þín í dag. Það þarf ekkert að gera neitt við þetta — ég vildi bara láta þig vita.')">Afrita</button></div><div class="copy-msg"><div class="copy-msg-text"><div class="copy-msg-label">Systkinin — oft gleymd</div><div class="copy-msg-body">„Hæ [nafn], get ég sótt þig í skólann? Við gætum farið eitthvað skemmtilegt — líka bara í bíó."</div></div><button class="copy-btn-inline" onclick="copyMsg(this,'Hæ [nafn], get ég sótt þig í skólann? Við gætum farið eitthvað skemmtilegt — líka bara í bíó.')">Afrita</button></div><div class="copy-msg"><div class="copy-msg-text"><div class="copy-msg-label">Eftir erfiðan dag</div><div class="copy-msg-body">„Ég er að hugsa til ykkar í dag — sérstaklega. Ekkert þarf að svara. Hlutir eru erfiðir og það er allt í lagi."</div></div><button class="copy-btn-inline" onclick="copyMsg(this,'Ég er að hugsa til ykkar í dag — sérstaklega. Ekkert þarf að svara. Hlutir eru erfiðir og það er allt í lagi.')">Afrita</button></div></div>
     </section>
     <!-- Section 2: What not to say -->
-    <section class="content-section section-anchor" id="hvad-ekki">
-      <div class="section-label">Hluti 2</div>
-      <h2>Hvað á ég ekki að gera?</h2>
-      <p>
-        Sumar hegðanir — jafnvel þær sem koma af góðum hug — geta þyngt fjölskyldunni. Ekki vegna þess að þú ert slæmur vinur, heldur vegna þess að veikindi barna breyta því hvernig orð og gjörðir berast.
-      </p>
-
-      <div class="tip-list">
-        <div class="tip-card">
-          <div class="tip-num">1</div>
-          <div class="tip-content">
-            <h4>Ekki hverfa</h4>
-            <p>Það er freistandi að draga sig til baka þegar maður veit ekki hvað á að segja. En fjölskyldur segjast oft finna hvarf vina meira en orðin sjálf. Sendu eitt skilaboð. Þú þarft ekki svar.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num">2</div>
-          <div class="tip-content">
-            <h4>Ekki setja stuðningsþörf þína framar þeirra</h4>
-            <p>Ef þú ert að finna til sorg yfir þessari stöðu — það er eðlilegt. En foreldrar geta ekki verið tilfinningalegar stoðir fyrir aðra á þessum tíma. Leitaðu stuðnings hjá öðrum vinum eða fagaðilum.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num">3</div>
-          <div class="tip-content">
-            <h4>Ekki spyrja of margra spurninga um sjúkdóminn</h4>
-            <p>Foreldrar endurtaka sögu barns síns hundruð af sinnum. Spurðu frekar: „Hvernig líður þér?" en „Hvað sögðu læknar?" — nema þeir bjóði sjálfir upp á það.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num">4</div>
-          <div class="tip-content">
-            <h4>Ekki bera saman við annað</h4>
-            <p>Setningar á borð við „systir mín fór í gegnum eitthvað svipað…" færa athyglina frá þeim. Haltu þér við það sem þeir upplifa núna.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num">5</div>
-          <div class="tip-content">
-            <h4>Ekki gefa óumbeðnar ráðleggingar</h4>
-            <p>Hvort sem það eru meðferðir, megrun eða lífsstílsbreytingar — foreldrar fá nóg af ráðleggingum frá læknum. Hlusta er oft meira virði en ráð.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Section 3: How to show up -->
-    <section class="content-section section-anchor" id="hvernig-vera">
-      <div class="section-label">Hluti 3</div>
-      <h2>Hvernig get ég verið til staðar á þann hátt sem skiptir máli?</h2>
-      <p>
-        Besti stuðningurinn er oft hagnýtur. Hér eru ráð sem foreldrar segja að hafi létt þorðuna raunverulega.
-      </p>
-
-      <div class="tip-list">
-        <div class="tip-card">
-          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
-          <div class="tip-content">
-            <h4>Bjóddu upp á eitthvað konkrét — og gerðu það</h4>
-            <p>Í stað þess að segja „láttu mig vita" — segjum við: „Ég er að koma með mat á föstudaginn. Get ég skilið það við útidyrnar kl. 17?" Fjölskyldurnar þurfa þá ekki að taka ákvörðun.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
-          <div class="tip-content">
-            <h4>Mundu litla hlutina</h4>
-            <p>Dagurinn sem börnin þeirra taka lyfjameðferð. Afmælisdagurinn sem gleymdist. Skilaboð eftir erfiðan sjúkrahúsdvöl. Þessir litlu þátttakar segjast vera þeir sem þýða mest.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
-          <div class="tip-content">
-            <h4>Gefðu tíma — ekki bara hluti</h4>
-            <p>Bjóddu þér til að sækja systkini, reka erindi, passa hundinn eða sitja hjá barninu á sjúkrahúsinu svo foreldrar geti hvílt sig. Tími er oft dýrmætasti gjöfin.</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num" style="background: var(--forest-pale); color: var(--forest);">✓</div>
-          <div class="tip-content">
-            <h4>Haltu áfram — jafnvel þegar svarið er þögn</h4>
-            <p>Sendu skilaboð án þess að búast við svari. „Ég er að hugsa til þín í dag. Engin þörf á svari." Þannig þrýstir þú ekki á þá, en þeir vita að þú ert þar.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
     <section class="content-section section-anchor" id="quiz">
@@ -944,6 +835,8 @@
 </footer>
 
 <script>
+
+  function togglePD(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open');}
   // Hamburger
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
