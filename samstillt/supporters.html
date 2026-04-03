@@ -563,6 +563,54 @@
   .btn-amber { display: inline-flex; align-items: center; gap: 8px; background: var(--amber); color: var(--ink); font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-amber:hover { background: var(--amber-dark); color: var(--white); }
 
+  /* ── Bottom CTA — emotional conclusion ── */
+  .bottom-cta-new {
+    background: var(--forest);
+    padding: 88px 0 80px;
+    text-align: center;
+  }
+  .bottom-cta-inner { max-width: 560px; margin: 0 auto; }
+  .bottom-cta-heading {
+    font-size: clamp(28px, 4vw, 42px);
+    color: white;
+    margin-bottom: 16px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .bottom-cta-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.7;
+    margin-bottom: 44px;
+  }
+  .bottom-cta-actions-new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .btn-cta-primary {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--amber); color: var(--ink);
+    font-size: 17px; font-weight: 700;
+    padding: 16px 36px;
+    border-radius: var(--radius-sm);
+    font-family: 'Source Sans 3', sans-serif;
+    transition: all 0.2s; text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .btn-cta-primary:hover { background: var(--amber-dark); color: white; transform: translateY(-1px); }
+  .btn-cta-secondary {
+    display: inline-flex; align-items: center;
+    font-size: 14px; font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Source Sans 3', sans-serif;
+    text-decoration: none; transition: color 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 1px;
+  }
+  .btn-cta-secondary:hover { color: rgba(255,255,255,0.85); border-bottom-color: rgba(255,255,255,0.5); }
+
   /* ── Bottom CTA ── */
   .bottom-cta { background: var(--amber-light); border-top: 1px solid rgba(232,160,48,0.2); padding: 64px 0; text-align: center; }
   .bottom-cta h2 { font-size: clamp(24px, 3vw, 34px); color: var(--ink); margin-bottom: 12px; }
@@ -610,7 +658,104 @@
     .footer-bottom { flex-direction: column; text-align: center; }
     .footer-disclaimer { text-align: center; }
     .fast-path { flex-direction: column; }
+    .content-section:nth-child(even) { margin-left: -16px; margin-right: -16px; padding: 28px 20px; }
   }
+
+  /* ══════════════════════════════════════════
+     VISUAL REFINEMENT — trauma-informed UX
+     CSS-only. No structure or copy changed.
+  ══════════════════════════════════════════ */
+
+  /* 1 — Global shadows softer */
+  :root {
+    --shadow-soft: 0 1px 10px rgba(45,80,22,0.055);
+    --shadow-card: 0 2px 18px rgba(45,80,22,0.075);
+  }
+
+  /* 2 — Section spacing: more breathing room between chapters */
+  .content-section { margin-bottom: 92px; }
+  .content-layout { padding-top: 72px; padding-bottom: 80px; }
+  .content-section h2 { margin-bottom: 24px; letter-spacing: -0.01em; line-height: 1.2; }
+
+  /* 3 — Alternating section backgrounds: subtle chapter rhythm */
+  main > section:nth-child(even) {
+    background: var(--forest-mist);
+    border-radius: var(--radius-lg);
+    padding: 40px 44px;
+    margin-left: -44px;
+    margin-right: -44px;
+  }
+  @media (max-width: 900px) {
+    main > section:nth-child(even) { margin-left: -16px; margin-right: -16px; padding: 28px 20px; }
+  }
+
+  /* 4 — Hero: feeling cards de-emphasised, more air from main content */
+  .page-hero-inner { gap: 80px; }
+  .page-hero-lead { line-height: 1.78; font-size: 17.5px; }
+  .hero-feelings { gap: 14px; opacity: 0.82; transition: opacity 0.3s; }
+  .hero-feelings:hover { opacity: 1; }
+  .feeling-card {
+    border: 1px solid rgba(240,235,226,0.6);
+    box-shadow: 0 1px 6px rgba(45,80,22,0.04);
+  }
+
+  /* 5 — Verkfærakistan: primary card dominant, others recede */
+  .toolkit-section { padding: 40px 40px 36px; }
+  .action-cards { gap: 9px; margin-bottom: 0; }
+  .action-card {
+    background: rgba(255,255,255,0.065);
+    border: 1px solid rgba(255,255,255,0.09);
+  }
+  .action-card:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-1px);
+  }
+  /* Primary card: clearly dominant */
+  .action-card-primary {
+    background: rgba(232,160,48,0.2) !important;
+    border: 1.5px solid rgba(232,160,48,0.55) !important;
+    padding: 20px 16px !important;
+    position: relative;
+  }
+  .action-card-primary .action-card-label { font-size: 14px !important; }
+  .action-card-primary:hover {
+    background: rgba(232,160,48,0.28) !important;
+    border-color: rgba(232,160,48,0.7) !important;
+    transform: translateY(-2px);
+  }
+
+  /* 6 — Borders: soften everywhere, rely on space instead */
+  .check-item { border: 1px solid rgba(240,235,226,0.75); box-shadow: none; }
+  .check-item.checked { border-color: rgba(74,124,47,0.25); }
+  .quiz-q { box-shadow: none; border-color: rgba(240,235,226,0.85); }
+  .quiz-opt { border-color: rgba(240,235,226,0.85); }
+  .tip-card { box-shadow: none; border-color: rgba(240,235,226,0.75); }
+  .accordion { gap: 6px; }
+  .accordion-item { border-color: rgba(240,235,226,0.8); box-shadow: none; }
+  .pd-toggle { border-color: rgba(240,235,226,0.85); }
+  .checklist-wrap { border-color: rgba(240,235,226,0.7); box-shadow: none; }
+
+  /* 7 — Samskipti: more space between compare grid and messages */
+  .copy-section-label { margin-top: 44px; margin-bottom: 16px; }
+  /* Gull/Sandur grid: softer tints */
+  .compare-gold .compare-item { background: rgba(74,124,47,0.028); }
+  .compare-sand .compare-item { background: rgba(196,113,74,0.028); }
+  .compare-items { border-color: rgba(240,235,226,0.85); }
+  .compare-item { border-bottom-color: rgba(240,235,226,0.75); }
+  /* More separation after compare-grid before compare-test */
+  .compare-test { margin-top: 14px; }
+
+  /* 8 — Typography: more air in expanded/body text */
+  .pd-body { line-height: 1.82; padding: 20px 22px; font-size: 14.5px; }
+  .accordion-body { line-height: 1.75; }
+  .copy-msg-body-green { line-height: 1.65; }
+
+  /* 9 — Post-heavy-section breathing: quiz-share and timeline get more top margin */
+  .quiz-share { margin-top: 36px; }
+  .tl-reminder-btn-primary { margin-top: 16px; }
+
+  /* ── END VISUAL REFINEMENT ── */
 </style>
 </head>
 <body>
@@ -842,12 +987,7 @@
         </div>
       </div>
 
-      <a href="meals.html#create" class="studning-cta">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-        Stofna stuðningssíðu núna
-      </a>
-
-      <button class="pd-toggle" onclick="togglePD(this)" style="margin-top:16px;">
+      <button class="pd-toggle" onclick="togglePD(this)">
         <span>Lesa meira um hvernig þetta virkar</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       </button>
@@ -861,6 +1001,11 @@
         </ul>
         <p style="font-size:14px;color:var(--ink-soft);">Samstillt leysir þetta með einni síðu sem tekur á sig alla samræminguna — mat, dagsetningar og áminningar — þannig að foreldrar þurfa ekki að hugsa um neitt.</p>
       </div>
+
+      <a href="meals.html#create" class="studning-cta" style="margin-top:14px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Stofna stuðningssíðu núna
+      </a>
     </section>
 
     <!-- 4: Samskipti — Gull og sandur + skilaboð -->
@@ -986,10 +1131,6 @@
                 Stígðu aftur inn. Komdu með mat. Bjóddu í göngutúr.
               </span>
             </div>
-            <button class="tl-reminder-btn-primary" id="reminderBtn" onclick="addReminder()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              Setja áminningu núna
-            </button>
           </div>
         </div>
         <div class="tl-item">
@@ -1016,6 +1157,11 @@
         <p style="font-size:14px;color:var(--ink-soft);margin-bottom:10px;">Einsemin eftir 3–6 mánuði er oft þyngri en upphafsáfallið. Það eru fáir sem vita af því — og enn færri sem eru enn til staðar.</p>
         <p style="font-size:14px;color:var(--ink-soft);">Eitt skilaboð sent á þeim tíma — þegar enginn annar er að senda — þýðir ótrúlega mikið.</p>
       </div>
+
+      <button class="tl-reminder-btn-primary" id="reminderBtn" onclick="addReminder()" style="margin-top:16px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Setja áminningu núna
+      </button>
     </section>
 
     <!-- 6: Quiz + Share -->
@@ -1152,14 +1298,19 @@
   </main>
 </div>
 
-<!-- ── Bottom CTA ── -->
-<section class="bottom-cta">
+<!-- ── Bottom CTA — emotional conclusion ── -->
+<section class="bottom-cta-new">
   <div class="container">
-    <h2>Er fjölskylda sem þarfnast stuðnings?</h2>
-    <p>Búðu til stuðningssíðu fyrir þá og deildu tenglinum. Við sjáum um restina.</p>
-    <div class="bottom-cta-actions">
-      <a href="meals.html#create" class="btn-primary">Stofna stuðningssíðu</a>
-      <a href="calculator.html" class="btn-amber">Fjárhagsreiknivél</a>
+    <div class="bottom-cta-inner">
+      <h2 class="bottom-cta-heading">Þú veist núna hvað skiptir máli</h2>
+      <p class="bottom-cta-sub">Flestir vilja hjálpa — fáir vita hvernig. Þú ert nú einn af þeim sem gerir það.</p>
+      <div class="bottom-cta-actions-new">
+        <a href="meals.html#create" class="btn-cta-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Stofna stuðningssíðu
+        </a>
+        <a href="calculator.html" class="btn-cta-secondary">Skoða fjárhagsstuðning</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1291,8 +1442,8 @@
     const start = fmt(reminder);
     const end = new Date(reminder); end.setDate(end.getDate() + 1);
     const endStr = fmt(end);
-    const title = encodeURIComponent('Hafa samband við fjölskylduna');
-    const details = encodeURIComponent('Mundu að hafa samband. Þetta er tíminn þegar stuðningsnetið er oft horfið — þinn stuðningur skiptir mestu máli núna.\n\nFara á Samstillt: https://samstillt-website.samstillt.workers.dev/supporters');
+    const title = encodeURIComponent('Hafa samband — þetta skiptir máli');
+    const details = encodeURIComponent('Stuðningurinn minnkar oft eftir nokkra mánuði.\nSendu skilaboð í dag — það getur skipt ótrúlega miklu máli.\nSamstillt: https://samstillt-website.samstillt.workers.dev/supporters');
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${endStr}&details=${details}`;
     window.open(url, '_blank');
     if (btn) {
