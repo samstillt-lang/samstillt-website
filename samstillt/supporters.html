@@ -756,6 +756,85 @@
   .tl-reminder-btn-primary { margin-top: 16px; }
 
   /* ── END VISUAL REFINEMENT ── */
+
+  /* ══════════════════════════════════════════
+     MOBILE FIXES
+     Overrides refinement CSS which is declared
+     outside breakpoints and wins on mobile.
+  ══════════════════════════════════════════ */
+
+  @media (max-width: 900px) {
+
+    /* FIX 1 — Toolkit padding */
+    .toolkit-section { padding: 24px 20px 22px; }
+
+    /* FIX 2 — content-layout padding-top conflict with refinement CSS */
+    .content-layout { padding-top: 36px !important; padding-bottom: 48px !important; }
+
+    /* FIX 3 — Section margin-bottom too large on mobile */
+    .content-section { margin-bottom: 52px; }
+
+    /* FIX 4 — studning-cta full-width on mobile */
+    .studning-cta { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
+
+    /* FIX 5 — Hide step arrows when steps stack, add vertical gap instead */
+    .studning-steps { flex-direction: column; gap: 14px; }
+    .studning-arrow { display: none; }
+    .studning-step { min-width: unset; width: 100%; }
+
+    /* FIX 6 — btn-cta-primary full-width on mobile */
+    .btn-cta-primary { width: 100%; justify-content: center; }
+
+    /* FIX 7 — bottom-cta-new padding too large on mobile */
+    .bottom-cta-new { padding: 56px 0 52px; }
+
+    /* FIX 10 — Active/tap states for touch (no hover on mobile) */
+    .studning-cta:active { opacity: 0.85; transform: scale(0.99); }
+    .btn-cta-primary:active { opacity: 0.85; transform: scale(0.99); }
+    .tl-reminder-btn-primary:active { opacity: 0.85; transform: scale(0.99); }
+    .copy-btn-green:active { background: var(--forest); color: white; border-color: var(--forest); }
+    .copy-btn-light:active { background: var(--forest); color: white; border-color: var(--forest); }
+    .mockup-btn-light:active { background: var(--amber-dark); color: white; }
+    .quiz-opt:active:not(:disabled) { border-color: var(--forest-light); background: var(--forest-pale); color: var(--forest); }
+
+    /* Tighten Samskipti section top gap on mobile — 44px is too much */
+    .copy-section-label { margin-top: 28px; }
+
+    /* Hero lead font-size: 17.5px is fine but line-height can relax */
+    .page-hero-lead { font-size: 16.5px; }
+
+  }
+
+  @media (max-width: 480px) {
+
+    /* FIX 9 — Copy message boxes: stack button below text on narrow screens */
+    .copy-msg-green { flex-direction: column; gap: 10px; }
+    .copy-msg-light { flex-direction: column; gap: 10px; }
+    .copy-btn-green { align-self: flex-start; }
+    .copy-btn-light { align-self: flex-start; }
+
+    /* Checklist items slightly smaller text */
+    .check-item { font-size: 14px; }
+
+    /* Quiz options easier to read */
+    .quiz-opt { font-size: 14px; padding: 13px 14px; }
+
+    /* Timeline: more breathing between items */
+    .tl-item { padding: 18px 0; }
+
+  }
+
+  @media (max-width: 400px) {
+
+    /* FIX 8 — Hero preview message: stack copy button on very narrow screens */
+    .hero-preview-msg { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+
+    /* Toolkit cards: remove primary padding bump on tiny screens */
+    .action-card-primary { padding: 16px 14px !important; }
+
+  }
+
+  /* ── END MOBILE FIXES ── */
 </style>
 </head>
 <body>
