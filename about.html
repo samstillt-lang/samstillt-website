@@ -248,7 +248,7 @@
       </div>
       <div class="mission-quote">
         <blockquote>„Að fá mat hjálpaði okkur mikið í byrjun, en þegar mánuðirnir liðu fór félagsskapurinn við þá sem komu með matinn að skipta meira máli. Oft var það eina fólkið sem var ekki á spítalanum sem við töluðum við þá vikuna."</blockquote>
-        <div class="mission-quote-attr">— Foreldri, Reykjavík 2026</div>
+        <div class="mission-quote-attr">— Foreldri, Kópavogur 2026</div>
       </div>
     </div>
   </div>
@@ -481,4 +481,6 @@ function submitContact() {
   const msg = document.getElementById('cMsg').value.trim();
   if (!name || !email || !msg) { alert('Vinsamlegast fylltu inn nafn, netfang og skilaboð.'); return; }
   document.getElementById('contactFormWrap').style.display = 'none';
-  document.getElementById(
+    document.getElementById('contactSuccess').style.display = 'block';
+}
+</script>
