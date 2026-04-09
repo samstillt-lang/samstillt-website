@@ -259,7 +259,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 
     <p>Það sem vantaði var ekki vilji hjá fólki. Það vantaði leið til að hjálpa — án þess að við þyrftum að stjórna því.</p>
     <p>Ef þú ert að lesa þetta uppi á barnadeild — þá ertu ekki ein(n).</p>
     <div class="founder-sig">
-      <img src="aavar.jpg" alt="Ævar Ólafsson" class="founder-photo">
+      <img src="aavar.jpg.png" alt="Ævar Ólafsson" class="founder-photo">
       <div>
         <div class="founder-name">Ævar Ólafsson</div>
         <div class="founder-links">
@@ -427,7 +427,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 
       </div>
       <div class="form-group">
         <label class="form-label">Netfang</label>
-        <input class="form-input" type="email" id="cEmail" placeholder="Netfang þitt">
+        <input class="form-input" type="email" id="cEmail" placeholder="Netfang þitt" required>
       </div>
       <div class="form-group">
         <label class="form-label">Tegund skilaboða</label>
@@ -513,7 +513,7 @@ async function submitContact() {
   try {
     var res = await fetch(EDGE_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnZnJqeGV3bWxrdWdjd3F6cXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMjk0NTgsImV4cCI6MjA5MDYwNTQ1OH0.wm47_OgR7-vzho2zgWzgAJ-K5taPHPf3KaG6RablMKk', 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnZnJqeGV3bWxrdWdjd3F6cXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMjk0NTgsImV4cCI6MjA5MDYwNTQ1OH0.wm47_OgR7-vzho2zgWzgAJ-K5taPHPf3KaG6RablMKk' },
       body: JSON.stringify({
         type: 'contact_form',
         name: name,
