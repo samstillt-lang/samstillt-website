@@ -192,6 +192,16 @@
     .days-grid { grid-template-columns: repeat(4, 1fr); }
   }
 </style>
+  <style>
+    /* Footer breakout: escape the max-width container */
+    .main-content.container > footer {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+  </style>
 </head>
 <body>
 
@@ -252,8 +262,7 @@
             </div>
                                   </div>
           <hr class="divider">
-                    <hr class="divider">
-          <div class="form-section">
+                              <div class="form-section">
             <div class="form-section-title">2 — Tímabil</div>
             <div class="form-row">
               <div class="form-group">
@@ -310,7 +319,9 @@
           </button>
         
       </div>
-      <div class="info-sidebar">
+
+    </div>
+    <div class="info-sidebar">
         <div class="info-card">
           <h4>Hvernig virkar þetta?</h4>
           <ul>
@@ -330,7 +341,6 @@
           </ul>
         </div>
       </div>
-    </div>
   </div>
 
   <!-- CAMPAIGN VIEW -->
