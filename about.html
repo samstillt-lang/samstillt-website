@@ -423,11 +423,11 @@ footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 
       <h3>Sendu okkur skilaboð</h3>
       <div class="form-group">
         <label class="form-label">Nafn</label>
-        <input class="form-input" type="text" placeholder="Fullt nafn">
+        <input class="form-input" type="text" id="cName" placeholder="Fullt nafn">
       </div>
       <div class="form-group">
         <label class="form-label">Netfang</label>
-        <input class="form-input" type="email" placeholder="Netfang þitt">
+        <input class="form-input" type="email" id="cEmail" placeholder="Netfang þitt">
       </div>
       <div class="form-group">
         <label class="form-label">Tegund skilaboða</label>
@@ -443,9 +443,11 @@ footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 
       </div>
       <div class="form-group">
         <label class="form-label">Skilaboð</label>
-        <textarea class="form-textarea" placeholder="Hvernig getum við hjálpað þér?"></textarea>
+        <textarea class="form-textarea" id="cMsg" placeholder="Hvernig getum við hjálpað þér?"></textarea>
       </div>
-      <button class="btn-submit">Senda skilaboð</button>
+      <button class="btn-submit" id="cBtn" onclick="submitContact()">Senda skilaboð</button>
+    <div id="cSuccess" style="display:none;margin-top:14px;padding:14px 18px;background:#F0F5EB;border-radius:8px;font-size:15px;color:#2D5016;font-weight:600;">✓ Skilaboðin send! Við höfum samband fljótlega.</div>
+    <div id="cError" style="display:none;margin-top:14px;padding:14px 18px;background:#FAF0EB;border-radius:8px;font-size:15px;color:#9A5535;font-weight:600;">Eitthvað fór úrskeiðis. Reyndu aftur eða sendu á samstillt&#64;samstillt&#46;is</div>
     </div>
   </div>
 </section>
@@ -485,6 +487,58 @@ footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 
   </div>
 </footer>
 <script>
+const EDGE_URL = 'https://xgfrjxewmlkugcwqzqvb.supabase.co/functions/v1/dynamic-service';
+
+async function submitContact() {
+  var name = document.getElementById('cName').value.trim();
+  var email = document.getElementById('cEmail').value.trim();
+  var type = document.getElementById('cType').value;
+  var msg = document.getElementById('cMsg').value.trim();
+  var btn = document.getElementById('cBtn');
+  var success = document.getElementById('cSuccess');
+  var error = document.getElementById('cError');
+
+  if (!name || !email || !msg) {
+    error.textContent = 'Vinsamlegast fylltu út nafn, netfang og skilaboð.';
+    error.style.display = 'block';
+    success.style.display = 'none';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sendi...';
+  error.style.display = 'none';
+  success.style.display = 'none';
+
+  try {
+    var res = await fetch(EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'contact_form',
+        name: name,
+        email: email,
+        messageType: type,
+        message: msg
+      })
+    });
+
+    if (res.ok) {
+      success.style.display = 'block';
+      document.getElementById('cName').value = '';
+      document.getElementById('cEmail').value = '';
+      document.getElementById('cMsg').value = '';
+      btn.textContent = 'Sent!';
+    } else {
+      throw new Error('Server error ' + res.status);
+    }
+  } catch(e) {
+    error.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Senda skilaboð';
+  }
+}
+
 document.getElementById('hamburger').addEventListener('click', function() {
   document.getElementById('navLinks').classList.toggle('open');
 });
