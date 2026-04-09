@@ -201,6 +201,12 @@
       margin-left: -50vw;
       margin-right: -50vw;
     }
+  
+    /* Remove section divider lines on create form */
+    #viewCreate .form-section-title {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
   </style>
 </head>
 <body>
@@ -261,8 +267,7 @@
               <div class="form-error" id="err-familyName">Vinsamlegast skráðu nafn fjölskyldunnar</div>
             </div>
                                   </div>
-          <hr class="divider">
-                              <div class="form-section">
+                                        <div class="form-section">
             <div class="form-section-title">2 — Tímabil</div>
             <div class="form-row">
               <div class="form-group">
@@ -276,8 +281,7 @@
               </div>
             </div>
                       </div>
-          <hr class="divider">
-          
+                    
             <div class="form-section">
           <div class="form-section-title">3 — Tengiliður</div>
           <div class="form-row">
