@@ -1,5 +1,4 @@
-        </div>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="is">
 <head>
 <meta charset="UTF-8">
@@ -49,8 +48,8 @@
   .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: 1.5px solid var(--forest-light); cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-secondary:hover { background: var(--forest-mist); }
   .main-content { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
-  #viewCreate, #viewCampaign, #viewBrowse, #viewCancel { display: none; }
-  #viewCreate.active, #viewCampaign.active, #viewBrowse.active, #viewCancel.active { display: block; }
+  #viewCreate, #viewCampaign, #viewCancel { display: none; }
+  #viewCreate.active, #viewCampaign.active, #viewCancel.active { display: block; }
   .form-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
   .form-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); overflow: hidden; }
   .form-card-header { background: var(--forest); padding: 28px 32px; }
@@ -134,20 +133,6 @@
   .modal-confirm { flex: 2; padding: 12px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; }
   .modal-confirm:hover { background: var(--forest-mid); }
   .modal-confirm:disabled { opacity: 0.6; cursor: not-allowed; }
-  .address-reveal { background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.25); border-radius: var(--radius-md); padding: 12px 16px; margin-top: 14px; font-size: 14px; color: var(--forest); display: none; }
-  .browse-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
-  .browse-header h2 { font-size: 26px; color: var(--ink); }
-  .campaigns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .campaign-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-soft); overflow: hidden; transition: all 0.25s; cursor: pointer; }
-  .campaign-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
-  .campaign-card-top { padding: 20px 20px 14px; }
-  .campaign-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: white; margin-bottom: 12px; }
-  .campaign-card-name { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 4px; font-family: 'Lora', serif; }
-  .campaign-card-meta { font-size: 13px; color: var(--ink-muted); margin-bottom: 8px; }
-  .campaign-card-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-  .campaign-card-bottom { padding: 12px 20px; border-top: 1px solid var(--cream-dark); background: var(--cream); display: flex; align-items: center; justify-content: space-between; }
-  .slots-avail { font-size: 13px; color: var(--forest); font-weight: 700; }
-  .view-btn { padding: 8px 16px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; }
   footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 32px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-col h5 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; font-family: 'Source Sans 3', sans-serif; }
@@ -183,11 +168,10 @@
     .form-layout { grid-template-columns: 1fr; }
     .info-sidebar { display: none; }
     .days-grid { grid-template-columns: repeat(4, 1fr); }
-    .campaigns-grid { grid-template-columns: 1fr 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
   @media (max-width: 580px) {
-    .campaigns-grid, .footer-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .days-grid { grid-template-columns: repeat(4, 1fr); }
   }
@@ -352,7 +336,7 @@
   <!-- CAMPAIGN VIEW -->
   <div id="viewCampaign">
     <div style="margin-bottom:16px;">
-      <button onclick="showView('browse'); loadBrowse();" style="background:none;border:none;cursor:pointer;color:var(--forest);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;padding:0;">
+      <button onclick="showView('create')" style="background:none;border:none;cursor:pointer;color:var(--forest);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;padding:0;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         Til baka
       </button>
@@ -398,20 +382,6 @@
     </div>
   </div>
 
-  <!-- BROWSE VIEW -->
-  <div id="viewBrowse">
-    <div class="browse-header">
-      <h2>Virkar stuðningssíður</h2>
-      <button class="btn-primary" onclick="showView('create')" style="font-size:14px;padding:10px 18px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-        Stofna nýja síðu
-      </button>
-    </div>
-    <div class="campaigns-grid" id="campaignsGrid">
-      <div class="slots-loading" style="grid-column:1/-1;">Sæki stuðningssíður...</div>
-    </div>
-  </div>
-
 </div>
 
 <!-- Success overlay -->
@@ -447,9 +417,6 @@
     <div class="form-group">
       <label class="form-label">Skilaboð til fjölskyldunnar <span class="form-hint">(valkvæmt)</span></label>
       <textarea class="form-textarea" id="claimMsg" placeholder="Hér er eitthvað hlýlegt..." style="min-height:70px;"></textarea>
-    </div>
-    <div class="address-reveal" id="addressReveal">
-      <strong>Heimilisfang afhendingar:</strong> <span id="addressText"></span>
     </div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeBookingModal()">Hætta við</button>
@@ -511,7 +478,6 @@ async function callEdge(payload) {
 }
 
 let currentCampaign = null;
-let currentAddress = null;
 let pendingSlotId = null;
 let pendingSlotDate = null;
 
@@ -521,7 +487,6 @@ const DAY_MAP = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6:
 window.showView = showView;
 window.updateSubmitBtn = updateSubmitBtn;
 window.createCampaign = createCampaign;
-window.loadBrowse = loadBrowse;
 window.loadCampaign = loadCampaign;
 window.closeBookingModal = closeBookingModal;
 window.confirmBooking = confirmBooking;
@@ -533,10 +498,9 @@ window.handleCancel = handleCancel;
 function showView(view) {
   document.getElementById('viewCreate').classList.remove('active');
   document.getElementById('viewCampaign').classList.remove('active');
-  document.getElementById('viewBrowse').classList.remove('active');
   document.getElementById('viewCancel').classList.remove('active');
-  const map = { create: 'viewCreate', campaign: 'viewCampaign', browse: 'viewBrowse', cancel: 'viewCancel' };
-  document.getElementById(map[view]).classList.add('active');
+  const map = { create: 'viewCreate', campaign: 'viewCampaign', cancel: 'viewCancel' };
+  if (map[view]) document.getElementById(map[view]).classList.add('active');
   document.getElementById('globalAlert').classList.remove('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -547,16 +511,9 @@ function generateSlug() {
 }
 
 function formatDateIS(ds) {
-  const days = ['Sun','Man','Tri','Mid','Fim','Fos','Lau'];
   const months = ['jan','feb','mar','apr','mai','jun','jul','agu','sep','okt','nov','des'];
-  const d = new Date(ds + 'T00:00:00');
-  const dayNames = ['Sun','Man','Tri','Mid','Fim','Fos','Lau'];
-  const dayNamesIS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
-  const fullDays = ['Sunnudagur','Manudagur','Pridudagur','Midvikudagur','Fimmtudagur','Fostudagur','Laugardagur'];
-  const fullDaysIS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
   const DAYS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
-  const IS_DAYS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
-  const dayIS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const d = new Date(ds + 'T00:00:00');
   return DAYS[d.getDay()] + " " + d.getDate() + ". " + months[d.getMonth()];
 }
 
@@ -643,11 +600,14 @@ function updateSubmitBtn() {
           family_email: familyEmail,
           is_active: true,
         })
-        .select('admin_token, slug');
+        .select('admin_token, slug, share_token');
       if (error) throw error;
       const adminToken = data?.[0]?.admin_token || '';
+      const shareToken = data?.[0]?.share_token || '';
+      window._newShareToken = shareToken;
       const manageLink = 'https://samstillt.is/meals.html?manage=' + adminToken;
-      document.getElementById('shareLink').value = 'https://samstillt.is/meals.html?id=' + slug;
+      const shareLink = 'https://samstillt.is/meals.html?id=' + shareToken;
+      document.getElementById('shareLink').value = shareLink;
       document.getElementById('successOverlay').classList.add('visible');
       callEdge({
         type: 'campaign_created',
@@ -656,6 +616,7 @@ function updateSubmitBtn() {
         familyName,
         familyEmail,
         slug,
+        shareLink,
         startDate: start,
         endDate: end,
         manageLink,
@@ -687,16 +648,16 @@ function updateSubmitBtn() {
 
 function goToCampaign() {
   document.getElementById('successOverlay').classList.remove('visible');
-  if (currentCampaign) loadCampaign(currentCampaign.slug, currentAddress);
+  const tok = window._newShareToken;
+  if (tok) loadCampaign(tok);
 }
 
-async function loadCampaign(slug, addr) {
+async function loadCampaign(shareToken, addr) {
   showView('campaign');
-  currentAddress = addr || null;
   document.getElementById('slotsGrid').innerHTML = '<div class="slots-loading">Sæki dagana...</div>';
   try {
-    const { data: camp, error } = await supabase.from('safe_campaigns').select('*').eq('slug', slug).single();
-    if (error || !camp) { showAlert('Stuðningssíðan fannst ekki. Athugaðu tengilinn og reyndu aftur.'); showView('browse'); return; }
+    const { data: camp, error } = await supabase.from('safe_campaigns').select('*').eq('share_token', shareToken).single();
+    if (error || !camp) { showAlert('Stuðningssíðan fannst ekki. Athugaðu tengilinn og reyndu aftur.'); showView('create'); return; }
     currentCampaign = camp;
     document.getElementById('cv-name').textContent = camp.family_name;
     document.getElementById('cv-meta').textContent = formatDateISFull(camp.start_date) + ' – ' + formatDateISFull(camp.end_date);
@@ -739,7 +700,6 @@ function openBookingModal(slotId, dateLabel) {
   document.getElementById('claimName').value = '';
   document.getElementById('claimEmail').value = '';
   document.getElementById('claimMsg').value = '';
-  document.getElementById('addressReveal').style.display = 'none';
   document.getElementById('confirmBtn').disabled = false;
   document.getElementById('confirmBtn').textContent = 'Stadfesta skraningu';
   document.getElementById('bookingModal').classList.add('open');
@@ -764,10 +724,6 @@ async function confirmBooking() {
       message: document.getElementById('claimMsg').value.trim() || null,
     });
     if (be) throw be;
-    if (currentAddress) {
-      document.getElementById('addressText').textContent = currentAddress;
-      document.getElementById('addressReveal').style.display = 'block';
-    }
     btn.textContent = 'Skráning staðfest!';
     // Send confirmation email to supporter (non-blocking)
     callEdge({
@@ -777,47 +733,19 @@ async function confirmBooking() {
       familyName: currentCampaign?.family_name || '',
       slotDate: pendingSlotDate,
       deliveryTime: currentCampaign?.delivery_time || '',
-      address: currentAddress || '',
       contactPhone: '',
       message: document.getElementById('claimMsg').value.trim() || null,
     });
-    setTimeout(() => { closeBookingModal(); if (currentCampaign) loadCampaign(currentCampaign.slug, currentAddress); }, 2500);
+    setTimeout(() => {
+      closeBookingModal();
+      if (currentCampaign?.share_token) loadCampaign(currentCampaign.share_token);
+    }, 2500);
   } catch (err) {
     console.error(err);
     btn.disabled = false; btn.textContent = 'Stadfesta skraningu';
     alert('Eitthvad for urskeidis. Dagurinn kann ad vera thegar tekinn - reyndu aftur.');
   }
 }
-
-async function loadBrowse() {
-  showView('browse');
-  const g = document.getElementById('campaignsGrid');
-  g.innerHTML = '<div class="slots-loading" style="grid-column:1/-1;">Saeki studningssidur...</div>';
-  try {
-    const { data: camps, error } = await supabase.from('safe_campaigns').select('*').eq('is_active', true).order('created_at', { ascending: false });
-    if (error) throw error;
-    if (!camps || camps.length === 0) {
-      g.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--ink-muted);"><p style="font-size:16px;margin-bottom:20px;">Engar virkar stuðningssíður sem stendur.</p><button class="btn-primary" onclick="showView('create')">Búa til fyrstu síðuna</button></div>`;
-      return;
-    }
-    const ids = camps.map(c => c.id);
-    const { data: slots } = await supabase.from('slots').select('campaign_id, is_claimed').in('campaign_id', ids);
-    const colors = ['#4A7C2F','#E8A030','#C4714A','#2E6DA4','#6B5C4E'];
-    g.innerHTML = camps.map(c => {
-      const cs = slots?.filter(s => s.campaign_id === c.id) || [];
-      const open = cs.filter(s => !s.is_claimed).length;
-      const init = c.family_name.charAt(0).toUpperCase();
-      const col = colors[c.family_name.charCodeAt(0) % colors.length];
-      const desc = c.description ? `<div class="campaign-card-desc">${c.description.slice(0,80)}${c.description.length>80?'...':''}</div>` : '';
-      const openLabel = `${open} dag${open!==1?'ar':'ur'} laus${open!==1?'ir':''}`;
-      return `<div class="campaign-card" onclick="loadCampaign('${c.slug}')"><div class="campaign-card-top"><div class="campaign-avatar" style="background:${col};">${init}</div><div class="campaign-card-name">${c.family_name}</div><div class="campaign-card-meta">${formatDateISFull(c.start_date)} - ${formatDateISFull(c.end_date)}</div>${desc}</div><div class="campaign-card-bottom"><span class="slots-avail">${openLabel}</span><button class="view-btn">Sjá síðuna</button></div></div>`;
-    }).join('');
-  } catch (err) {
-    console.error(err);
-    g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-muted);">Gat ekki saekt studningssidur. Vinsamlegast reyndu aftur.</div>';
-  }
-}
-
 
 async function handleCancel(bookingId) {
   showView('cancel');
@@ -910,13 +838,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Day toggle
   document.querySelectorAll('.day-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.preventDefault(); // prevent label from double-triggering the checkbox
+      e.preventDefault();
       const isSelected = btn.classList.toggle('selected');
       btn.querySelector('input').checked = isSelected;
     });
   });
 
-  // Check URL for campaign slug
+  // Check URL params
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   const cancelId = params.get('cancel');
