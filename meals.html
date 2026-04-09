@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+        </div>
+        <!DOCTYPE html>
 <html lang="is">
 <head>
 <meta charset="UTF-8">
@@ -249,38 +250,11 @@
               <input type="text" class="form-input" id="familyName" placeholder="t.d. Fjölskylda Einarsdóttir eða Jón">
               <div class="form-error" id="err-familyName">Vinsamlegast skráðu nafn fjölskyldunnar</div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Stutt lýsing <span class="form-hint">(valkvæmt — birtist á síðunni)</span></label>
-              <textarea class="form-textarea" id="description" placeholder="t.d. Jón er að fara í meðferð og við þökkum öllum stuðning kærlega..."></textarea>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Fæðuóskir eða ofnæmi <span class="form-hint">(valkvæmt)</span></label>
-              <textarea class="form-textarea" id="foodNotes" placeholder="t.d. Glúteinlaust, barnið elskar pasta, forðastu hnetur..."></textarea>
-            </div>
-          </div>
+                                  </div>
           <hr class="divider">
+                    <hr class="divider">
           <div class="form-section">
-            <div class="form-section-title">2 — Afhending</div>
-            <div class="form-group">
-              <label class="form-label">Heimilisfang afhendingar *</label>
-              <input type="text" class="form-input" id="address" placeholder="Gata og húsnúmer, póstnúmer — sýnt aðeins eftir bókun">
-              <div class="form-error" id="err-address">Vinsamlegast skráðu heimilisfangið</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Afhendingartími *</label>
-              <div class="select-wrap">
-                <select class="form-select" id="deliveryTime">
-                  <option value="17:00-18:00">17:00–18:00</option>
-                  <option value="18:00-19:00" selected>18:00–19:00</option>
-                  <option value="19:00-20:00">19:00–20:00</option>
-                  <option value="Sveigjanlegur">Sveigjanlegur</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <hr class="divider">
-          <div class="form-section">
-            <div class="form-section-title">3 — Tímabil</div>
+            <div class="form-section-title">2 — Tímabil</div>
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Frá *</label>
@@ -292,24 +266,13 @@
                 <input type="text" class="form-input flatpickr-input" id="endDate" placeholder="Veldu dagsetningu..." readonly style="cursor:pointer;">
               </div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Hvaða dagar henta? *</label>
-              <div class="days-grid" id="daysGrid">
-                <label class="day-btn" data-day="mon"><input type="checkbox" value="mon">Mán</label>
-                <label class="day-btn" data-day="tue"><input type="checkbox" value="tue">Þri</label>
-                <label class="day-btn" data-day="wed"><input type="checkbox" value="wed">Mið</label>
-                <label class="day-btn" data-day="thu"><input type="checkbox" value="thu">Fim</label>
-                <label class="day-btn" data-day="fri"><input type="checkbox" value="fri">Fös</label>
-                <label class="day-btn" data-day="sat"><input type="checkbox" value="sat">Lau</label>
-                <label class="day-btn" data-day="sun"><input type="checkbox" value="sun">Sun</label>
-              </div>
-              <div class="form-error" id="err-days">Vinsamlegast veldu að minnsta kosti einn dag</div>
-            </div>
-          </div>
+                      </div>
           <hr class="divider">
           <div class="form-section">
             <div class="form-section-title">4 — Tengiliður <span class="form-hint" style="text-transform:none;letter-spacing:0;">(sýnt aldrei opinberlega)</span></div>
-            <div class="form-row">
+            <div class="form-section">
+          <div class="form-section-title">3 — Tengiliður</div>
+          <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Nafn þitt *</label>
                 <input type="text" class="form-input" id="contactName" placeholder="Fullt nafn">
@@ -320,21 +283,25 @@
                 <input type="email" class="form-input" id="contactEmail" placeholder="netfang@daemi.is">
                 <div class="form-error" id="err-contactEmail">Vinsamlegast skráðu gilt netfang</div>
               </div>
-            </div>
             <div class="form-group">
-              <label class="form-label">Símanúmer <span class="form-hint">(valkvæmt — sent til stuðningsmanna eftir bókun)</span></label>
-              <input type="tel" class="form-input" id="contactPhone" placeholder="t.d. 5551234">
+              <label class="form-label">Netfang fjölskyldu <span class="form-hint">(fær tilkynningar um bókanir)</span> *</label>
+              <input type="email" class="form-input" id="familyEmail" placeholder="netfang@daemi.is">
+              <label class="form-label" style="margin-top:8px;display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+                <input type="checkbox" id="sameEmail"> Sama netfang og samræningaraiðli
+              </label>
+              <div class="form-error" id="err-familyEmail">Vinsamlegast skráðu gilt netfang</div>
             </div>
-          </div>
+            </div>
+                      </div>
           <div class="form-group" style="margin-top:8px;">
             <label class="form-label">Samþykki *</label>
             <div class="consent-group" onclick="document.getElementById('consent1').click()">
               <input type="checkbox" id="consent1" onclick="event.stopPropagation(); updateSubmitBtn()">
-              <label for="consent1">Ég samþykki að <strong>Samstillt</strong> geymi þessar upplýsingar til að halda utan um stuðningssíðuna.</label>
+              <label for="consent1">Ég staðfesti að ég hafi samþykki fjölskyldu til að stofna þessa stuðningssiðu og deila þim upplýsingum sem hér eru skráðar.</label>
             </div>
             <div class="consent-group" onclick="document.getElementById('consent2').click()">
               <input type="checkbox" id="consent2" onclick="event.stopPropagation(); updateSubmitBtn()">
-              <label for="consent2">Ég skil að stuðningssíðan er <strong>aðeins aðgengileg þeim sem ég deili tenglinum með</strong> og er ekki opinber.</label>
+              <label for="consent2">Ég hef lesið og samþykki <a href="/skilmalar.html" target="_blank">notkunarskilmála</a> og <a href="/fyrirvari.html" target="_blank">fyrirvara</a> fyrir Samstillt</label>
             </div>
             <div class="form-error" id="err-consent">Vinsamlegast samþykktu báða skilmálana</div>
           </div>
@@ -608,89 +575,90 @@ function showAlert(msg) {
 }
 
 function updateSubmitBtn() {
-  const c1 = document.getElementById('consent1')?.checked;
-  const c2 = document.getElementById('consent2')?.checked;
-  const btn = document.getElementById('submitBtn');
-  if (btn) {
-    btn.disabled = !(c1 && c2);
-    btn.style.opacity = (c1 && c2) ? '1' : '0.5';
+    document.getElementById('submitBtn').disabled = !validateForm(true);
   }
-}
 
-function validateForm() {
-  let ok = true;
-  const hide = id => document.getElementById(id).classList.remove('visible');
-  const show = id => { document.getElementById(id).classList.add('visible'); ok = false; };
-  ['err-familyName','err-address','err-dates','err-days','err-contactName','err-contactEmail','err-consent'].forEach(hide);
-  if (!document.getElementById('consent1')?.checked || !document.getElementById('consent2')?.checked) show('err-consent');
-  if (!document.getElementById('familyName').value.trim()) show('err-familyName');
-  if (!document.getElementById('address').value.trim()) show('err-address');
-  const s = document.getElementById('startDate').value;
-  const e = document.getElementById('endDate').value;
-  if (!s || !e || e < s) show('err-dates');
-  if (getSelectedDays().length === 0) show('err-days');
-  if (!document.getElementById('contactName').value.trim()) show('err-contactName');
-  const em = document.getElementById('contactEmail').value.trim();
-  if (!em || !em.includes('@')) show('err-contactEmail');
-  return ok;
-}
-
-async function createCampaign() {
-  if (!validateForm()) return;
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Stofna...';
-  try {
-    const slug = generateSlug();
+  function validateForm(silent) {
+    let ok = true;
+    function chk(id, errId, testFn) {
+      const el = document.getElementById(id);
+      const valid = el && testFn(el);
+      if (!silent) { const e = document.getElementById(errId); if(e) e.style.display = valid ? 'none' : 'block'; }
+      if (!valid) ok = false;
+    }
+    chk('familyName', 'err-familyName', el => el.value.trim().length > 0);
     const start = document.getElementById('startDate').value;
     const end = document.getElementById('endDate').value;
-    const days = getSelectedDays();
-    const addr = document.getElementById('address').value.trim();
-    const { data: camp, error: ce } = await supabase.from('campaigns').insert({
-      slug, family_name: document.getElementById('familyName').value.trim(),
-      description: document.getElementById('description').value.trim() || null,
-      food_notes: document.getElementById('foodNotes').value.trim() || null,
-      address: addr, delivery_time: document.getElementById('deliveryTime').value,
-      start_date: start, end_date: end, delivery_days: days,
-      contact_name: document.getElementById('contactName').value.trim(),
-      contact_email: document.getElementById('contactEmail').value.trim(),
-      contact_phone: document.getElementById('contactPhone').value.trim() || null,
-    }).select().single();
-    if (ce) throw ce;
-    const dates = generateSlotDates(start, end, days);
-    if (dates.length > 0) {
-      const { error: se } = await supabase.from('slots').insert(
-        dates.map(d => ({ campaign_id: camp.id, slot_date: d, is_claimed: false }))
-      );
-      if (se) throw se;
-    }
-    currentCampaign = camp;
-    currentAddress = addr;
-    const url = window.location.origin + window.location.pathname + '?id=' + slug;
-    document.getElementById('shareLink').value = url;
-    document.getElementById('successOverlay').classList.add('visible');
-    // Send confirmation email to family (non-blocking)
-    callEdge({
-      type: 'campaign_created',
-      contactEmail: document.getElementById('contactEmail').value.trim(),
-      contactName: document.getElementById('contactName').value.trim(),
-      familyName: document.getElementById('familyName').value.trim(),
-      slug,
-      startDate: start,
-      endDate: end,
-      deliveryTime: document.getElementById('deliveryTime').value,
-      slotCount: dates.length,
-    });
-  } catch (err) {
-    console.error(err);
-    showAlert('Eitthvað fór úrskeiðis þegar við vorum að búa til stuðningssíðuna. Vinsamlegast reyndu aftur — ef vandinn heldur áfram, hafðu samband við okkur.');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Stofna stuðningssíðu';
+    const datesOk = start && end && start <= end;
+    if (!silent) { const e = document.getElementById('err-dates'); if(e) e.style.display = datesOk ? 'none' : 'block'; }
+    if (!datesOk) ok = false;
+    chk('contactName', 'err-contactName', el => el.value.trim().length > 0);
+    chk('contactEmail', 'err-contactEmail', el => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+    chk('familyEmail', 'err-familyEmail', el => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+    const c1 = document.getElementById('consent1').checked;
+    const c2 = document.getElementById('consent2').checked;
+    if (!silent) { const e = document.getElementById('err-consent'); if(e) e.style.display = (c1&&c2) ? 'none' : 'block'; }
+    if (!c1 || !c2) ok = false;
+    return ok;
   }
-}
 
-function copyShareLink() {
+  async function createCampaign() {
+    if (!validateForm()) return;
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    try {
+      const familyName = document.getElementById('familyName').value.trim();
+      const slug = generateSlug(familyName);
+      const start = document.getElementById('startDate').value;
+      const end = document.getElementById('endDate').value;
+      const contactName = document.getElementById('contactName').value.trim();
+      const contactEmail = document.getElementById('contactEmail').value.trim();
+      const familyEmail = document.getElementById('familyEmail').value.trim();
+      const { data, error } = await supabase
+        .from('campaigns')
+        .insert({
+          slug,
+          family_name: familyName,
+          start_date: start,
+          end_date: end,
+          contact_name: contactName,
+          contact_email: contactEmail,
+          family_email: familyEmail,
+          is_active: true,
+        })
+        .select('admin_token, slug');
+      if (error) throw error;
+      const adminToken = data?.[0]?.admin_token || '';
+      const manageLink = 'https://samstillt.is/meals.html?manage=' + adminToken;
+      document.getElementById('shareLink').value = 'https://samstillt.is/meals.html?id=' + slug;
+      document.getElementById('successOverlay').classList.add('visible');
+      callEdge({
+        type: 'campaign_created',
+        contactEmail,
+        contactName,
+        familyName,
+        familyEmail,
+        slug,
+        startDate: start,
+        endDate: end,
+        manageLink,
+      });
+      callEdge({
+        type: 'campaign_created_admin',
+        familyName,
+        slug,
+        contactEmail,
+      });
+    } catch (err) {
+      console.error(err);
+      showAlert('Eitthvað fór úrskeiðis þegar við vorum að búa til stuðningssíðuna. Reyndu aftur eða hafðu samband við okkur.');
+    } finally {
+      btn.disabled = false;
+      updateSubmitBtn();
+    }
+  }
+
+  function copyShareLink() {
   const inp = document.getElementById('shareLink');
   inp.select();
   navigator.clipboard.writeText(inp.value).then(() => {
