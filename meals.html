@@ -951,8 +951,23 @@ async function saveManageFields() {
     if (error) throw error;
     document.getElementById('mv-name').textContent = familyName;
     if (currentManageCampaign) currentManageCampaign.family_name = familyName;
-    saveBtn.textContent = 'Vistað ✓';
-    setTimeout(() => { saveBtn.textContent = 'Vista breytingar'; saveBtn.disabled = false; }, 2500);
+
+    // Generate slots if delivery days are selected
+    let slotMsg = 'Vistað ✓';
+    if (selectedDays.length > 0) {
+      const { data: slotCount, error: slotErr } = await supabase.rpc('generate_slots', {
+        p_admin_token: currentAdminToken,
+      });
+      if (slotErr) {
+        console.error('Slot generation error:', slotErr);
+      } else {
+        slotMsg = `Vistað — ${slotCount} máltíðadagar búnir til ✓`;
+        await loadManageBookings(currentAdminToken);
+      }
+    }
+
+    saveBtn.textContent = slotMsg;
+    setTimeout(() => { saveBtn.textContent = 'Vista breytingar'; saveBtn.disabled = false; }, 3500);
   } catch (err) {
     console.error(err);
     saveBtn.textContent = 'Vista breytingar';
@@ -1064,6 +1079,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const isSelected = btn.classList.toggle('selected');
       btn.querySelector('input').checked = isSelected;
     });
+  });
+
+  // sameEmail checkbox — copy contactEmail into familyEmail when checked
+  const sameEmailCb = document.getElementById('sameEmail');
+  const contactEmailEl = document.getElementById('contactEmail');
+  const familyEmailEl = document.getElementById('familyEmail');
+  sameEmailCb.addEventListener('change', () => {
+    if (sameEmailCb.checked) {
+      familyEmailEl.value = contactEmailEl.value;
+      familyEmailEl.readOnly = true;
+      familyEmailEl.style.opacity = '0.6';
+      familyEmailEl.style.cursor = 'not-allowed';
+    } else {
+      familyEmailEl.value = '';
+      familyEmailEl.readOnly = false;
+      familyEmailEl.style.opacity = '';
+      familyEmailEl.style.cursor = '';
+    }
+    updateSubmitBtn();
+  });
+  // Keep familyEmail in sync if coordinator edits contactEmail while sameEmail is checked
+  contactEmailEl.addEventListener('input', () => {
+    if (sameEmailCb.checked) {
+      familyEmailEl.value = contactEmailEl.value;
+      updateSubmitBtn();
+    }
   });
 
   // URL routing
