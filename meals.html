@@ -404,6 +404,10 @@
       <h3>Máltíðadagar</h3>
       <span style="font-size:13px;color:var(--ink-muted);" id="cv-time"></span>
     </div>
+    <div id="pendingBanner" style="display:none; background:var(--amber-light); border:1px solid rgba(232,160,48,0.3); border-radius:var(--radius-md); padding:14px 18px; margin-bottom:16px;">
+      <p style="font-weight:700; color:var(--amber-dark); margin-bottom:4px;">Beðið eftir staðfestingu í tölvupósti</p>
+      <p style="font-size:14px; color:var(--ink-soft); margin:0;">Þu þarft að staðfesta tölvupóst frá okkur til að klára bókun.</p>
+    </div>
     <div class="slots-grid" id="slotsGrid">
       <div class="slots-loading">Sæki dagana...</div>
     </div>
@@ -584,11 +588,9 @@
       <input type="text" id="shareLink" readonly>
       <button class="copy-btn" id="copyBtn" onclick="copyShareLink()">Afrita</button>
     </div>
-    <div class="success-note">Vistaðu tengilinn — þetta er hlekkurinn sem þú deilir með stuðningsmönnum þegar þú ert tilbúin/n.</div>
+    <div class="success-note">Vistaðu tengilinn — þetta er hlekkurinn sem þú deilir með stuðningsmönnum þegar þú ert tilbúin/n. Athugaðu þú færð hann líka sendan í tölvupósti.</div>
     <button class="btn-primary" style="width:100%;justify-content:center;" onclick="goToManage()">Ljúka uppsetningunni →</button>
-    <p style="margin-top:14px;font-size:13px;text-align:center;">
-      <a href="#" onclick="goToCampaign();return false;" style="color:var(--ink-muted);text-decoration:underline;font-size:13px;">Skoða stuðningssíðuna eins og stuðningsmenn sjá hana</a>
-    </p>
+    
   </div>
 </div>
 
@@ -895,6 +897,11 @@ function renderSlots(slots) {
 
   const slotsHTML = slots.map(s => {
     const lbl = formatDateISFull(s.slot_date);
+    if (s.is_claimed && s.bookings?.[0]?.verified === false) {
+      return `<div class="slot-row" style="background:var(--amber-light);border-color:rgba(232,160,48,0.3);">
+        <div class="slot-date">${lbl}</div><div class="slot-who" style="color:var(--ink-muted);">—</div>
+        <span class="slot-badge" style="background:var(--amber-dark);">Óstaðfest</span></div>`;
+    }
     if (s.is_claimed) {
       const who = s.bookings?.[0]?.supporter_name || 'Einhver';
       return `<div class="slot-row slot-row-claimed"><div class="slot-date">${lbl}</div><div class="slot-who">${who}</div><span class="slot-badge">Tekið</span></div>`;
@@ -1076,28 +1083,10 @@ async function confirmBooking() {
       deliveryTime: currentCampaign?.delivery_time || '',
     });
 
-    // Show success state inside modal
-    document.getElementById('bookingModalCard').innerHTML = `
-      <div style="text-align:center;padding:8px 0;">
-        <div style="width:60px;height:60px;background:var(--forest-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-        </div>
-        <h3 style="margin-bottom:10px;">Bókun móttekin</h3>
-        <p style="font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:22px;">
-          Við höfum sent staðfestingarpóst á <strong>${email}</strong>.<br>
-          Smelltu á tengilinn í póstinum til að staðfesta skráningu þína og fá heimilisfangið.
-        </p>
-        <button class="modal-cancel" onclick="closeBookingModal()" style="width:100%;">Loka</button>
-      </div>
-    `;
-
-    // Auto-close and reload after a few seconds
-    setTimeout(() => {
-      closeBookingModal();
-      selectedSlotIds.clear();
-      selectedSlotLabels = {};
-      if (currentCampaign?.share_token) loadCampaign(currentCampaign.share_token);
-    }, 6000);
+    closeBookingModal();
+    if (currentCampaign?.share_token) loadCampaign(currentCampaign.share_token);
+    const banner = document.getElementById('pendingBanner');
+    if (banner) { banner.style.display = 'block'; setTimeout(() => { banner.style.display = 'none'; }, 20000); }
 
   } catch (err) {
     console.error(err);
@@ -1395,8 +1384,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     dateFormat: 'Y-m-d', altInput: true, altFormat: 'j. F Y', minDate: 'today', defaultDate: today,
   };
-  flatpickr('#startDate', { ...fpOpts, defaultDate: today });
-  flatpickr('#endDate', { ...fpOpts, defaultDate: future });
+  flatpickr('#startDate', { ...fpOpts, defaultDate: today, onChange: updateSubmitBtn });
+  flatpickr('#endDate', { ...fpOpts, defaultDate: future, onChange: updateSubmitBtn });
 
   // B4/B20 — ensure updateSubmitBtn fires on mobile keyboard input events
   ['familyName','contactName','contactEmail','familyEmail'].forEach(id => {
@@ -1405,6 +1394,11 @@ document.addEventListener('DOMContentLoaded', () => {
       el.addEventListener('input', updateSubmitBtn);
       el.addEventListener('change', updateSubmitBtn);
     }
+  });
+  // Wire consent checkboxes (D1 mobile fix)
+  ['consent1', 'consent2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', updateSubmitBtn);
   });
   // Trigger once on load to set initial hint state
   updateSubmitBtn();
