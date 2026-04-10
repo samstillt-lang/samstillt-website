@@ -579,13 +579,16 @@
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
     </div>
     <h2>Stuðningssíðan þín er tilbúin!</h2>
-    <p>Hér er tengilinn sem þú getur sent á vini og vandamenn. Þeir geta skráð sig í mat með einum smelli.</p>
+    <p>Næsta skref: fylltu inn upplýsingar um afhendingu á stjórnunarsíðunni. Þú getur deilt hlekknum með stuðningsmönnum þegar allt er tilbúið.</p>
     <div class="share-link-box">
       <input type="text" id="shareLink" readonly>
       <button class="copy-btn" id="copyBtn" onclick="copyShareLink()">Afrita</button>
     </div>
-    <div class="success-note">Vistaðu tengilinn — þú þarft hann til að skoða og stjórna síðunni þinni.</div>
-    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="goToCampaign()">Skoða stuðningssíðuna</button>
+    <div class="success-note">Vistaðu tengilinn — þetta er hlekkurinn sem þú deilir með stuðningsmönnum þegar þú ert tilbúin/n.</div>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="goToManage()">Ljúka uppsetningunni →</button>
+    <p style="margin-top:14px;font-size:13px;text-align:center;">
+      <a href="#" onclick="goToCampaign();return false;" style="color:var(--ink-muted);text-decoration:underline;font-size:13px;">Skoða stuðningssíðuna eins og stuðningsmenn sjá hana</a>
+    </p>
   </div>
 </div>
 
@@ -687,6 +690,7 @@ window.closeBookingModal = closeBookingModal;
 window.confirmBooking = confirmBooking;
 window.copyShareLink = copyShareLink;
 window.goToCampaign = goToCampaign;
+window.goToManage = goToManage;
 window.openBookingModal = openBookingModal;
 window.handleCancel = handleCancel;
 window.saveManageFields = saveManageFields;
@@ -782,6 +786,7 @@ async function createCampaign() {
     const adminToken = data?.[0]?.admin_token || '';
     const shareToken = data?.[0]?.share_token || '';
     window._newShareToken = shareToken;
+    window._newAdminToken = adminToken;
     const manageLink = 'https://samstillt.is/meals.html?manage=' + adminToken;
     const shareLink = 'https://samstillt.is/meals.html?id=' + shareToken;
     document.getElementById('shareLink').value = shareLink;
@@ -806,6 +811,12 @@ function copyShareLink() {
     btn.textContent = 'Afritað!'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Afrita'; btn.classList.remove('copied'); }, 2500);
   });
+}
+
+function goToManage() {
+  document.getElementById('successOverlay').classList.remove('visible');
+  const tok = window._newAdminToken;
+  if (tok) loadManage(tok);
 }
 
 function goToCampaign() {
