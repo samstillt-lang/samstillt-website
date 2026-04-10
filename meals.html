@@ -794,7 +794,7 @@ async function createCampaign() {
     document.getElementById('shareLink').value = shareLink;
     document.getElementById('successOverlay').classList.add('visible');
     callEdge({ type: 'campaign_created', contactEmail, contactName, familyName, familyEmail, slug, shareLink, startDate: start, endDate: end, manageLink });
-    callEdge({ type: 'campaign_created_admin', familyName, slug, contactEmail });
+    callEdge({ type: 'campaign_created_admin', familyName, slug, contactEmail, manageLink });
   } catch (err) {
     console.error(err);
     showAlert('Eitthvað fór úrskeiðis þegar við vorum að búa til stuðningssíðuna. Reyndu aftur eða hafðu samband við okkur.');
