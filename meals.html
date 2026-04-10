@@ -74,11 +74,15 @@
   .submit-btn { width: 100%; padding: 16px; background: var(--forest); color: white; font-size: 16px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
   .submit-btn:hover:not(:disabled) { background: var(--forest-mid); transform: translateY(-1px); }
   .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .submit-hint { font-size: 12px; color: var(--ink-muted); text-align: center; margin-top: 8px; display: none; }
+  .submit-hint.visible { display: block; }
+  .modal-error { display: none; margin-top: 8px; font-size: 13px; color: var(--terra); font-weight: 600; padding: 8px 12px; background: var(--terra-light); border-radius: var(--radius-sm); }
+  .modal-error.visible { display: block; }
   .form-error { display: none; margin-top: 6px; font-size: 13px; color: var(--terra); font-weight: 600; }
   .alert { padding: 14px 18px; border-radius: var(--radius-md); font-size: 14px; line-height: 1.6; margin-top: 20px; display: none; }
   .alert.visible { display: flex; align-items: flex-start; gap: 12px; }
   .alert-error { background: var(--terra-light); border: 1px solid rgba(196,113,74,0.3); color: #7a3820; }
-  .info-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .info-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 80px; }
   .info-card { background: var(--white); border-radius: var(--radius-md); padding: 20px 22px; border: 1px solid var(--cream-dark); }
   .info-card h4 { font-size: 15px; color: var(--ink); margin-bottom: 10px; font-family: 'Source Sans 3', sans-serif; font-weight: 700; }
   .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -325,7 +329,7 @@
                 <label class="form-label">Netfang fjölskyldu <span class="form-hint">(fær tilkynningar um bókanir)</span> *</label>
                 <input type="email" class="form-input" id="familyEmail" placeholder="netfang@daemi.is">
                 <label class="form-label" style="margin-top:8px;display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
-                  <input type="checkbox" id="sameEmail"> Sama netfang og samræningaraiðli
+                  <input type="checkbox" id="sameEmail"> Sama netfang og samræningaraðili
                 </label>
                 <div class="form-error" id="err-familyEmail">Vinsamlegast skráðu gilt netfang</div>
               </div>
@@ -335,7 +339,7 @@
             <label class="form-label">Samþykki *</label>
             <div class="consent-group" onclick="document.getElementById('consent1').click()">
               <input type="checkbox" id="consent1" onclick="event.stopPropagation(); updateSubmitBtn()">
-              <label for="consent1">Ég staðfesti að ég hafi samþykki fjölskyldu til að stofna þessa stuðningssiðu og deila þeim upplýsingum sem hér eru skráðar.</label>
+              <label for="consent1">Ég staðfesti að ég hafi samþykki fjölskyldu til að stofna þessa Stuðningssíðu og deila þeim upplýsingum sem hér eru skráðar.</label>
             </div>
             <div class="consent-group" onclick="document.getElementById('consent2').click()">
               <input type="checkbox" id="consent2" onclick="event.stopPropagation(); updateSubmitBtn()">
@@ -347,6 +351,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
             Stofna stuðningssíðu
           </button>
+          <p class="submit-hint" id="submitHint">Fylltu inn alla nauðsynlega reiti til að halda áfram</p>
         </div>
       </div>
       <div class="info-sidebar">
@@ -387,7 +392,7 @@
         <div class="campaign-desc-txt" id="cv-desc"></div>
       </div>
       <div class="campaign-stats">
-        <div class="stat-box"><div class="stat-num" id="cv-total">—</div><div class="stat-lbl">Dagar</div></div>
+        <div class="stat-box"><div class="stat-num" id="cv-total">—</div><div class="stat-lbl">Máltíðir</div></div>
         <div class="stat-box"><div class="stat-num" id="cv-claimed">—</div><div class="stat-lbl">Teknir</div></div>
         <div class="stat-box"><div class="stat-num" id="cv-open">—</div><div class="stat-lbl">Lausir</div></div>
       </div>
@@ -594,6 +599,7 @@
       <label class="form-label">Netfang * <span class="form-hint">(fær staðfestingarpóst)</span></label>
       <input type="email" class="form-input" id="claimEmail" placeholder="netfang@daemi.is">
     </div>
+    <div id="modalError" class="modal-error">Vinsamlegast fylltu inn nafn og gilt netfang.</div>
     <div class="form-group">
       <label class="form-label">Skilaboð til fjölskyldunnar <span class="form-hint">(valkvæmt)</span></label>
       <textarea class="form-textarea" id="claimMsg" placeholder="Hér er eitthvað hlýlegt..." style="min-height:70px;"></textarea>
@@ -717,7 +723,12 @@ function showAlert(msg) {
 }
 
 function updateSubmitBtn() {
-  document.getElementById('submitBtn').disabled = !validateForm(true);
+  const valid = validateForm(true);
+  const btn = document.getElementById('submitBtn');
+  const hint = document.getElementById('submitHint');
+  btn.disabled = !valid;
+  btn.style.opacity = valid ? '' : '0.5';
+  if (hint) hint.classList.toggle('visible', !valid);
 }
 
 function validateForm(silent) {
@@ -748,6 +759,7 @@ async function createCampaign() {
   if (!validateForm()) return;
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Stofna stuðningssíðu';
   try {
     const familyName = document.getElementById('familyName').value.trim();
     const slug = generateSlug();
@@ -777,6 +789,7 @@ async function createCampaign() {
     showAlert('Eitthvað fór úrskeiðis þegar við vorum að búa til stuðningssíðuna. Reyndu aftur eða hafðu samband við okkur.');
   } finally {
     btn.disabled = false;
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Stofna stuðningssíðu';
     updateSubmitBtn();
   }
 }
@@ -805,7 +818,15 @@ async function loadCampaign(shareToken) {
   document.getElementById('slotsGrid').innerHTML = '<div class="slots-loading">Sæki dagana...</div>';
   try {
     const { data: camp, error } = await supabase.from('safe_campaigns').select('*').eq('share_token', shareToken).single();
-    if (error || !camp) { showAlert('Stuðningssíðan fannst ekki. Athugaðu tengilinn og reyndu aftur.'); showView('create'); return; }
+    if (error || !camp) {
+      showView('cancel');
+      document.getElementById('cancelIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+      document.getElementById('cancelIcon').className = 'cancel-icon cancel-icon-error';
+      document.getElementById('cancelTitle').textContent = 'Síða fannst ekki';
+      document.getElementById('cancelMsg').textContent = 'Þessi stuðningssíða finnst ekki. Athugaðu tengilinn eða hafðu samband við samræningaraðilann.';
+      document.getElementById('cancelActions').style.display = 'block';
+      return;
+    }
     currentCampaign = camp;
     document.getElementById('cv-name').textContent = camp.family_name;
     document.getElementById('cv-meta').textContent = formatDateISFull(camp.start_date) + ' – ' + formatDateISFull(camp.end_date);
@@ -975,9 +996,12 @@ async function confirmBooking() {
   const name = document.getElementById('claimName').value.trim();
   const email = document.getElementById('claimEmail').value.trim();
   if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    alert('Vinsamlegast fylltu inn nafn og gilt netfang.');
+    const errEl = document.getElementById('modalError');
+    if (errEl) errEl.classList.add('visible');
     return;
   }
+  const errEl = document.getElementById('modalError');
+  if (errEl) errEl.classList.remove('visible');
   if (selectedSlotIds.size === 0) return;
 
   const btn = document.getElementById('confirmBtn');
@@ -1007,7 +1031,7 @@ async function confirmBooking() {
       btn.disabled = false;
       btn.textContent = 'Bóka ' + slotIdArray.length + ' daga';
       closeBookingModal();
-      alert('Einn eða fleiri valinna daga var þegar tekinn. Síðan verður endurnýjuð.');
+      showAlert('Einn eða fleiri valinna daga var þegar tekinn. Síðan verður endurnýjuð.');
       if (currentCampaign?.share_token) loadCampaign(currentCampaign.share_token);
       return;
     }
@@ -1064,7 +1088,7 @@ async function confirmBooking() {
     console.error(err);
     btn.disabled = false;
     btn.textContent = 'Bóka ' + slotIdArray.length + (slotIdArray.length === 1 ? ' dag' : ' daga');
-    alert('Eitthvað fór úrskeiðis. Vinsamlegast reyndu aftur.');
+    showAlert('Eitthvað fór úrskeiðis. Vinsamlegast reyndu aftur.');
   }
 }
 
@@ -1140,7 +1164,15 @@ async function loadManage(adminToken) {
   showView('manage');
   try {
     const { data: camps, error } = await supabase.rpc('get_campaign_for_manage', { p_admin_token: adminToken });
-    if (error || !camps || camps.length === 0) { showAlert('Stjórnunarsíðan fannst ekki. Athugaðu tengilinn.'); showView('create'); return; }
+    if (error || !camps || camps.length === 0) {
+      showView('cancel');
+      document.getElementById('cancelIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+      document.getElementById('cancelIcon').className = 'cancel-icon cancel-icon-error';
+      document.getElementById('cancelTitle').textContent = 'Stjórnunarsíða fannst ekki';
+      document.getElementById('cancelMsg').textContent = 'Þessi stjórnunartengill er ekki gildur. Athugaðu tengilinn í tölvupóstinum þínum.';
+      document.getElementById('cancelActions').style.display = 'block';
+      return;
+    }
     const camp = camps[0];
     currentManageCampaign = camp;
     document.getElementById('mv-name').textContent = camp.family_name;
@@ -1291,6 +1323,16 @@ async function handleCancel(bookingId) {
     }
     const slot = booking.slots;
     const campaign = slot?.campaigns;
+
+    // B17 — check if slot is already unclaimed (booking was already cancelled)
+    const { data: slotCheck } = await supabase.from('slots').select('is_claimed').eq('id', booking.slot_id).single();
+    if (!slotCheck || !slotCheck.is_claimed) {
+      icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9E8E82" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+      icon.className = 'cancel-icon cancel-icon-pending';
+      title.textContent = 'Þegar afbókað';
+      msg.textContent = 'Þessi bókun hefur þegar verið afbókuð.';
+      actions.style.display = 'block'; return;
+    }
     await supabase.from('slots').update({ is_claimed: false }).eq('id', booking.slot_id);
     await supabase.from('bookings').delete().eq('id', bookingId);
     callEdge({
@@ -1338,6 +1380,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   flatpickr('#startDate', { ...fpOpts, defaultDate: today });
   flatpickr('#endDate', { ...fpOpts, defaultDate: future });
+
+  // B4/B20 — ensure updateSubmitBtn fires on mobile keyboard input events
+  ['familyName','contactName','contactEmail','familyEmail'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', updateSubmitBtn);
+      el.addEventListener('change', updateSubmitBtn);
+    }
+  });
+  // Trigger once on load to set initial hint state
+  updateSubmitBtn();
 
   // Manage day toggle
   document.querySelectorAll('.manage-day-btn').forEach(btn => {
