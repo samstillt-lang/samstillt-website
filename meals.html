@@ -400,6 +400,13 @@
     <div class="food-note" id="cv-food" style="display:none;">
       <strong>Fæðuóskir:</strong> <span id="cv-food-text"></span>
     </div>
+    <div id="cv-contact" style="display:none; background:var(--white); border:1px solid var(--cream-dark); border-radius:var(--radius-md); padding:16px 20px; margin-bottom:24px;">
+      <p style="font-size:11px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;">Tengiliður</p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span id="cv-contact-name" style="font-size:15px;font-weight:600;color:var(--ink);"></span>
+        <div style="display:flex;gap:8px;" id="cv-contact-icons"></div>
+      </div>
+    </div>
     <div class="slots-header">
       <h3>Máltíðadagar</h3>
       <span style="font-size:13px;color:var(--ink-muted);" id="cv-time"></span>
@@ -523,6 +530,20 @@
               </div>
             </div>
             <div class="form-section">
+              <div class="form-section-title">Tímabil</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Upphafsdagur <span class="form-hint">(ekki hægt að breyta)</span></label>
+                  <input type="text" class="form-input" id="mf-startDate" readonly style="opacity:0.6;cursor:not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Lokadagur</label>
+                  <input type="text" class="form-input" id="mf-endDate" placeholder="Veldu dagsetningu..." readonly style="cursor:pointer;">
+                </div>
+              </div>
+              <div id="endDateWarning" style="display:none;" class="form-error visible">Óbókaðir dagar eftir þennan dag verða fjarlægðir. Staðfestar bókanir haldast óbreyttar.</div>
+            </div>
+            <div class="form-section">
               <div class="form-section-title">Tengiliður</div>
               <div class="form-row">
                 <div class="form-group">
@@ -542,6 +563,13 @@
                 <label class="form-label">Netfang fjölskyldu <span class="form-hint">(fær tilkynningar um bókanir)</span></label>
                 <input type="email" class="form-input" id="mf-familyEmail" placeholder="netfang@daemi.is">
               </div>
+            </div>
+            <div class="form-group" style="margin-top:14px;padding:14px 16px;background:var(--cream);border-radius:var(--radius-sm);">
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--ink-mid);">
+                <input type="checkbox" id="mf-showContact" style="width:18px;height:18px;accent-color:var(--forest);">
+                Sýna tengiliðsupplýsíngar á stuðningsíðunni
+              </label>
+              <p style="font-size:12px;color:var(--ink-muted);margin-top:6px;margin-bottom:0;">Ef þetta er virkt geta stuðningsmenn séð nafn, netfang og símanúmer samræningamannins.</p>
             </div>
             <button class="manage-save-btn" id="saveManageBtn" onclick="saveManageFields()">Vista breytingar</button>
           </div>
@@ -860,6 +888,26 @@ async function loadCampaign(shareToken) {
     document.getElementById('cv-total').textContent = total;
     document.getElementById('cv-claimed').textContent = claimed;
     document.getElementById('cv-open').textContent = total - claimed;
+        // 8.7: load contact info if show_contact = true
+    if (camp.show_contact) {
+      const { data: contactData } = await supabase.rpc('get_contact_for_campaign', { p_share_token: shareToken });
+      if (contactData && contactData.length > 0) {
+        const ct = contactData[0];
+        document.getElementById('cv-contact-name').textContent = ct.contact_name || '';
+        const iconsEl = document.getElementById('cv-contact-icons');
+        iconsEl.innerHTML = '';
+        if (ct.contact_email) {
+          iconsEl.innerHTML += `<a href="mailto:${ct.contact_email}" title="${ct.contact_email}" style="width:36px;height:36px;background:#2D5016;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></a>`;
+        }
+        if (ct.contact_phone) {
+          iconsEl.innerHTML += `<a href="tel:${ct.contact_phone}" title="${ct.contact_phone}" style="width:36px;height:36px;background:#2D5016;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.05 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>`;
+        }
+        document.getElementById('cv-contact').style.display = 'block';
+      }
+    }
+    
     renderSlots(slots);
   } catch (err) {
     console.error(err);
@@ -1191,6 +1239,18 @@ async function loadManage(adminToken) {
     document.getElementById('mf-address').value = camp.address || '';
     document.getElementById('mf-deliveryTime').value = camp.delivery_time || '';
     document.getElementById('mf-contactName').value = camp.contact_name || '';
+    document.getElementById('mf-startDate').value = camp.start_date ? new Date(camp.start_date + 'T12:00:00').toLocaleDateString('is-IS') : '';
+    if (window._mfEndPicker) { window._mfEndPicker.destroy(); window._mfEndPicker = null; }
+    const maxEndDate = camp.start_date ? new Date(new Date(camp.start_date + 'T12:00:00').setFullYear(new Date(camp.start_date + 'T12:00:00').getFullYear() + 1)).toISOString().split('T')[0] : null;
+    window._mfEndPicker = flatpickr(document.getElementById('mf-endDate'), {
+      dateFormat: 'Y-m-d', altInput: true, altFormat: 'j. F Y',
+      minDate: 'today', maxDate: maxEndDate, defaultDate: camp.end_date || null,
+      onChange: (dates, dateStr) => {
+        const warn = document.getElementById('endDateWarning');
+        if (warn) warn.style.display = (camp.end_date && dateStr < camp.end_date) ? 'block' : 'none';
+      }
+    });
+    document.getElementById('mf-showContact').checked = camp.show_contact || false;
     document.getElementById('mf-contactPhone').value = camp.contact_phone || '';
     document.getElementById('mf-contactEmail').value = camp.contact_email || '';
     document.getElementById('mf-familyEmail').value = camp.family_email || '';
@@ -1253,6 +1313,8 @@ async function saveManageFields() {
       p_contact_name: document.getElementById('mf-contactName').value.trim() || null,
       p_contact_phone: document.getElementById('mf-contactPhone').value.trim() || null,
       p_family_email: document.getElementById('mf-familyEmail').value.trim() || null,
+      p_end_date: (window._mfEndPicker && window._mfEndPicker.selectedDates[0]) ? window._mfEndPicker.input.value : null,
+      p_show_contact: document.getElementById('mf-showContact') ? document.getElementById('mf-showContact').checked : null,
     });
     if (error) throw error;
     document.getElementById('mv-name').textContent = familyName;
@@ -1269,6 +1331,15 @@ async function saveManageFields() {
     }
     saveBtn.textContent = slotMsg;
     setTimeout(() => { saveBtn.textContent = 'Vista breytingar'; saveBtn.disabled = false; }, 3500);
+    // 8.8: update manage page header end date if it changed
+    if (window._mfEndPicker && window._mfEndPicker.selectedDates[0]) {
+      const meta = document.getElementById('mv-meta');
+      if (meta) {
+        const newEndDisplay = window._mfEndPicker.altInput ? window._mfEndPicker.altInput.value : window._mfEndPicker.input.value;
+        const parts = meta.textContent.split('–');
+        if (parts.length >= 2) meta.textContent = parts[0].trim() + ' – ' + newEndDisplay;
+      }
+    }
   } catch (err) {
     console.error(err);
     saveBtn.textContent = 'Vista breytingar';
