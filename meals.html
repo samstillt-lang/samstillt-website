@@ -48,8 +48,8 @@
   .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: 1.5px solid var(--forest-light); cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-secondary:hover { background: var(--forest-mist); }
   .main-content { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
-  #viewCreate, #viewCampaign, #viewCancel, #viewManage { display: none; }
-  #viewCreate.active, #viewCampaign.active, #viewCancel.active, #viewManage.active { display: block; }
+  #viewCreate, #viewCampaign, #viewCancel, #viewVerify, #viewManage { display: none; }
+  #viewCreate.active, #viewCampaign.active, #viewCancel.active, #viewVerify.active, #viewManage.active { display: block; }
   .form-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
   .form-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); overflow: hidden; }
   .form-card-header { background: var(--forest); padding: 28px 32px; }
@@ -66,9 +66,6 @@
   .form-input.error { border-color: var(--terra); }
   .form-textarea { resize: vertical; min-height: 80px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .select-wrap { position: relative; }
-  .select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--ink-muted); pointer-events: none; }
-  .divider { border: none; border-top: 1px solid var(--cream-dark); margin: 24px 0; }
   .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
   .day-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border: 2px solid var(--cream-dark); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; background: var(--cream); font-size: 11px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.5px; user-select: none; }
   .day-btn:hover { border-color: var(--forest-light); color: var(--forest); background: var(--forest-pale); }
@@ -78,7 +75,6 @@
   .submit-btn:hover:not(:disabled) { background: var(--forest-mid); transform: translateY(-1px); }
   .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .form-error { display: none; margin-top: 6px; font-size: 13px; color: var(--terra); font-weight: 600; }
-  .form-error.visible { display: block; }
   .alert { padding: 14px 18px; border-radius: var(--radius-md); font-size: 14px; line-height: 1.6; margin-top: 20px; display: none; }
   .alert.visible { display: flex; align-items: flex-start; gap: 12px; }
   .alert-error { background: var(--terra-light); border: 1px solid rgba(196,113,74,0.3); color: #7a3820; }
@@ -114,27 +110,51 @@
   .food-note strong { color: var(--amber-dark); }
   .slots-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
   .slots-header h3 { font-size: 20px; color: var(--ink); }
-  .slots-grid { display: flex; flex-direction: column; gap: 10px; }
+  .slots-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 80px; }
   .slot-row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--radius-md); border: 1px solid var(--cream-dark); background: var(--white); }
   .slot-row-claimed { background: var(--forest-pale); border-color: rgba(74,124,47,0.2); }
+  .slot-row-available { cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+  .slot-row-available:hover { border-color: var(--forest-light); background: var(--forest-mist); }
+  .slot-row-selected { border-color: var(--forest-mid) !important; background: var(--forest-pale) !important; }
+  .slot-checkbox { width: 20px; height: 20px; accent-color: var(--forest); cursor: pointer; flex-shrink: 0; }
   .slot-date { font-size: 15px; font-weight: 700; color: var(--ink); min-width: 130px; }
   .slot-who { flex: 1; font-size: 14px; color: var(--ink-soft); }
   .slot-badge { font-size: 12px; font-weight: 700; background: var(--forest-mid); color: white; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
-  .slot-claim-btn { padding: 9px 20px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; white-space: nowrap; }
-  .slot-claim-btn:hover { background: var(--forest-mid); }
   .slots-loading { text-align: center; padding: 40px; color: var(--ink-muted); font-size: 15px; }
+  /* Weekday shortcut buttons */
+  .weekday-shortcuts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; padding: 14px 18px; background: var(--amber-light); border: 1px solid rgba(232,160,48,0.25); border-radius: var(--radius-md); align-items: center; }
+  .weekday-shortcuts-label { font-size: 11px; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.6px; width: 100%; margin-bottom: 4px; }
+  .weekday-btn { padding: 7px 14px; background: var(--white); border: 1.5px solid rgba(232,160,48,0.4); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; color: var(--ink-mid); cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.15s; }
+  .weekday-btn:hover { border-color: var(--amber); background: var(--amber-light); color: var(--amber-dark); }
+  .weekday-btn.all-selected { background: var(--amber); border-color: var(--amber); color: white; }
+  /* Book bar */
+  .book-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: var(--forest); padding: 14px 24px; display: none; align-items: center; justify-content: center; gap: 20px; box-shadow: 0 -4px 20px rgba(45,80,22,0.25); }
+  .book-bar.visible { display: flex; }
+  .book-bar-text { color: rgba(255,255,255,0.75); font-size: 14px; }
+  .book-bar-btn { background: white; color: var(--forest); padding: 11px 28px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; border: none; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.15s; white-space: nowrap; }
+  .book-bar-btn:hover { background: var(--forest-pale); }
+  /* Booking modal */
   #bookingModal { display: none; position: fixed; inset: 0; background: rgba(28,20,16,0.75); z-index: 999; align-items: center; justify-content: center; padding: 24px; }
   #bookingModal.open { display: flex; }
-  .modal-card { background: var(--white); border-radius: var(--radius-lg); padding: 36px 32px; max-width: 480px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
-  .modal-card h3 { font-size: 22px; color: var(--ink); margin-bottom: 4px; }
-  .modal-date-lbl { font-size: 14px; color: var(--terra); font-weight: 700; margin-bottom: 20px; }
+  .modal-card { background: var(--white); border-radius: var(--radius-lg); padding: 36px 32px; max-width: 480px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.25); max-height: 90vh; overflow-y: auto; }
+  .modal-card h3 { font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .modal-dates-list { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; max-height: 140px; overflow-y: auto; }
+  .modal-date-chip { background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.2); border-radius: var(--radius-sm); padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--forest); }
   .modal-actions { display: flex; gap: 12px; margin-top: 20px; }
   .modal-cancel { flex: 1; padding: 12px; background: var(--cream); color: var(--ink-soft); border: 1.5px solid var(--cream-dark); border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Source Sans 3', sans-serif; }
   .modal-confirm { flex: 2; padding: 12px; background: var(--forest); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; }
   .modal-confirm:hover { background: var(--forest-mid); }
   .modal-confirm:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  /* ── MANAGE PAGE ── */
+  /* Cancel + Verify views */
+  .cancel-view { max-width: 520px; margin: 60px auto; text-align: center; }
+  .cancel-icon { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .cancel-icon-pending { background: var(--amber-light); }
+  .cancel-icon-done { background: var(--forest-pale); }
+  .cancel-icon-error { background: var(--terra-light); }
+  .cancel-view h2 { font-size: 24px; color: var(--ink); margin-bottom: 12px; }
+  .cancel-view p { font-size: 16px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 24px; }
+  .cancel-card { background: var(--white); border-radius: var(--radius-lg); padding: 48px 40px; border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); }
+  /* Manage page */
   .manage-header { background: var(--forest); border-radius: var(--radius-lg); padding: 28px 36px; margin-bottom: 28px; color: white; }
   .manage-header-top { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; flex-wrap: wrap; }
   .manage-header h2 { font-size: 26px; color: white; }
@@ -172,7 +192,6 @@
   .btn-danger:hover:not(:disabled) { background: #a85e3a; }
   .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
   .address-hint { font-size: 12px; color: var(--ink-muted); margin-top: 5px; display: flex; align-items: center; gap: 5px; }
-
   footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 60px 0 32px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-col h5 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; font-family: 'Source Sans 3', sans-serif; }
@@ -183,24 +202,11 @@
   .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .footer-bottom p { font-size: 13px; }
   .footer-disclaimer { font-size: 12px; color: rgba(255,255,255,0.35); max-width: 560px; text-align: right; line-height: 1.6; }
-
-  /* Consent checkboxes */
   .consent-group { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; background: var(--forest-pale); border: 1px solid rgba(74,124,47,0.2); border-radius: var(--radius-sm); cursor: pointer; }
   .consent-group input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--forest); cursor: pointer; margin-top: 2px; }
   .consent-group label { font-size: 14px; color: var(--ink-mid); line-height: 1.5; cursor: pointer; }
-  .consent-group label strong { color: var(--forest); }
-
   @keyframes spin { to { transform: rotate(360deg); } }
-  .cancel-view { max-width: 520px; margin: 60px auto; text-align: center; }
-  .cancel-icon { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
-  .cancel-icon-pending { background: var(--amber-light); }
-  .cancel-icon-done { background: var(--forest-pale); }
-  .cancel-icon-error { background: var(--terra-light); }
-  .cancel-view h2 { font-size: 24px; color: var(--ink); margin-bottom: 12px; }
-  .cancel-view p { font-size: 16px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 24px; }
-  .cancel-card { background: var(--white); border-radius: var(--radius-lg); padding: 48px 40px; border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); }
   .spin { animation: spin 1s linear infinite; }
-
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
@@ -210,24 +216,24 @@
     .days-grid { grid-template-columns: repeat(4, 1fr); }
     .manage-layout { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .book-bar { flex-direction: column; gap: 10px; padding: 12px 16px; }
+    .book-bar-btn { width: 100%; text-align: center; }
+    .campaign-stats { display: none; }
   }
   @media (max-width: 580px) {
     .footer-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .days-grid { grid-template-columns: repeat(4, 1fr); }
     .manage-share-row { flex-direction: column; }
-    .manage-share-row input { width: 100%; }
-    .manage-share-row .copy-btn { width: 100%; }
+    .manage-share-row input, .manage-share-row .copy-btn { width: 100%; }
   }
 </style>
 <style>
-  /* Footer breakout: escape the max-width container */
   .main-content.container > footer {
     width: 100vw; position: relative; left: 50%;
     margin-left: -50vw; margin-right: -50vw;
     margin-top: 80px; margin-bottom: -80px;
   }
-  /* Remove section divider lines on create form */
   #viewCreate .form-section-title { border-bottom: none; padding-bottom: 0; }
 </style>
 </head>
@@ -350,14 +356,14 @@
             <li>Þú fyllir út eyðublað og við búum til sérstaka stuðningssíðu.</li>
             <li>Þú færð einkvæman hlekk til að deila með vinum og fjölskyldu.</li>
             <li>Aðstandendur skrá sig á ákveðna daga.</li>
-            <li>Heimilisfangið er aðeins sýnilegt eftir bókun.</li>
+            <li>Heimilisfangið er aðeins sýnilegt eftir staðfestingu.</li>
           </ul>
         </div>
         <div class="info-card privacy-card">
           <h4>Persónuvernd</h4>
           <ul>
             <li>Stuðningssíðan er aðeins aðgengileg þeim sem hafa hlekkinn.</li>
-            <li>Heimilisfang og símanúmer eru aðeins gefin upp fyrir þá sem bóka.</li>
+            <li>Heimilisfang er sent í staðfestingarpósti til bókaðra stuðningsmanna.</li>
             <li>Netfangið þitt er aldrei sýnt opinberlega.</li>
             <li>Við deilum aldrei gögnum með þriðja aðila.</li>
           </ul>
@@ -414,9 +420,24 @@
     </div>
   </div>
 
+  <!-- VERIFY VIEW -->
+  <div id="viewVerify">
+    <div class="cancel-view">
+      <div class="cancel-card">
+        <div class="cancel-icon cancel-icon-pending" id="verifyIcon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B87820" stroke-width="2.5" stroke-linecap="round" class="spin"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h2 id="verifyTitle">Staðfesti bókun...</h2>
+        <p id="verifyMsg">Augnablik meðan við staðfestum skráningu þína.</p>
+        <div id="verifyActions" style="display:none;">
+          <a href="meals.html" class="btn-secondary" style="justify-content:center;">Til baka á forsíðu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- MANAGE VIEW -->
   <div id="viewManage">
-    <!-- Manage header: family name, status, share link -->
     <div class="manage-header">
       <div class="manage-header-top">
         <h2 id="mv-name">—</h2>
@@ -428,14 +449,10 @@
         <button class="copy-btn" id="manageShareCopyBtn" onclick="copyManageShareLink()">Afrita hlekk</button>
       </div>
     </div>
-
     <div class="manage-layout">
-      <!-- Left: edit form -->
       <div>
         <div class="manage-card">
-          <div class="manage-card-header">
-            <h3>Breyta upplýsingum</h3>
-          </div>
+          <div class="manage-card-header"><h3>Breyta upplýsingum</h3></div>
           <div class="manage-card-body">
             <div class="form-section">
               <div class="form-section-title">Um hópinn</div>
@@ -446,14 +463,13 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Lýsing <span class="form-hint">(sýnd á stuðningssíðunni)</span></label>
-                <textarea class="form-textarea" id="mf-description" placeholder="Stuttlega um fjölskylduna eða þann sem þiggur stuðninginn..." style="min-height:90px;"></textarea>
+                <textarea class="form-textarea" id="mf-description" placeholder="Stuttlega um fjölskylduna..." style="min-height:90px;"></textarea>
               </div>
               <div class="form-group">
                 <label class="form-label">Fæðuóskir <span class="form-hint">(ofnæmi, forðast o.fl.)</span></label>
                 <textarea class="form-textarea" id="mf-foodNotes" placeholder="t.d. glútenlaust, laktósaóþol..." style="min-height:70px;"></textarea>
               </div>
             </div>
-
             <div class="form-section">
               <div class="form-section-title">Afhending</div>
               <div class="form-group">
@@ -461,7 +477,7 @@
                 <input type="text" class="form-input" id="mf-address" placeholder="Götuheiti 1, 101 Reykjavík">
                 <div class="address-hint">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-                  Sent aðeins í staðfestingarpósti til bókaðra stuðningsmanna — aldrei birt opinberlega.
+                  Sent aðeins í staðfestingarpósti — aldrei birt opinberlega.
                 </div>
               </div>
               <div class="form-group">
@@ -481,7 +497,6 @@
                 </div>
               </div>
             </div>
-
             <div class="form-section">
               <div class="form-section-title">Tengiliður</div>
               <div class="form-row">
@@ -499,24 +514,17 @@
                 <input type="email" class="form-input" id="mf-contactEmail" readonly style="opacity:0.6;cursor:not-allowed;">
               </div>
             </div>
-
             <button class="manage-save-btn" id="saveManageBtn" onclick="saveManageFields()">Vista breytingar</button>
           </div>
         </div>
-
-        <!-- Danger zone -->
         <div class="danger-zone">
-          <div class="danger-zone-header">
-            <h3>Afvirkja stuðningssíðu</h3>
-          </div>
+          <div class="danger-zone-header"><h3>Afvirkja stuðningssíðu</h3></div>
           <div class="danger-zone-body">
             <p>Þegar síðan er gerð óvirk geta stuðningsmenn ekki lengur bókað á hana. Þetta er ekki afturkræft í gegnum þessa síðu.</p>
             <button class="btn-danger" id="deactivateBtn" onclick="confirmDeactivate()">Gera óvirka</button>
           </div>
         </div>
       </div>
-
-      <!-- Right: bookings -->
       <div>
         <div class="manage-card">
           <div class="manage-card-header">
@@ -531,6 +539,12 @@
     </div>
   </div>
 
+</div>
+
+<!-- Book bar (fixed bottom, campaign view) -->
+<div class="book-bar" id="bookBar">
+  <span class="book-bar-text" id="bookBarText"></span>
+  <button class="book-bar-btn" id="bookBarBtn" onclick="openBookingModal()">Bóka valda daga →</button>
 </div>
 
 <!-- Success overlay -->
@@ -552,15 +566,16 @@
 
 <!-- Booking modal -->
 <div id="bookingModal">
-  <div class="modal-card">
+  <div class="modal-card" id="bookingModalCard">
     <h3>Skrá þig í mat</h3>
-    <div class="modal-date-lbl" id="modalDateLabel">—</div>
+    <div class="form-section-title" style="margin-bottom:8px;">Valin dagar</div>
+    <div class="modal-dates-list" id="bookingDatesContainer"></div>
     <div class="form-group">
       <label class="form-label">Nafn þitt *</label>
       <input type="text" class="form-input" id="claimName" placeholder="Fullt nafn">
     </div>
     <div class="form-group">
-      <label class="form-label">Netfang * <span class="form-hint">(fyrir áminningu daginn áður)</span></label>
+      <label class="form-label">Netfang * <span class="form-hint">(fær staðfestingarpóst)</span></label>
       <input type="email" class="form-input" id="claimEmail" placeholder="netfang@daemi.is">
     </div>
     <div class="form-group">
@@ -569,7 +584,7 @@
     </div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeBookingModal()">Hætta við</button>
-      <button class="modal-confirm" id="confirmBtn" onclick="confirmBooking()">Staðfesta skráningu</button>
+      <button class="modal-confirm" id="confirmBtn" onclick="confirmBooking()">Bóka</button>
     </div>
   </div>
 </div>
@@ -617,29 +632,30 @@ async function callEdge(payload) {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_KEY}` },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) {
-      const txt = await res.text();
-      console.error('Edge function error:', res.status, txt);
-    }
+    if (!res.ok) console.error('Edge function error:', res.status, await res.text());
+    return res;
   } catch (e) {
     console.error('Edge function call failed:', e.message);
   }
 }
 
+// ── State ──
 let currentCampaign = null;
 let currentAdminToken = null;
 let currentManageCampaign = null;
-let pendingSlotId = null;
-let pendingSlotDate = null;
+let selectedSlotIds = new Set();
+let selectedSlotLabels = {};
 
-const DAY_MAP = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
+// ── Weekday name maps ──
+const IS_DAY_GENITIVE = ['sunnudaga','mánudaga','þriðjudaga','miðvikudaga','fimmtudaga','föstudaga','laugardaga'];
 
-// Expose to global
+// ── Expose to global ──
 window.showView = showView;
 window.updateSubmitBtn = updateSubmitBtn;
 window.createCampaign = createCampaign;
 window.loadCampaign = loadCampaign;
 window.loadManage = loadManage;
+window.loadVerify = loadVerify;
 window.closeBookingModal = closeBookingModal;
 window.confirmBooking = confirmBooking;
 window.copyShareLink = copyShareLink;
@@ -649,14 +665,18 @@ window.handleCancel = handleCancel;
 window.saveManageFields = saveManageFields;
 window.confirmDeactivate = confirmDeactivate;
 window.copyManageShareLink = copyManageShareLink;
+window.toggleSlot = toggleSlot;
+window.toggleWeekday = toggleWeekday;
 
 function showView(view) {
-  ['viewCreate','viewCampaign','viewCancel','viewManage'].forEach(id => {
+  ['viewCreate','viewCampaign','viewCancel','viewVerify','viewManage'].forEach(id => {
     document.getElementById(id).classList.remove('active');
   });
-  const map = { create: 'viewCreate', campaign: 'viewCampaign', cancel: 'viewCancel', manage: 'viewManage' };
+  const map = { create:'viewCreate', campaign:'viewCampaign', cancel:'viewCancel', verify:'viewVerify', manage:'viewManage' };
   if (map[view]) document.getElementById(map[view]).classList.add('active');
   document.getElementById('globalAlert').classList.remove('visible');
+  // Hide book bar when leaving campaign view
+  if (view !== 'campaign') document.getElementById('bookBar').classList.remove('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -666,10 +686,10 @@ function generateSlug() {
 }
 
 function formatDateISFull(ds) {
-  const months = ['jan','feb','mar','apr','mai','jun','jul','agu','sep','okt','nov','des'];
-  const DAYS = ['Sun','Man','Pri','Mid','Fim','Fos','Lau'];
+  const months = ['jan','feb','mar','apr','maí','jún','júl','ágú','sep','okt','nóv','des'];
+  const DAYS = ['Sun','Mán','Þri','Mið','Fim','Fös','Lau'];
   const d = new Date(ds + 'T00:00:00');
-  return DAYS[d.getDay()] + " " + d.getDate() + ". " + months[d.getMonth()];
+  return DAYS[d.getDay()] + ' ' + d.getDate() + '. ' + months[d.getMonth()];
 }
 
 function showAlert(msg) {
@@ -721,11 +741,9 @@ async function createCampaign() {
     const familyEmail = document.getElementById('familyEmail').value.trim();
     const { data, error } = await supabase
       .from('campaigns')
-      .insert({
-        slug, family_name: familyName, start_date: start, end_date: end,
-        contact_name: contactName, contact_email: contactEmail,
-        family_email: familyEmail, is_active: true,
-      })
+      .insert({ slug, family_name: familyName, start_date: start, end_date: end,
+                contact_name: contactName, contact_email: contactEmail,
+                family_email: familyEmail, is_active: true })
       .select('admin_token, slug, share_token');
     if (error) throw error;
     const adminToken = data?.[0]?.admin_token || '';
@@ -764,6 +782,9 @@ function goToCampaign() {
 
 async function loadCampaign(shareToken) {
   showView('campaign');
+  selectedSlotIds.clear();
+  selectedSlotLabels = {};
+  updateBookBar();
   document.getElementById('slotsGrid').innerHTML = '<div class="slots-loading">Sæki dagana...</div>';
   try {
     const { data: camp, error } = await supabase.from('safe_campaigns').select('*').eq('share_token', shareToken).single();
@@ -777,7 +798,7 @@ async function loadCampaign(shareToken) {
       document.getElementById('cv-food').style.display = 'block';
       document.getElementById('cv-food-text').textContent = camp.food_notes;
     } else { document.getElementById('cv-food').style.display = 'none'; }
-    const { data: slots, error: se } = await supabase.from('slots').select('*, bookings(supporter_name)').eq('campaign_id', camp.id).order('slot_date', { ascending: true });
+    const { data: slots, error: se } = await supabase.from('slots').select('*, bookings(supporter_name, verified)').eq('campaign_id', camp.id).order('slot_date', { ascending: true });
     if (se) throw se;
     const total = slots.length;
     const claimed = slots.filter(s => s.is_claimed).length;
@@ -791,60 +812,272 @@ async function loadCampaign(shareToken) {
   }
 }
 
+// ── SLOT RENDERING (Phase 4) ──
+
 function renderSlots(slots) {
   const g = document.getElementById('slotsGrid');
-  if (!slots || slots.length === 0) { g.innerHTML = '<div class="slots-loading">Engir dagar fundust.</div>'; return; }
-  g.innerHTML = slots.map(s => {
+  if (!slots || slots.length === 0) {
+    g.innerHTML = '<div class="slots-loading">Engir dagar fundust. Samræningaraðilinn þarf að vista afhendingardaga á stjórnunarsíðunni.</div>';
+    return;
+  }
+
+  const available = slots.filter(s => !s.is_claimed);
+
+  // Build weekday groups for shortcut buttons
+  const dayGroups = {};
+  available.forEach(s => {
+    const dow = new Date(s.slot_date + 'T00:00:00').getDay();
+    if (!dayGroups[dow]) dayGroups[dow] = [];
+    dayGroups[dow].push(s.id);
+  });
+
+  let shortcutsHTML = '';
+  const entries = Object.entries(dayGroups);
+  if (entries.length > 1) {
+    const btns = entries.map(([dow, ids]) =>
+      `<button class="weekday-btn" data-dow="${dow}" data-ids="${ids.join(',')}" onclick="toggleWeekday(this)">Alla ${IS_DAY_GENITIVE[parseInt(dow)]} (${ids.length})</button>`
+    ).join('');
+    shortcutsHTML = `<div class="weekday-shortcuts"><span class="weekday-shortcuts-label">Velja eftir vikudag</span>${btns}</div>`;
+  }
+
+  const slotsHTML = slots.map(s => {
     const lbl = formatDateISFull(s.slot_date);
     if (s.is_claimed) {
       const who = s.bookings?.[0]?.supporter_name || 'Einhver';
-      return '<div class="slot-row slot-row-claimed"><div class="slot-date">' + lbl + '</div><div class="slot-who">' + who + '</div><span class="slot-badge">Tekid</span></div>';
+      return `<div class="slot-row slot-row-claimed"><div class="slot-date">${lbl}</div><div class="slot-who">${who}</div><span class="slot-badge">Tekið</span></div>`;
     }
-    return `<div class="slot-row" id="slot-${s.id}"><div class="slot-date">${lbl}</div><div class="slot-who" style="color:var(--ink-muted);">Laust</div><button class="slot-claim-btn" onclick="openBookingModal('${s.id}','${lbl}')">Skrá mig</button></div>`;
+    return `<div class="slot-row slot-row-available" id="slot-${s.id}" onclick="toggleSlot('${s.id}','${lbl}')">
+      <input type="checkbox" class="slot-checkbox" id="cb-${s.id}" onclick="event.stopPropagation();toggleSlot('${s.id}','${lbl}')">
+      <div class="slot-date">${lbl}</div>
+      <div class="slot-who" style="color:var(--ink-muted);">Laust</div>
+    </div>`;
   }).join('');
+
+  g.innerHTML = shortcutsHTML + slotsHTML;
 }
 
-function openBookingModal(slotId, dateLabel) {
-  pendingSlotId = slotId; pendingSlotDate = dateLabel;
-  document.getElementById('modalDateLabel').textContent = dateLabel;
-  document.getElementById('claimName').value = '';
-  document.getElementById('claimEmail').value = '';
-  document.getElementById('claimMsg').value = '';
-  document.getElementById('confirmBtn').disabled = false;
-  document.getElementById('confirmBtn').textContent = 'Staðfesta skráningu';
+function toggleSlot(slotId, dateLabel) {
+  if (selectedSlotIds.has(slotId)) {
+    selectedSlotIds.delete(slotId);
+    delete selectedSlotLabels[slotId];
+  } else {
+    selectedSlotIds.add(slotId);
+    selectedSlotLabels[slotId] = dateLabel;
+  }
+  const selected = selectedSlotIds.has(slotId);
+  const row = document.getElementById('slot-' + slotId);
+  const cb = document.getElementById('cb-' + slotId);
+  if (row) row.classList.toggle('slot-row-selected', selected);
+  if (cb) cb.checked = selected;
+  updateWeekdayButtons();
+  updateBookBar();
+}
+
+function toggleWeekday(btn) {
+  const ids = btn.dataset.ids.split(',');
+  const allSelected = ids.every(id => selectedSlotIds.has(id));
+  ids.forEach(id => {
+    const row = document.getElementById('slot-' + id);
+    const cb = document.getElementById('cb-' + id);
+    const lbl = row ? row.querySelector('.slot-date')?.textContent || id : id;
+    if (allSelected) {
+      selectedSlotIds.delete(id);
+      delete selectedSlotLabels[id];
+    } else {
+      selectedSlotIds.add(id);
+      selectedSlotLabels[id] = lbl;
+    }
+    if (row) row.classList.toggle('slot-row-selected', !allSelected);
+    if (cb) cb.checked = !allSelected;
+  });
+  updateWeekdayButtons();
+  updateBookBar();
+}
+
+function updateWeekdayButtons() {
+  document.querySelectorAll('.weekday-btn').forEach(btn => {
+    const ids = btn.dataset.ids.split(',');
+    btn.classList.toggle('all-selected', ids.length > 0 && ids.every(id => selectedSlotIds.has(id)));
+  });
+}
+
+function updateBookBar() {
+  const bar = document.getElementById('bookBar');
+  if (!bar) return;
+  const count = selectedSlotIds.size;
+  if (count === 0) {
+    bar.classList.remove('visible');
+  } else {
+    bar.classList.add('visible');
+    document.getElementById('bookBarText').textContent = count === 1 ? '1 dagur valinn' : count + ' dagar valdir';
+    document.getElementById('bookBarBtn').textContent = 'Bóka ' + count + (count === 1 ? ' dag' : ' daga') + ' →';
+  }
+}
+
+// ── BOOKING MODAL (Phase 4 — multi-slot) ──
+
+function openBookingModal() {
+  if (selectedSlotIds.size === 0) return;
+  // Restore modal card to original state in case it was replaced by success state
+  document.getElementById('bookingModalCard').innerHTML = `
+    <h3>Skrá þig í mat</h3>
+    <div class="form-section-title" style="margin-bottom:8px;">Valin dagar</div>
+    <div class="modal-dates-list" id="bookingDatesContainer"></div>
+    <div class="form-group">
+      <label class="form-label">Nafn þitt *</label>
+      <input type="text" class="form-input" id="claimName" placeholder="Fullt nafn">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Netfang * <span class="form-hint">(fær staðfestingarpóst)</span></label>
+      <input type="email" class="form-input" id="claimEmail" placeholder="netfang@daemi.is">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Skilaboð til fjölskyldunnar <span class="form-hint">(valkvæmt)</span></label>
+      <textarea class="form-textarea" id="claimMsg" placeholder="Hér er eitthvað hlýlegt..." style="min-height:70px;"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeBookingModal()">Hætta við</button>
+      <button class="modal-confirm" id="confirmBtn" onclick="confirmBooking()">Bóka</button>
+    </div>
+  `;
+  // Populate dates list
+  const container = document.getElementById('bookingDatesContainer');
+  container.innerHTML = Object.values(selectedSlotLabels)
+    .map(lbl => `<div class="modal-date-chip">${lbl}</div>`).join('');
+  // Update confirm button text
+  const count = selectedSlotIds.size;
+  document.getElementById('confirmBtn').textContent = 'Bóka ' + count + (count === 1 ? ' dag' : ' daga');
   document.getElementById('bookingModal').classList.add('open');
 }
 
 function closeBookingModal() {
   document.getElementById('bookingModal').classList.remove('open');
-  pendingSlotId = null;
 }
 
 async function confirmBooking() {
   const name = document.getElementById('claimName').value.trim();
   const email = document.getElementById('claimEmail').value.trim();
-  if (!name || !email || !email.includes('@')) { alert('Vinsamlegast fylltu inn nafn og gilt netfang.'); return; }
+  if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Vinsamlegast fylltu inn nafn og gilt netfang.');
+    return;
+  }
+  if (selectedSlotIds.size === 0) return;
+
   const btn = document.getElementById('confirmBtn');
-  btn.disabled = true; btn.textContent = 'Vista...';
+  btn.disabled = true;
+  btn.textContent = 'Vista...';
+
+  const slotIdArray = [...selectedSlotIds];
+  const bookingGroupToken = crypto.randomUUID();
+  const verifyToken = crypto.randomUUID();
+  const message = document.getElementById('claimMsg').value.trim() || null;
+
   try {
-    const { error: ue } = await supabase.from('slots').update({ is_claimed: true }).eq('id', pendingSlotId).eq('is_claimed', false);
-    if (ue) throw ue;
-    const { error: be } = await supabase.from('bookings').insert({
-      slot_id: pendingSlotId, supporter_name: name, supporter_email: email,
-      message: document.getElementById('claimMsg').value.trim() || null,
+    // Claim all slots atomically — only unclaimed ones
+    const { data: claimedSlots, error: claimErr } = await supabase
+      .from('slots')
+      .update({ is_claimed: true })
+      .in('id', slotIdArray)
+      .eq('is_claimed', false)
+      .select('id');
+    if (claimErr) throw claimErr;
+
+    if (!claimedSlots || claimedSlots.length < slotIdArray.length) {
+      // Race condition — some slots were taken; release any we just claimed
+      if (claimedSlots && claimedSlots.length > 0) {
+        await supabase.from('slots').update({ is_claimed: false }).in('id', claimedSlots.map(s => s.id));
+      }
+      btn.disabled = false;
+      btn.textContent = 'Bóka ' + slotIdArray.length + ' daga';
+      closeBookingModal();
+      alert('Einn eða fleiri valinna daga var þegar tekinn. Síðan verður endurnýjuð.');
+      if (currentCampaign?.share_token) loadCampaign(currentCampaign.share_token);
+      return;
+    }
+
+    // Insert one booking row per slot — all share the same verify_token + group_token
+    const bookingRows = slotIdArray.map(slotId => ({
+      slot_id: slotId,
+      supporter_name: name,
+      supporter_email: email,
+      message,
+      booking_group_token: bookingGroupToken,
+      verify_token: verifyToken,
+      verified: false,
+    }));
+    const { error: bookingErr } = await supabase.from('bookings').insert(bookingRows);
+    if (bookingErr) throw bookingErr;
+
+    // Send booking_pending email (not booking_confirmed — that comes after verify)
+    const slotDates = slotIdArray.map(id => selectedSlotLabels[id]).filter(Boolean);
+    callEdge({
+      type: 'booking_pending',
+      supporterEmail: email,
+      supporterName: name,
+      familyName: currentCampaign?.family_name || '',
+      verifyToken,
+      slotDates,
+      deliveryTime: currentCampaign?.delivery_time || '',
     });
-    if (be) throw be;
-    btn.textContent = 'Skráning staðfest!';
-    callEdge({ type: 'booking_confirmed', supporterEmail: email, supporterName: name, familyName: currentCampaign?.family_name || '', slotDate: pendingSlotDate, deliveryTime: currentCampaign?.delivery_time || '', contactPhone: '', message: document.getElementById('claimMsg').value.trim() || null });
+
+    // Show success state inside modal
+    document.getElementById('bookingModalCard').innerHTML = `
+      <div style="text-align:center;padding:8px 0;">
+        <div style="width:60px;height:60px;background:var(--forest-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h3 style="margin-bottom:10px;">Bókun móttekin</h3>
+        <p style="font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:22px;">
+          Við höfum sent staðfestingarpóst á <strong>${email}</strong>.<br>
+          Smelltu á tengilinn í póstinum til að staðfesta skráningu þína og fá heimilisfangið.
+        </p>
+        <button class="modal-cancel" onclick="closeBookingModal()" style="width:100%;">Loka</button>
+      </div>
+    `;
+
+    // Auto-close and reload after a few seconds
     setTimeout(() => {
       closeBookingModal();
+      selectedSlotIds.clear();
+      selectedSlotLabels = {};
       if (currentCampaign?.share_token) loadCampaign(currentCampaign.share_token);
-    }, 2500);
+    }, 6000);
+
   } catch (err) {
     console.error(err);
-    btn.disabled = false; btn.textContent = 'Staðfesta skráningu';
-    alert('Eitthvað fór úrskeiðis. Dagurinn kann að vera þegar tekinn — reyndu aftur.');
+    btn.disabled = false;
+    btn.textContent = 'Bóka ' + slotIdArray.length + (slotIdArray.length === 1 ? ' dag' : ' daga');
+    alert('Eitthvað fór úrskeiðis. Vinsamlegast reyndu aftur.');
   }
+}
+
+// ── VERIFY FLOW (Phase 4) ──
+
+async function loadVerify(verifyToken) {
+  showView('verify');
+  try {
+    const res = await callEdge({ type: 'verify_booking', verifyToken });
+    if (!res) throw new Error('No response from edge function');
+    const data = await res.json();
+    if (data.ok) {
+      document.getElementById('verifyIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      document.getElementById('verifyIcon').className = 'cancel-icon cancel-icon-done';
+      document.getElementById('verifyTitle').textContent = 'Bókun staðfest!';
+      document.getElementById('verifyMsg').textContent = 'Við höfum sent staðfestingu á netfangið þitt með heimilisfanginu.';
+    } else {
+      document.getElementById('verifyIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+      document.getElementById('verifyIcon').className = 'cancel-icon cancel-icon-error';
+      document.getElementById('verifyTitle').textContent = 'Tengill ekki gildur';
+      document.getElementById('verifyMsg').textContent = 'Þessi staðfestingartengill er ekki gildur eða hefur þegar verið notaður.';
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('verifyIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+    document.getElementById('verifyIcon').className = 'cancel-icon cancel-icon-error';
+    document.getElementById('verifyTitle').textContent = 'Eitthvað fór úrskeiðis';
+    document.getElementById('verifyMsg').textContent = 'Ekki tókst að staðfesta. Vinsamlegast reyndu aftur eða hafðu samband við okkur.';
+  }
+  document.getElementById('verifyActions').style.display = 'block';
 }
 
 // ── MANAGE FUNCTIONS ──
@@ -854,23 +1087,15 @@ async function loadManage(adminToken) {
   showView('manage');
   try {
     const { data: camps, error } = await supabase.rpc('get_campaign_for_manage', { p_admin_token: adminToken });
-    if (error || !camps || camps.length === 0) {
-      showAlert('Stjórnunarsíðan fannst ekki. Athugaðu tengilinn.');
-      showView('create');
-      return;
-    }
+    if (error || !camps || camps.length === 0) { showAlert('Stjórnunarsíðan fannst ekki. Athugaðu tengilinn.'); showView('create'); return; }
     const camp = camps[0];
     currentManageCampaign = camp;
-
-    // Header
     document.getElementById('mv-name').textContent = camp.family_name;
     const statusEl = document.getElementById('mv-status');
     statusEl.textContent = camp.is_active ? 'Virkt' : 'Óvirkt';
     statusEl.className = 'status-badge ' + (camp.is_active ? 'status-active' : 'status-inactive');
     document.getElementById('mv-meta').textContent = formatDateISFull(camp.start_date) + ' – ' + formatDateISFull(camp.end_date);
     document.getElementById('manageShareLink').value = 'https://samstillt.is/meals.html?id=' + camp.share_token;
-
-    // Edit form
     document.getElementById('mf-familyName').value = camp.family_name || '';
     document.getElementById('mf-description').value = camp.description || '';
     document.getElementById('mf-foodNotes').value = camp.food_notes || '';
@@ -879,22 +1104,15 @@ async function loadManage(adminToken) {
     document.getElementById('mf-contactName').value = camp.contact_name || '';
     document.getElementById('mf-contactPhone').value = camp.contact_phone || '';
     document.getElementById('mf-contactEmail').value = camp.contact_email || '';
-
-    // Delivery days
     const days = camp.delivery_days || [];
     document.querySelectorAll('.manage-day-btn').forEach(btn => {
-      const day = btn.dataset.day;
-      const sel = days.includes(day);
+      const sel = days.includes(btn.dataset.day);
       btn.classList.toggle('selected', sel);
       btn.querySelector('input').checked = sel;
     });
-
-    // Deactivate button
     const deactivateBtn = document.getElementById('deactivateBtn');
     deactivateBtn.disabled = !camp.is_active;
     deactivateBtn.textContent = camp.is_active ? 'Gera óvirka' : 'Síðan er þegar óvirk';
-
-    // Load bookings
     await loadManageBookings(adminToken);
   } catch (err) {
     console.error(err);
@@ -914,9 +1132,7 @@ async function loadManageBookings(adminToken) {
       return;
     }
     g.innerHTML = bookings.map(b => {
-      const badge = b.verified
-        ? '<span class="badge-verified">Staðfest</span>'
-        : '<span class="badge-pending">Óstaðfest</span>';
+      const badge = b.verified ? '<span class="badge-verified">Staðfest</span>' : '<span class="badge-pending">Óstaðfest</span>';
       return `<div class="booking-row"><div class="booking-date">${formatDateISFull(b.slot_date)}</div><div class="booking-name">${b.supporter_name}</div>${badge}</div>`;
     }).join('');
   } catch (err) {
@@ -931,7 +1147,6 @@ async function saveManageFields() {
   const errEl = document.getElementById('mf-err-familyName');
   if (!familyName) { errEl.style.display = 'block'; return; }
   errEl.style.display = 'none';
-
   const selectedDays = Array.from(document.querySelectorAll('.manage-day-btn input:checked')).map(cb => cb.value);
   const saveBtn = document.getElementById('saveManageBtn');
   saveBtn.disabled = true;
@@ -952,20 +1167,15 @@ async function saveManageFields() {
     document.getElementById('mv-name').textContent = familyName;
     if (currentManageCampaign) currentManageCampaign.family_name = familyName;
 
-    // Generate slots if delivery days are selected
     let slotMsg = 'Vistað ✓';
     if (selectedDays.length > 0) {
-      const { data: slotCount, error: slotErr } = await supabase.rpc('generate_slots', {
-        p_admin_token: currentAdminToken,
-      });
-      if (slotErr) {
-        console.error('Slot generation error:', slotErr);
-      } else {
+      const { data: slotCount, error: slotErr } = await supabase.rpc('generate_slots', { p_admin_token: currentAdminToken });
+      if (slotErr) { console.error('Slot generation error:', slotErr); }
+      else {
         slotMsg = `Vistað — ${slotCount} máltíðadagar búnir til ✓`;
         await loadManageBookings(currentAdminToken);
       }
     }
-
     saveBtn.textContent = slotMsg;
     setTimeout(() => { saveBtn.textContent = 'Vista breytingar'; saveBtn.disabled = false; }, 3500);
   } catch (err) {
@@ -1005,6 +1215,8 @@ function copyManageShareLink() {
     setTimeout(() => { btn.textContent = 'Afrita hlekk'; btn.classList.remove('copied'); }, 2500);
   });
 }
+
+// ── CANCEL FLOW ──
 
 async function handleCancel(bookingId) {
   showView('cancel');
@@ -1052,6 +1264,8 @@ async function handleCancel(bookingId) {
   }
 }
 
+// ── INIT ──
+
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
@@ -1071,25 +1285,16 @@ document.addEventListener('DOMContentLoaded', () => {
   flatpickr('#startDate', { ...fpOpts, defaultDate: today });
   flatpickr('#endDate', { ...fpOpts, defaultDate: future });
 
-  // Create form day toggle (unused currently — days set on manage page)
-  document.querySelectorAll('.day-btn:not(.manage-day-btn)').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      const isSelected = btn.classList.toggle('selected');
-      btn.querySelector('input').checked = isSelected;
-    });
-  });
-
-  // Manage page day toggle
+  // Manage day toggle
   document.querySelectorAll('.manage-day-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      const isSelected = btn.classList.toggle('selected');
-      btn.querySelector('input').checked = isSelected;
+      const sel = btn.classList.toggle('selected');
+      btn.querySelector('input').checked = sel;
     });
   });
 
-  // sameEmail checkbox — copy contactEmail into familyEmail when checked
+  // sameEmail checkbox
   const sameEmailCb = document.getElementById('sameEmail');
   const contactEmailEl = document.getElementById('contactEmail');
   const familyEmailEl = document.getElementById('familyEmail');
@@ -1107,12 +1312,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateSubmitBtn();
   });
-  // Keep familyEmail in sync if coordinator edits contactEmail while sameEmail is checked
   contactEmailEl.addEventListener('input', () => {
-    if (sameEmailCb.checked) {
-      familyEmailEl.value = contactEmailEl.value;
-      updateSubmitBtn();
-    }
+    if (sameEmailCb.checked) { familyEmailEl.value = contactEmailEl.value; updateSubmitBtn(); }
   });
 
   // URL routing
@@ -1120,8 +1321,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const id = params.get('id');
   const cancelId = params.get('cancel');
   const manageToken = params.get('manage');
+  const verifyToken = params.get('verify');
   if (cancelId) { handleCancel(cancelId); }
   else if (manageToken) { loadManage(manageToken); }
+  else if (verifyToken) { loadVerify(verifyToken); }
   else if (id) { loadCampaign(id); }
   else { showView('create'); }
 });
