@@ -1015,7 +1015,7 @@ async function handleCancel(bookingId) {
   try {
     const { data: booking, error: be } = await supabase
       .from('bookings')
-      .select('id, supporter_name, supporter_email, slot_id, slots(slot_date, campaign_id, campaigns(family_name, contact_email))')
+      .select('id, supporter_name, supporter_email, slot_id, slots(slot_date, campaign_id, campaigns(family_name, contact_name, contact_email, share_token))')
       .eq('id', bookingId).single();
     if (be || !booking) {
       icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>';
@@ -1028,7 +1028,15 @@ async function handleCancel(bookingId) {
     const campaign = slot?.campaigns;
     await supabase.from('slots').update({ is_claimed: false }).eq('id', booking.slot_id);
     await supabase.from('bookings').delete().eq('id', bookingId);
-    callEdge({ type: 'cancel_booking', familyEmail: campaign?.contact_email || '', familyName: campaign?.family_name || '', supporterName: booking.supporter_name, slotDate: slot?.slot_date || '' });
+    callEdge({
+      type: 'cancel_booking',
+      familyEmail: campaign?.contact_email || '',
+      contactName: campaign?.contact_name || '',
+      familyName: campaign?.family_name || '',
+      shareToken: campaign?.share_token || '',
+      supporterName: booking.supporter_name,
+      slotDate: slot?.slot_date || '',
+    });
     icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>';
     icon.className = 'cancel-icon cancel-icon-done';
     title.textContent = 'Afbókun staðfest';
