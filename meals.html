@@ -48,8 +48,8 @@
   .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: var(--radius-sm); border: 1.5px solid var(--forest-light); cursor: pointer; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
   .btn-secondary:hover { background: var(--forest-mist); }
   .main-content { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
-  #viewCreate, #viewCampaign, #viewCancel, #viewVerify, #viewManage { display: none; }
-  #viewCreate.active, #viewCampaign.active, #viewCancel.active, #viewVerify.active, #viewManage.active { display: block; }
+  #viewCreate, #viewCampaign, #viewCancel, #viewVerify, #viewUnsubscribe, #viewManage { display: none; }
+  #viewCreate.active, #viewCampaign.active, #viewCancel.active, #viewVerify.active, #viewUnsubscribe.active, #viewManage.active { display: block; }
   .form-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
   .form-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); box-shadow: var(--shadow-card); overflow: hidden; }
   .form-card-header { background: var(--forest); padding: 28px 32px; }
@@ -436,6 +436,22 @@
     </div>
   </div>
 
+  <!-- UNSUBSCRIBE VIEW -->
+  <div id="viewUnsubscribe">
+    <div class="cancel-view">
+      <div class="cancel-card">
+        <div class="cancel-icon cancel-icon-pending" id="unsubscribeIcon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B87820" stroke-width="2.5" stroke-linecap="round" class="spin"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h2 id="unsubscribeTitle">Afskrái þig...</h2>
+        <p id="unsubscribeMsg">Augnablik meðan við skráum þig út.</p>
+        <div id="unsubscribeActions" style="display:none;">
+          <a href="meals.html" class="btn-secondary" style="justify-content:center;">Til baka á forsíðu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- MANAGE VIEW -->
   <div id="viewManage">
     <div class="manage-header">
@@ -656,6 +672,7 @@ window.createCampaign = createCampaign;
 window.loadCampaign = loadCampaign;
 window.loadManage = loadManage;
 window.loadVerify = loadVerify;
+window.loadUnsubscribe = loadUnsubscribe;
 window.closeBookingModal = closeBookingModal;
 window.confirmBooking = confirmBooking;
 window.copyShareLink = copyShareLink;
@@ -669,10 +686,10 @@ window.toggleSlot = toggleSlot;
 window.toggleWeekday = toggleWeekday;
 
 function showView(view) {
-  ['viewCreate','viewCampaign','viewCancel','viewVerify','viewManage'].forEach(id => {
+  ['viewCreate','viewCampaign','viewCancel','viewVerify','viewUnsubscribe','viewManage'].forEach(id => {
     document.getElementById(id).classList.remove('active');
   });
-  const map = { create:'viewCreate', campaign:'viewCampaign', cancel:'viewCancel', verify:'viewVerify', manage:'viewManage' };
+  const map = { create:'viewCreate', campaign:'viewCampaign', cancel:'viewCancel', verify:'viewVerify', unsubscribe:'viewUnsubscribe', manage:'viewManage' };
   if (map[view]) document.getElementById(map[view]).classList.add('active');
   document.getElementById('globalAlert').classList.remove('visible');
   // Hide book bar when leaving campaign view
@@ -1080,6 +1097,42 @@ async function loadVerify(verifyToken) {
   document.getElementById('verifyActions').style.display = 'block';
 }
 
+// ── UNSUBSCRIBE FLOW (Phase 6) ──
+
+async function loadUnsubscribe(unsubscribeToken) {
+  showView('unsubscribe');
+  try {
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({ unsubscribed: true })
+      .eq('unsubscribe_token', unsubscribeToken)
+      .eq('unsubscribed', false)
+      .select('id');
+
+    if (error) throw error;
+
+    if (data && data.length > 0) {
+      document.getElementById('unsubscribeIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7C2F" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      document.getElementById('unsubscribeIcon').className = 'cancel-icon cancel-icon-done';
+      document.getElementById('unsubscribeTitle').textContent = 'Afskráning staðfest';
+      document.getElementById('unsubscribeMsg').textContent = 'Þú færð ekki frekari tölvupósta tengda þessari stuðningssíðu.';
+    } else {
+      // Token not found or already unsubscribed
+      document.getElementById('unsubscribeIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+      document.getElementById('unsubscribeIcon').className = 'cancel-icon cancel-icon-error';
+      document.getElementById('unsubscribeTitle').textContent = 'Tengill ekki gildur';
+      document.getElementById('unsubscribeMsg').textContent = 'Þessi afskráningartengill er ekki gildur eða hefur þegar verið notaður.';
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('unsubscribeIcon').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+    document.getElementById('unsubscribeIcon').className = 'cancel-icon cancel-icon-error';
+    document.getElementById('unsubscribeTitle').textContent = 'Eitthvað fór úrskeiðis';
+    document.getElementById('unsubscribeMsg').textContent = 'Ekki tókst að afskrá. Vinsamlegast reyndu aftur.';
+  }
+  document.getElementById('unsubscribeActions').style.display = 'block';
+}
+
 // ── MANAGE FUNCTIONS ──
 
 async function loadManage(adminToken) {
@@ -1323,9 +1376,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const cancelId = params.get('cancel');
   const manageToken = params.get('manage');
   const verifyToken = params.get('verify');
+  const unsubscribeToken = params.get('unsubscribe');
   if (cancelId) { handleCancel(cancelId); }
   else if (manageToken) { loadManage(manageToken); }
   else if (verifyToken) { loadVerify(verifyToken); }
+  else if (unsubscribeToken) { loadUnsubscribe(unsubscribeToken); }
   else if (id) { loadCampaign(id); }
   else { showView('create'); }
 });
