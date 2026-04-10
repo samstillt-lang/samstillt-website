@@ -534,6 +534,10 @@
                 <label class="form-label">Netfang <span class="form-hint">(ekki hægt að breyta)</span></label>
                 <input type="email" class="form-input" id="mf-contactEmail" readonly style="opacity:0.6;cursor:not-allowed;">
               </div>
+              <div class="form-group">
+                <label class="form-label">Netfang fjölskyldu <span class="form-hint">(fær tilkynningar um bókanir)</span></label>
+                <input type="email" class="form-input" id="mf-familyEmail" placeholder="netfang@daemi.is">
+              </div>
             </div>
             <button class="manage-save-btn" id="saveManageBtn" onclick="saveManageFields()">Vista breytingar</button>
           </div>
@@ -1189,6 +1193,7 @@ async function loadManage(adminToken) {
     document.getElementById('mf-contactName').value = camp.contact_name || '';
     document.getElementById('mf-contactPhone').value = camp.contact_phone || '';
     document.getElementById('mf-contactEmail').value = camp.contact_email || '';
+    document.getElementById('mf-familyEmail').value = camp.family_email || '';
     const days = camp.delivery_days || [];
     document.querySelectorAll('.manage-day-btn').forEach(btn => {
       const sel = days.includes(btn.dataset.day);
@@ -1247,6 +1252,7 @@ async function saveManageFields() {
       p_delivery_days: selectedDays.length > 0 ? selectedDays : null,
       p_contact_name: document.getElementById('mf-contactName').value.trim() || null,
       p_contact_phone: document.getElementById('mf-contactPhone').value.trim() || null,
+      p_family_email: document.getElementById('mf-familyEmail').value.trim() || null,
     });
     if (error) throw error;
     document.getElementById('mv-name').textContent = familyName;
