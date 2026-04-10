@@ -1227,7 +1227,7 @@ async function handleCancel(bookingId) {
   try {
     const { data: booking, error: be } = await supabase
       .from('bookings')
-      .select('id, supporter_name, supporter_email, slot_id, slots(slot_date, campaign_id, campaigns(family_name, contact_name, contact_email, share_token))')
+      .select('id, supporter_name, supporter_email, slot_id, slots(slot_date, campaign_id, campaigns(family_name, contact_name, contact_email, family_email, share_token))')
       .eq('id', bookingId).single();
     if (be || !booking) {
       icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4714A" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>';
@@ -1242,7 +1242,8 @@ async function handleCancel(bookingId) {
     await supabase.from('bookings').delete().eq('id', bookingId);
     callEdge({
       type: 'cancel_booking',
-      familyEmail: campaign?.contact_email || '',
+      coordinatorEmail: campaign?.contact_email || '',
+      familyEmail: campaign?.family_email || '',
       contactName: campaign?.contact_name || '',
       familyName: campaign?.family_name || '',
       shareToken: campaign?.share_token || '',
