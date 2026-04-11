@@ -126,7 +126,7 @@
   .slot-badge { font-size: 12px; font-weight: 700; background: var(--forest-mid); color: white; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
   .slots-loading { text-align: center; padding: 40px; color: var(--ink-muted); font-size: 15px; }
   /* Weekday shortcut buttons */
-  .weekday-shortcuts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; padding: 14px 18px; background: var(--amber-light); border: 1px solid rgba(232,160,48,0.25); border-radius: var(--radius-md); align-items: center; }
+  .weekday-shortcuts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; padding: 14px 18px; background: #EFF4FB; border: 1px solid rgba(100,140,200,0.3); border-radius: var(--radius-md); align-items: center; }
   .weekday-shortcuts-label { font-size: 11px; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.6px; width: 100%; margin-bottom: 4px; }
   .weekday-btn { padding: 7px 14px; background: var(--white); border: 1.5px solid rgba(232,160,48,0.4); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; color: var(--ink-mid); cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.15s; }
   .weekday-btn:hover { border-color: var(--amber); background: var(--amber-light); color: var(--amber-dark); }
@@ -231,6 +231,26 @@
     .manage-share-row { flex-direction: column; }
     .manage-share-row input, .manage-share-row .copy-btn { width: 100%; }
   }
+
+/* U7: Custom headers for manage/token views */
+body.view-manage > nav, body.view-manage .breadcrumb,
+body.view-token > nav, body.view-token .breadcrumb { display: none !important; }
+#manageNavBar, #tokenNavBar { display: none; }
+body.view-manage #manageNavBar { display: block !important; }
+body.view-token #tokenNavBar { display: block !important; }
+.custom-nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,247,242,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--cream-dark);
+}
+.custom-nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 64px;
+}
+.custom-nav-title {
+  font-size: 14px; font-weight: 600; color: var(--ink-mid);
+  letter-spacing: 0.2px;
+}
 </style>
 <style>
   .main-content.container > footer {
@@ -261,6 +281,34 @@
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
+<!-- U7: Custom manage nav bar -->
+<div id="manageNavBar" class="custom-nav-bar">
+  <div class="custom-nav-inner">
+    <a href="index.html" class="wordmark" style="text-decoration:none;"><a href="index.html" class="wordmark">
+      <div class="wordmark-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="white" stroke-width="1.8"/><circle cx="5.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><circle cx="18.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><path d="M9 10.5 L6.5 14.5M15 10.5 L17.5 14.5M8 17.5 L16 17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div><span class="wordmark-text">Samstillt</span><span class="wordmark-sub">Aðstoð fyrir fjölskyldur</span></div>
+    </a>
+    </a>
+    <span class="custom-nav-title">Stjórna stuðningsíðu</span>
+  </div>
+</div>
+
+<!-- U7: Custom token nav bar (verify/cancel/unsubscribe) -->
+<div id="tokenNavBar" class="custom-nav-bar">
+  <div class="custom-nav-inner">
+    <a href="index.html" class="wordmark" style="text-decoration:none;"><a href="index.html" class="wordmark">
+      <div class="wordmark-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="white" stroke-width="1.8"/><circle cx="5.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><circle cx="18.5" cy="16.5" r="2.5" stroke="white" stroke-width="1.8"/><path d="M9 10.5 L6.5 14.5M15 10.5 L17.5 14.5M8 17.5 L16 17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div><span class="wordmark-text">Samstillt</span><span class="wordmark-sub">Aðstoð fyrir fjölskyldur</span></div>
+    </a>
+    </a>
+    <span class="custom-nav-title">Stuðningsíða</span>
+  </div>
+</div>
 
 <div class="breadcrumb">
   <div class="container">
@@ -379,12 +427,7 @@
 
   <!-- CAMPAIGN VIEW -->
   <div id="viewCampaign">
-    <div style="margin-bottom:16px;">
-      <button onclick="showView('create')" style="background:none;border:none;cursor:pointer;color:var(--forest);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;padding:0;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Til baka
-      </button>
-    </div>
+    
     <div class="campaign-header">
       <div style="flex:1;">
         <h2 id="cv-name">—</h2>
@@ -479,6 +522,7 @@
       <div class="manage-share-row">
         <input type="text" id="manageShareLink" readonly placeholder="Hlekkurinn hleðst...">
         <button class="copy-btn" id="manageShareCopyBtn" onclick="copyManageShareLink()">Afrita hlekk</button>
+          <a id="manageGoToPageBtn" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius-sm);padding:8px 14px;font-size:13px;font-weight:600;" onclick="const t=currentManageCampaign?.share_token;if(t)this.href='meals.html?id='+t;">Fara á síðu ↗</a>
       </div>
     </div>
     <div class="manage-layout">
@@ -514,7 +558,13 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Afhendingartími <span class="form-hint">(t.d. 17:00–18:00)</span></label>
-                <input type="text" class="form-input" id="mf-deliveryTime" placeholder="t.d. 17:00–18:00">
+                <select class="form-input" id="mf-deliveryTime">
+                  <option value="">Veldu afhendingartíma...</option>
+                  <option value="17:00-18:00">17:00–18:00</option>
+                  <option value="18:00-19:00">18:00–19:00</option>
+                  <option value="19:00-20:00">19:00–20:00</option>
+                  <option value="20:00-21:00">20:00–21:00</option>
+                </select>
               </div>
               <div class="form-group">
                 <label class="form-label">Afhendingardagar</label>
@@ -730,6 +780,10 @@ window.toggleSlot = toggleSlot;
 window.toggleWeekday = toggleWeekday;
 
 function showView(view) {
+  // U7: toggle body class for custom header
+  document.body.classList.remove('view-manage','view-token');
+  if (view === 'manage') document.body.classList.add('view-manage');
+  else if (['verify','cancel','unsubscribe'].includes(view)) document.body.classList.add('view-token');
   ['viewCreate','viewCampaign','viewCancel','viewVerify','viewUnsubscribe','viewManage'].forEach(id => {
     document.getElementById(id).classList.remove('active');
   });
@@ -1237,12 +1291,19 @@ async function loadManage(adminToken) {
     document.getElementById('mf-description').value = camp.description || '';
     document.getElementById('mf-foodNotes').value = camp.food_notes || '';
     document.getElementById('mf-address').value = camp.address || '';
-    document.getElementById('mf-deliveryTime').value = camp.delivery_time || '';
+    const dtSelect = document.getElementById('mf-deliveryTime');
+    if (dtSelect) {
+      const dtVal = camp.delivery_time || '';
+      dtSelect.value = dtVal;
+      // If exact match not found, try first option or leave as default
+      if (dtSelect.value !== dtVal && dtVal) dtSelect.value = '';
+    }
     document.getElementById('mf-contactName').value = camp.contact_name || '';
     document.getElementById('mf-startDate').value = camp.start_date ? new Date(camp.start_date + 'T12:00:00').toLocaleDateString('is-IS') : '';
     if (window._mfEndPicker) { window._mfEndPicker.destroy(); window._mfEndPicker = null; }
     const maxEndDate = camp.start_date ? new Date(new Date(camp.start_date + 'T12:00:00').setFullYear(new Date(camp.start_date + 'T12:00:00').getFullYear() + 1)).toISOString().split('T')[0] : null;
     window._mfEndPicker = flatpickr(document.getElementById('mf-endDate'), {
+      locale: { months: { longhand: ['Janúar','Febrúar','Mars','Apríl','Maí','Júní','Júlí','Ágúst','September','Október','Nóvember','Desember'], shorthand: ['Jan','Feb','Mar','Apr','Maí','Jún','Júl','Ág','Sep','Okt','Nóv','Des'] }, weekdays: { longhand: ['Sunnudagur','Mánudagur','þriðjudagur','Miðvikudagur','Fimmtudagur','Föstudagur','Laugardagur'], shorthand: ['Sun','Mán','Þri','Mið','Fim','Fös','Lau'] }, firstDayOfWeek: 1 },
       dateFormat: 'Y-m-d', altInput: true, altFormat: 'j. F Y',
       minDate: 'today', maxDate: maxEndDate, defaultDate: camp.end_date || null,
       onChange: (dates, dateStr) => {
@@ -1283,7 +1344,8 @@ async function loadManageBookings(adminToken) {
     }
     g.innerHTML = bookings.map(b => {
       const badge = b.verified ? '<span class="badge-verified">Staðfest</span>' : '<span class="badge-pending">Óstaðfest</span>';
-      return `<div class="booking-row"><div class="booking-date">${formatDateISFull(b.slot_date)}</div><div class="booking-name">${b.supporter_name}</div>${badge}</div>`;
+      const afbokaBtn = b.booking_id ? `<button onclick="adminCancelBooking('${b.booking_id}','${b.supporter_name}','${b.slot_date}')" style="background:#C4714A;color:#fff;border:none;border-radius:4px;padding:3px 9px;font-size:11px;font-weight:600;cursor:pointer;margin-left:6px;">Afbóka</button>` : '';
+      return `<div class="booking-row"><div class="booking-date">${formatDateISFull(b.slot_date)}</div><div class="booking-name">${b.supporter_name}</div>${badge}${afbokaBtn}</div>`;
     }).join('');
   } catch (err) {
     console.error(err);
@@ -1438,6 +1500,37 @@ async function handleCancel(bookingId) {
 }
 
 // ── INIT ──
+
+// U4: Admin cancel booking from manage page
+async function adminCancelBooking(bookingId, supporterName, slotDate) {
+  if (!confirm('Ertu viss að þú viljir eyða bókun á ' + slotDate + ' fyrir ' + supporterName + '?')) return;
+  try {
+    const { data, error } = await supabase.rpc('admin_cancel_booking', {
+      p_admin_token: currentAdminToken,
+      p_booking_id: bookingId
+    });
+    if (error) throw error;
+    // Send cancel emails via edge function
+    const camp = currentManageCampaign;
+    if (camp) {
+      callEdge({
+        type: 'cancel_booking',
+        coordinatorEmail: camp.contact_email,
+        familyEmail: camp.family_email,
+        contactName: camp.contact_name,
+        familyName: camp.family_name,
+        shareToken: camp.share_token,
+        supporterName,
+        slotDate
+      });
+    }
+    // Refresh bookings list
+    await loadManageBookings(currentAdminToken);
+  } catch (err) {
+    console.error(err);
+    showAlert('Villa við afbókun. Reyndu aftur.');
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
